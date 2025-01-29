@@ -48,7 +48,7 @@ class ItemsList extends StatelessWidget {
       child: Row(
         children: [
           Text(label,
-              style: GoogleFonts.fredoka(
+              style: primaryFont(
                   fontSize: 24,
                   fontWeight: FontWeight.w400,
                   color: TEXT_COLOR_1)),
@@ -56,7 +56,7 @@ class ItemsList extends StatelessWidget {
           TextButton(
             onPressed: onTapShowAll,
             child: Text('הצג הכל',
-                style: GoogleFonts.fredoka(
+                style: primaryFont(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
                     color: TEXT_COLOR_2)),
@@ -106,7 +106,7 @@ class ItemTile extends StatelessWidget {
         ),
       ),
       child: Text('₪${item.amount.toString()}',
-          style: GoogleFonts.fredoka(
+          style:primaryFont(
               fontSize: 22, fontWeight: FontWeight.w400, color: TEXT_COLOR_1)),
     );
   }

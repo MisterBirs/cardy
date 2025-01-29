@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 //Colors
 const PRIMARY_COLOR = Color(0xFF1794FF);
@@ -19,6 +20,7 @@ const GRADIENT_COLOR = LinearGradient(
 
 //Fonts
 const PRIMARY_FONT_FAMILY = 'Fredoka';
+const primaryFont = GoogleFonts.fredoka;
 
 //Shadows
 const TEXT_SHADOW_1 = BoxShadow(
