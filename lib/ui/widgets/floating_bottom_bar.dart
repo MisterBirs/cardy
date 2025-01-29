@@ -120,7 +120,7 @@ class CenteralCircleButton extends StatelessWidget {
             Text(
               'הוסף',
               style: GoogleFonts.fredoka(
-                  fontSize: 14,
+                  fontSize: 17,
                   fontWeight: FontWeight.w600,
                   color: Colors.white),
             ),
@@ -169,8 +169,8 @@ class BottomBarOption extends StatelessWidget {
       children: [
         Text(label,
             style: GoogleFonts.fredoka(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
+              fontSize: 17,
+              fontWeight: FontWeight.w500,
               color: isSelected ? _selectedColor : _unselectedColor,
             )),
         Icon(iconData,
