@@ -1,3 +1,8 @@
+import 'dart:core';
+
+import 'package:cardy/data/payments_methods_data.dart';
+import 'package:cardy/entities/payments_methods/store_entity.dart';
+import 'package:cardy/entities/user_items/payment_method_entity.dart';
 import 'package:cardy/ui/screens/home_screen.dart';
 import 'package:cardy/ui_constants.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ItemsList extends StatelessWidget {
   final String label;
-  final List<PaymentItem> items;
+  final List<PaymentMethodEntity> items;
   final Function() onTapShowAll;
 
   const ItemsList({
@@ -68,7 +73,7 @@ class ItemsList extends StatelessWidget {
 }
 
 class ItemTile extends StatelessWidget {
-  final PaymentItem item;
+  final PaymentMethodEntity item;
   const ItemTile({
     super.key,
     required this.item,
@@ -105,15 +110,18 @@ class ItemTile extends StatelessWidget {
           bottomLeft: Radius.circular(10),
         ),
       ),
-      child: Text('₪${item.amount.toString()}',
+      child: Text('₪${item.remainingAmount.toInt().toString()}',
           style:primaryFont(
               fontSize: 22, fontWeight: FontWeight.w400, color: TEXT_COLOR_1)),
     );
   }
 
   Widget get itemImage {
+    final imagePath = PaymentsMethodsData.allPaymentMethods[item.typeId]!.imagePath;
+    final isStore = PaymentsMethodsData.allPaymentMethods[item.typeId] is StoreEntity;
+
     return Container(
-      width: 112,
+      width: isStore? 70 : 112,
       height: 70,
       decoration: BoxDecoration(
         boxShadow: [
@@ -124,12 +132,12 @@ class ItemTile extends StatelessWidget {
           ),
         ],
         borderRadius: BorderRadius.only(
-          topRight: Radius.circular(10),
-          bottomRight: Radius.circular(10),
-          topLeft: Radius.circular(10),
+          topRight: Radius.circular(6),
+          bottomRight: Radius.circular(6),
+          topLeft: Radius.circular(6),
         ),
         image: DecorationImage(
-          image: AssetImage(item.image),
+          image: AssetImage(imagePath),
           fit: BoxFit.cover,
         ),
       ),

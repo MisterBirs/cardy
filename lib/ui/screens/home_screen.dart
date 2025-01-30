@@ -1,3 +1,4 @@
+import 'package:cardy/data/user_items_data.dart';
 import 'package:cardy/gen/assets.gen.dart';
 import 'package:cardy/ui/widgets/items_list.dart';
 import 'package:cardy/ui/widgets/home_screen_app_bar.dart';
@@ -47,7 +48,19 @@ class HomeScreen extends StatelessWidget {
                 TotalBalanceTitle(balance: _userData['balance']!),
                 ItemsList(
                     label: 'גיפטקארדים',
-                    items: gift_cards,
+                    items: UserItemsData.giftcards.values.toList(),
+                    onTapShowAll: () {}),
+                ItemsList(
+                    label: 'כרטיסים נטענים',
+                    items: UserItemsData.reloadableCards.values.toList(),
+                    onTapShowAll: () {}),
+                            ItemsList(
+                    label: 'קופונים',
+                    items: UserItemsData.coupons.values.toList(),
+                    onTapShowAll: () {}),
+                                           ItemsList(
+                    label: 'זיכויים',
+                    items: UserItemsData.credits.values.toList(),
                     onTapShowAll: () {}),
               ],
             ),
@@ -55,7 +68,6 @@ class HomeScreen extends StatelessWidget {
         ));
   }
 }
-
 
 class TotalBalanceTitle extends StatelessWidget {
   final int balance;
