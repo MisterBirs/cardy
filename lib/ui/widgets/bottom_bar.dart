@@ -1,5 +1,3 @@
-import 'package:cardy/ui/screens/home_screen.dart';
-import 'package:cardy/ui_constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomBottomNavBarScreen extends StatefulWidget {
@@ -13,19 +11,21 @@ class _CustomBottomNavBarScreenState extends State<CustomBottomNavBarScreen> {
 
   // רשימת אייקונים ותוויות
   final List<Map<String, dynamic>> _navItems = [
-    {'icon': Icons.home, 'label': 'Home', 'page': HomeScreen()},
-    {'icon': Icons.search, 'label': 'Search', 'page': BasePage(label: 'Search')},
-    {'icon': Icons.favorite, 'label': 'Favorites', 'page': BasePage(label: 'Favorites')},
-    {'icon': Icons.person, 'label': 'Profile',  'page': BasePage(label: 'Profile')},
-  
+    {'icon': Icons.home, 'label': 'Home'},
+    {'icon': Icons.search, 'label': 'Search'},
+    {'icon': Icons.favorite, 'label': 'Favorites'},
+    {'icon': Icons.person, 'label': 'Profile'},
   ];
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _navItems[_selectedIndex]['page'],
+      body: Center(
+        child: Text(
+          'Selected: ${_navItems[_selectedIndex]['label']}',
+          style: const TextStyle(fontSize: 24),
+        ),
+      ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(), // עיצוב מעוגל
         notchMargin: 8, // רווח עבור כפתור צף אם יש
@@ -64,34 +64,15 @@ class _CustomBottomNavBarScreenState extends State<CustomBottomNavBarScreen> {
           ),
         ),
       ),
-      floatingActionButton: Container(
-        decoration: BoxDecoration(
-          gradient: GRADIENT_COLOR,
-          shape: BoxShape.circle,
+      floatingActionButton: FloatingActionButton(
+        
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(40)),
         ),
-        child: FloatingActionButton(
-          onPressed: () {},
-          child: const Icon(Icons.add, color: BACKGROUND_COLOR,),
-          backgroundColor: Colors.transparent, // Make the button itself transparent
-          elevation: 0, // Remove shadow to see the gradient clearly
-        ),
+        onPressed: () {},
+        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
-  }
-}
-
-class BasePage extends StatelessWidget {
-  final String label;
-  const BasePage({super.key, required this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-        child: Text(
-          'Selected: $label',
-          style: const TextStyle(fontSize: 24),
-        ),
-      );
   }
 }

@@ -1,4 +1,6 @@
+import 'package:cardy/data/user_items_data.dart';
 import 'package:cardy/ui/screens/init_screen.dart';
+import 'package:cardy/ui/screens/item_screen.dart';
 import 'package:cardy/ui/widgets/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -35,7 +37,7 @@ class CardyApp extends StatelessWidget {
             child: child!,
           );
         },
-      home: InitScreen(),
+      home: ItemScreen(item: UserItemsData.giftcards['gf0001']!,),
    
     );
   }

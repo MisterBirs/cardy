@@ -11,10 +11,12 @@ class GradientColorMask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShaderMask(
-        shaderCallback: (bounds) => LinearGradient(
-              colors: [PRIMARY_COLOR, SECONDRY_COLOR],
-              tileMode: TileMode.mirror,
-            ).createShader(bounds),
-        child: child);
+      shaderCallback: (bounds) => LinearGradient(
+        colors: [PRIMARY_COLOR, SECONDRY_COLOR],
+        tileMode: TileMode.mirror,
+      ).createShader(bounds),
+      blendMode: BlendMode.srcIn,
+      child: child,
+    );
   }
 }
