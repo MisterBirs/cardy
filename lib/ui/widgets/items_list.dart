@@ -4,6 +4,7 @@ import 'package:cardy/data/payments_methods_data.dart';
 import 'package:cardy/entities/payments_methods/store_entity.dart';
 import 'package:cardy/entities/user_items/payment_method_entity.dart';
 import 'package:cardy/ui/screens/home_screen.dart';
+import 'package:cardy/ui/screens/item_screen.dart';
 import 'package:cardy/ui_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -90,18 +91,28 @@ class ItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: labelBaseWidth + (isStore ? imageSize : cardImageWidth),
-      padding: const EdgeInsets.only(bottom: 20, top: 10), //To avoid hiding the shadow
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-      ),
-
-      child: Stack(
-        children: [
-          Positioned(child: amountLabel, bottom: 0, right: 0),
-          Positioned(child: itemImage)
-        ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ItemScreen(item: item),
+          ),
+        );
+      },
+      child: Container(
+        width: labelBaseWidth + (isStore ? imageSize : cardImageWidth),
+        padding: const EdgeInsets.only(bottom: 20, top: 10), //To avoid hiding the shadow
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+        ),
+      
+        child: Stack(
+          children: [
+            Positioned(child: amountLabel, bottom: 0, right: 0),
+            Positioned(child: itemImage)
+          ],
+        ),
       ),
     );
   }

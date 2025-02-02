@@ -4,11 +4,11 @@ import 'package:cardy/entities/user_items/gift_card_entity.dart';
 import 'package:cardy/entities/user_items/reloadable_card_entity.dart';
 
 class UserItemsData {
-
   static final Map<String, GiftCardEntity> giftcards = {
     'gf0001': GiftCardEntity(
         id: 'gf0001',
         code: '9555098938828685',
+        cvv: '931',
         typeId: 'gftype001',
         initialAmount: 100,
         remainingAmount: 90,
@@ -17,6 +17,7 @@ class UserItemsData {
     'gf0002': GiftCardEntity(
         id: 'gf0002',
         code: '1254211317022706',
+        cvv: '361',
         typeId: 'gftype002',
         initialAmount: 250,
         remainingAmount: 100,
@@ -127,6 +128,7 @@ class UserItemsData {
     'rc0001': ReloadableCardEntity(
         id: 'rc0001',
         code: '9555098938828685',
+        cvv: '223',
         typeId: 'rcType001',
         initialAmount: 100,
         remainingAmount: 90,
@@ -135,6 +137,7 @@ class UserItemsData {
     'rc0002': ReloadableCardEntity(
         id: 'rc0002',
         code: '1254211317022706',
+        cvv: '908',
         typeId: 'rcType001',
         initialAmount: 250,
         remainingAmount: 100,
@@ -143,11 +146,11 @@ class UserItemsData {
     'rc0003': ReloadableCardEntity(
         id: 'rc0003',
         code: '2015961235943548',
+        cvv: '064',
         typeId: 'rcType002',
         initialAmount: 500,
         remainingAmount: 340,
         addTime: DateTime.now(),
         expirationDate: DateTime.now().add(const Duration(days: 95))),
   };
-
 }

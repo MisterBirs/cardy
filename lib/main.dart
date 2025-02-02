@@ -37,7 +37,7 @@ class CardyApp extends StatelessWidget {
             child: child!,
           );
         },
-      home: ItemScreen(item: UserItemsData.giftcards['gf0001']!,),
+      home: InitScreen(),
    
     );
   }

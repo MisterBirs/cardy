@@ -3,6 +3,7 @@ import 'package:cardy/entities/payments_methods/base_payment_method_type_entity.
 import 'package:cardy/entities/payments_methods/gift_card_type_entity.dart';
 import 'package:cardy/entities/payments_methods/store_entity.dart';
 import 'package:cardy/entities/user_items/gift_card_entity.dart';
+import 'package:cardy/entities/user_items/payment_method_entity.dart';
 import 'package:cardy/ui/widgets/background.dart';
 import 'package:cardy/ui/widgets/gradient_color_mask.dart';
 import 'package:cardy/ui_constants.dart';
@@ -10,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ItemScreen extends StatefulWidget {
-  final GiftCardEntity item;
+  final PaymentMethodEntity item;
   const ItemScreen({super.key, required this.item});
 
   @override
@@ -30,16 +31,19 @@ class _ItemScreenState extends State<ItemScreen> {
         appBar: appbar(context),
         body: Stack(
           children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ItemImage(imageRadius: imageRadius, itemType: itemType),
-                  ItemInfo(item: widget.item),
-                  StoresForReedem(item: widget.item),
-                  SizedBox(height: 80), // ריווח כדי לאפשר גלילה מעל הכפתור
-                ],
+            Center(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ItemImage(imageRadius: imageRadius, itemType: itemType),
+                    ItemInfo(item: widget.item),
+                      if (itemType is! StoreEntity)
+                      StoresForReedem(item: widget.item),
+                    SizedBox(height: 80), // ריווח כדי לאפשר גלילה מעל הכפתור
+                  ],
+                ),
               ),
             ),
             Positioned(
@@ -47,7 +51,7 @@ class _ItemScreenState extends State<ItemScreen> {
               left: 0,
               right: 0,
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 10, left: 30, right: 30),
+                padding: const EdgeInsets.only(bottom: 20, left: 30, right: 30),
                 child: UpdateReedemButton(),
               ),
             ),
@@ -56,7 +60,6 @@ class _ItemScreenState extends State<ItemScreen> {
       ),
     );
   }
-
 
   AppBar appbar(BuildContext context) {
     return AppBar(
@@ -116,7 +119,7 @@ class UpdateReedemButton extends StatelessWidget {
 }
 
 class StoresForReedem extends StatelessWidget {
-  final GiftCardEntity item;
+  final PaymentMethodEntity item;
   const StoresForReedem({
     super.key,
     required this.item,
@@ -192,7 +195,7 @@ class StoreTile extends StatelessWidget {
 }
 
 class ItemInfo extends StatelessWidget {
-  final GiftCardEntity item;
+  final PaymentMethodEntity item;
 
   const ItemInfo({
     super.key,
@@ -213,7 +216,9 @@ class ItemInfo extends StatelessWidget {
                   label: 'קוד', value: _formattedCode, icon: Icons.qr_code),
               ItemInfoRow(
                   label: 'תוקף', value: _formattedData, icon: Icons.date_range),
-              ItemInfoRow(label: 'CVV', value: '391', icon: Icons.password),
+              if (item.cvv != null)
+                ItemInfoRow(
+                    label: 'CVV', value: item.cvv!, icon: Icons.password),
               SizedBox(height: 15),
               itemInfoButtons
             ],
