@@ -73,68 +73,90 @@ class ItemsList extends StatelessWidget {
 }
 
 class ItemTile extends StatelessWidget {
+  final imageSize = 70.0;
+  final cardImageWidth = 112.0;
+  final labelBaseWidth = 85.0;
+  final imageRadius = 6.0;
+  final labelRasius = 10.0;
+
   final PaymentMethodEntity item;
   const ItemTile({
     super.key,
     required this.item,
   });
 
+  bool get isStore =>
+      PaymentsMethodsData.allPaymentMethods[item.typeId] is StoreEntity;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 20),
+      width: labelBaseWidth + (isStore ? imageSize : cardImageWidth),
+      padding: const EdgeInsets.only(bottom: 20, top: 10), //To avoid hiding the shadow
       decoration: BoxDecoration(
         color: Colors.transparent,
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [itemImage, amountLabel],
+
+      child: Stack(
+        children: [
+          Positioned(child: amountLabel, bottom: 0, right: 0),
+          Positioned(child: itemImage)
+        ],
       ),
     );
   }
 
   Widget get amountLabel {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(224, 255, 255, 255),
-         boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.3),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          bottomLeft: Radius.circular(10),
-        ),
-      ),
-      child: Text('₪${item.remainingAmount.toInt().toString()}',
-          style:primaryFont(
-              fontSize: 22, fontWeight: FontWeight.w400, color: TEXT_COLOR_1)),
-    );
-  }
-
-  Widget get itemImage {
-    final imagePath = PaymentsMethodsData.allPaymentMethods[item.typeId]!.imagePath;
-    final isStore = PaymentsMethodsData.allPaymentMethods[item.typeId] is StoreEntity;
-
-    return Container(
-      width: isStore? 70 : 112,
-      height: 70,
+      alignment: Alignment.centerLeft,
+      width: labelBaseWidth + (isStore ? imageSize : cardImageWidth),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.3),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            blurRadius: 9,
+            offset: const Offset(0, 2),
+          ),
+        ],
+        color: const Color.fromARGB(224, 255, 255, 255),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(labelRasius),
+          bottomLeft: Radius.circular(labelRasius),
+          bottomRight: Radius.circular(imageRadius),
+        ),
+      ),
+      child: Container(
+        width: labelBaseWidth,
+        alignment: Alignment.center,
+        child: Text('₪${item.remainingAmount.toInt().toString()}',
+            style: primaryFont(
+                fontSize: 22,
+                fontWeight: FontWeight.w400,
+                color: TEXT_COLOR_1)),
+      ),
+    );
+  }
+
+  Widget get itemImage {
+    final imagePath =
+        PaymentsMethodsData.allPaymentMethods[item.typeId]!.imagePath;
+
+    return Container(
+      width: isStore ? imageSize : cardImageWidth,
+      height: imageSize,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 5,
+            offset: const Offset(0, -1),
           ),
         ],
         borderRadius: BorderRadius.only(
-          topRight: Radius.circular(6),
-          bottomRight: Radius.circular(6),
-          topLeft: Radius.circular(6),
+          topRight: Radius.circular(imageRadius),
+          bottomRight: Radius.circular(imageRadius),
+          topLeft: Radius.circular(imageRadius),
         ),
         image: DecorationImage(
           image: AssetImage(imagePath),
