@@ -37,59 +37,56 @@ class _FloatingBottomBarState extends State<FloatingBottomBar> {
       child: Stack(
         children: [
           Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              margin: EdgeInsets.only(
+                  left: getScaleSize(context, 20),
+                  right: getScaleSize(context, 20),
+                  bottom: 40),
+              padding: EdgeInsets.symmetric(
+                  horizontal: getScaleSize(context, 20),
+                  vertical: getScaleSize(context, 10)),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(100),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 10,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: List.generate(widget.items.length, (index) {
+                  final item = widget.items[index];
+                  return GestureDetector(
+                    onTap: () => _onTap(index),
+                    child: BottomBarOption(
+                      iconData: item.icon,
+                      label: item.label,
+                      isSelected: _selectedIndex == index,
+                    ),
+                  );
+                })
+                  ..insert(
+                      // Add space in the center of the bar for the add button
+                      2,
+                      SizedBox(
+                        width: 40,
+                      )),
+              ),
+            ),
+          ),
+          Positioned(
             bottom: 70,
             left: MediaQuery.of(context).size.width / 2 - 35,
             child: CenteralCircleButton(),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: ClipPath(
-              clipper: NotchClipper(),
-              child: Container(
-                margin: EdgeInsets.only(
-                    left: getScaleSize(context, 20),
-                    right: getScaleSize(context, 20),
-                    bottom: 40),
-                padding: EdgeInsets.symmetric(
-                    horizontal: getScaleSize(context, 20), vertical: 3),
-                height: 65,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 10,
-                      offset: const Offset(0, 5),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: List.generate(widget.items.length, (index) {
-                    final item = widget.items[index];
-                    return GestureDetector(
-                      onTap: () => _onTap(index),
-                      child: BottomBarOption(
-                        iconData: item.icon,
-                        label: item.label,
-                        isSelected: _selectedIndex == index,
-                      ),
-                    );
-                  })
-                    ..insert(
-                        // Add space in the center of the bar for the add button
-                        2,
-                        SizedBox(
-                          width: 40,
-                        )),
-                ),
-              ),
-            ),
-          )
         ],
       ),
     );
@@ -121,17 +118,17 @@ class CenteralCircleButton extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'הוסף',
-              style: primaryFont(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white),
-            ),
+            // Text(
+            //   'הוסף',
+            //   style: primaryFont(
+            //       fontSize: 17,
+            //       fontWeight: FontWeight.w600,
+            //       color: Colors.white),
+            // ),
             SvgPicture.asset(
               Assets.icons.bottomBarIcons.addItemIcon,
-              width: 35,
-              height: 35,
+              width: 45,
+              height: 45,
               color: Colors.white,
             ),
           ],
