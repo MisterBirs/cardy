@@ -25,6 +25,7 @@ const GRADIENT_COLOR_REVERSE = LinearGradient(
 
 //Sizes
 const ICON_SIZE = 30.0;
+const SQUARE_CARD_RATIO = 1.585;
 
 //Fonts
 const PRIMARY_FONT_FAMILY = 'Fredoka';
@@ -45,3 +46,12 @@ const TEXT_SHADOW_2 = [
       spreadRadius: 0.5,
       offset: Offset(0, 2))
 ];
+
+double getScaleSize(BuildContext context,double fontSize) {
+  final baseScreenWidth = 430.0;
+  final screenWidth = MediaQuery.of(context).size.width;
+  final scaleFactor = screenWidth / baseScreenWidth;
+  final newFontSize = scaleFactor*fontSize;
+  print('New font size: $newFontSize');
+  return newFontSize;
+}

@@ -4,6 +4,7 @@ import 'package:cardy/ui_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:cardy/ui_constants.dart';
 
 class FloatingBottomBar extends StatefulWidget {
   final List<BottomBarItem> items;
@@ -47,9 +48,12 @@ class _FloatingBottomBarState extends State<FloatingBottomBar> {
             child: ClipPath(
               clipper: NotchClipper(),
               child: Container(
-                margin: const EdgeInsets.only(left: 20, right: 20, bottom: 40),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 3),
+                margin: EdgeInsets.only(
+                    left: getScaleSize(context, 20),
+                    right: getScaleSize(context, 20),
+                    bottom: 40),
+                padding: EdgeInsets.symmetric(
+                    horizontal: getScaleSize(context, 20), vertical: 3),
                 height: 65,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
@@ -64,7 +68,7 @@ class _FloatingBottomBarState extends State<FloatingBottomBar> {
                   ],
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: List.generate(widget.items.length, (index) {
                     final item = widget.items[index];
                     return GestureDetector(
@@ -169,7 +173,7 @@ class BottomBarOption extends StatelessWidget {
       children: [
         Text(label,
             style: primaryFont(
-              fontSize: 17,
+              fontSize: getScaleSize(context, 17),
               fontWeight: FontWeight.w500,
               color: isSelected ? _selectedColor : _unselectedColor,
             )),

@@ -21,10 +21,11 @@ class ItemScreen extends StatefulWidget {
 class _ItemScreenState extends State<ItemScreen> {
   final imageRadius = 10.0;
 
+  BasePaymentMethodTypeEntity get itemType =>
+      PaymentsMethodsData.allPaymentMethods[widget.item.typeId]!;
+
   @override
   Widget build(BuildContext context) {
-    final itemType = PaymentsMethodsData.allPaymentMethods[widget.item.typeId]!;
-
     return Background(
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -37,9 +38,8 @@ class _ItemScreenState extends State<ItemScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ItemImage(imageRadius: imageRadius, itemType: itemType),
                     ItemInfo(item: widget.item),
-                      if (itemType is! StoreEntity)
+                    if (itemType is! StoreEntity)
                       StoresForReedem(item: widget.item),
                     SizedBox(height: 80), // ריווח כדי לאפשר גלילה מעל הכפתור
                   ],
@@ -202,8 +202,12 @@ class ItemInfo extends StatelessWidget {
     required this.item,
   });
 
+  BasePaymentMethodTypeEntity get itemType =>
+      PaymentsMethodsData.allPaymentMethods[item.typeId]!;
+
   @override
   Widget build(BuildContext context) {
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
       child: Card(
@@ -212,8 +216,19 @@ class ItemInfo extends StatelessWidget {
           child: Column(
             spacing: 15,
             children: [
+              ItemImage(itemType: itemType),
+              SizedBox(height: 10),
               ItemInfoRow(
-                  label: 'קוד', value: _formattedCode, icon: Icons.qr_code),
+                label: 'יתרה',
+                value: '₪${item.remainingAmount.toString()}',
+                icon: Icons.payment,
+              ),
+              ItemInfoRow(
+                label: 'קוד',
+                value: _formattedCode,
+                icon: Icons.qr_code,
+                scaleFont: true,
+              ),
               ItemInfoRow(
                   label: 'תוקף', value: _formattedData, icon: Icons.date_range),
               if (item.cvv != null)
@@ -292,16 +307,20 @@ class ItemInfoRow extends StatelessWidget {
   final IconData icon;
   final String label;
   final String value;
+  final bool scaleFont;
 
   const ItemInfoRow({
     super.key,
     required this.icon,
     required this.label,
     required this.value,
+    this.scaleFont = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    double fontSize = scaleFont ? getScaleSize(context, 20) : 20;
+
     return Row(
       children: [
         GradientColorMask(
@@ -318,35 +337,47 @@ class ItemInfoRow extends StatelessWidget {
         Spacer(),
         Text(value,
             style: primaryFont(
-                fontSize: 20, fontWeight: FontWeight.w400, color: TEXT_COLOR_2))
+                fontSize: fontSize,
+                fontWeight: FontWeight.w400,
+                color: TEXT_COLOR_2))
       ],
     );
   }
 }
 
-class ItemImage extends StatelessWidget {
+  class ItemImage extends StatelessWidget {
+      final BasePaymentMethodTypeEntity itemType;
+
   const ItemImage({
     super.key,
-    required this.imageRadius,
     required this.itemType,
   });
 
-  final double imageRadius;
-  final BasePaymentMethodTypeEntity itemType;
 
   @override
   Widget build(BuildContext context) {
+    final radius = 5.0; 
+    final size = MediaQuery.of(context).size.width * 0.34;
+
     return Container(
+      height: size,
+      width: itemType is StoreEntity ? size : size * SQUARE_CARD_RATIO,
+
       alignment: Alignment.center,
-      padding: const EdgeInsets.only(top: 30),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(imageRadius),
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(imageRadius),
-          child: Image.asset(itemType.imagePath),
-        ),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: SHADOW_COLOR,
+            blurRadius: 8,
+            spreadRadius: 4,
+            offset: Offset(2, 4),
+          ),
+        ],
+        borderRadius: BorderRadius.circular(radius),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(radius),
+        child: Image.asset(itemType.imagePath, fit: BoxFit.fill),
       ),
     );
   }

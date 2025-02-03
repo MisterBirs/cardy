@@ -39,7 +39,7 @@ class CardyLabel extends StatelessWidget {
           Shadow(
             offset: Offset(0.0, 3.0),
             blurRadius: 20.0,
-            color: Color.fromRGBO(53, 53, 53, 0.474),
+            color: SHADOW_COLOR,
           ),
         ],
         fontSize: 40,

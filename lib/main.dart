@@ -18,6 +18,8 @@ class CardyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    print(size);  
     return MaterialApp(
       debugShowCheckedModeBanner: false,
        locale: const Locale('he', 'IL'), // הגדרת הלוקל כעברית

@@ -125,7 +125,7 @@ class ItemTile extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
+            color: SHADOW_COLOR,
             blurRadius: 9,
             offset: const Offset(0, 2),
           ),
@@ -159,7 +159,7 @@ class ItemTile extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
+            color: SHADOW_COLOR,
             blurRadius: 5,
             offset: const Offset(0, -1),
           ),
