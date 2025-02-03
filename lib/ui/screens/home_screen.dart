@@ -83,14 +83,10 @@ class TotalBalanceTitle extends StatelessWidget {
         children: [
           Text(
             'יתרה כוללת',
-            style: primaryFont(
-                fontSize: 32, fontWeight: FontWeight.w500, color: TEXT_COLOR_1),
+            style: Theme.of(context).textTheme.displayLarge,
           ),
           Text('₪$balance',
-              style: primaryFont(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w600,
-                  color: TEXT_COLOR_2)),
+              style: Theme.of(context).textTheme.displayMedium,),
         ],
       ),
     );

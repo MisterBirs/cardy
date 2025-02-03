@@ -111,8 +111,8 @@ class UpdateReedemButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(50),
           gradient: GRADIENT_COLOR,
         ),
-        child: Text('עדכן יתרה',
-            style: primaryFont(color: Colors.white, fontSize: 20)),
+        child:
+            Text('עדכן יתרה', style: Theme.of(context).textTheme.labelMedium),
       ),
     );
   }
@@ -131,7 +131,7 @@ class StoresForReedem extends StatelessWidget {
         .allPaymentMethods[item.typeId] as GiftCardTypeEntity;
     return Container(
       child: Column(
-        spacing: 15,
+        spacing: 10,
         children: [
           labelsRow,
           SizedBox(
@@ -149,21 +149,24 @@ class StoresForReedem extends StatelessWidget {
   }
 
   Widget get labelsRow {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30),
-      child: Row(children: [
-        Text(
-          'חנויות למימוש',
-          style: primaryFont(
-              fontSize: 22, fontWeight: FontWeight.w400, color: TEXT_COLOR_1),
-        ),
-        Spacer(),
-        Text(
-          'הצג הכל',
-          style: primaryFont(
-              fontSize: 18, fontWeight: FontWeight.w400, color: TEXT_COLOR_2),
-        )
-      ]),
+    return LayoutBuilder(
+      builder: (context, constraints) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: Row(children: [
+          Text(
+            'חנויות למימוש',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          Spacer(),
+          TextButton(
+            child: Text(
+              'הצג הכל',
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            onPressed: () {},
+          )
+        ]),
+      ),
     );
   }
 }
@@ -207,7 +210,6 @@ class ItemInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       margin: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
       child: Card(
@@ -297,7 +299,7 @@ class _ItemInfoButton extends StatelessWidget {
             gradient:
                 isColorReversed ? GRADIENT_COLOR_REVERSE : GRADIENT_COLOR),
         child:
-            Text(label, style: primaryFont(fontSize: 20, color: Colors.white)),
+            Text(label, style: Theme.of(context).textTheme.labelMedium),
       ),
     );
   }
@@ -319,7 +321,8 @@ class ItemInfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double fontSize = scaleFont ? getScaleSize(context, 20) : 20;
+    final baseFontSize = Theme.of(context).textTheme.bodyMedium!.fontSize!;
+    double labelFontSize = scaleFont ? getScaleSize(context, baseFontSize) : baseFontSize;
 
     return Row(
       children: [
@@ -329,40 +332,34 @@ class ItemInfoRow extends StatelessWidget {
           size: ICON_SIZE,
         )),
         SizedBox(width: 15),
-        Text('$label:',
-            style: primaryFont(
-                fontSize: 22,
-                fontWeight: FontWeight.w400,
-                color: TEXT_COLOR_1)),
+        Text('$label:'),
         Spacer(),
         Text(value,
-            style: primaryFont(
-                fontSize: fontSize,
-                fontWeight: FontWeight.w400,
-                color: TEXT_COLOR_2))
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(fontSize: labelFontSize, color: TEXT_COLOR_2)),
       ],
     );
   }
 }
 
-  class ItemImage extends StatelessWidget {
-      final BasePaymentMethodTypeEntity itemType;
+class ItemImage extends StatelessWidget {
+  final BasePaymentMethodTypeEntity itemType;
 
   const ItemImage({
     super.key,
     required this.itemType,
   });
 
-
   @override
   Widget build(BuildContext context) {
-    final radius = 5.0; 
+    final radius = 5.0;
     final size = MediaQuery.of(context).size.width * 0.34;
 
     return Container(
       height: size,
       width: itemType is StoreEntity ? size : size * SQUARE_CARD_RATIO,
-
       alignment: Alignment.center,
       decoration: BoxDecoration(
         boxShadow: [

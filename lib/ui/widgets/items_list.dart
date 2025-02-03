@@ -49,26 +49,24 @@ class ItemsList extends StatelessWidget {
   }
 
   Widget get itemsListLabels {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        children: [
-          Text(label,
-              style: primaryFont(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w400,
-                  color: TEXT_COLOR_1)),
-          Spacer(),
-          TextButton(
-            onPressed: onTapShowAll,
-            child: Text('הצג הכל',
-                style: primaryFont(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400,
-                    color: TEXT_COLOR_2)),
-          )
-        ],
-      ),
+    return Builder(
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            children: [
+              Text(label,
+                  style: Theme.of(context).textTheme.titleMedium,),
+              Spacer(),
+              TextButton(
+                onPressed: onTapShowAll,
+                child: Text('הצג הכל',
+                    style: Theme.of(context).textTheme.titleSmall,),
+              )
+            ],
+          ),
+        );
+      }
     );
   }
 }
@@ -118,34 +116,35 @@ class ItemTile extends StatelessWidget {
   }
 
   Widget get amountLabel {
-    return Container(
-      alignment: Alignment.centerLeft,
-      width: labelBaseWidth + (isStore ? imageSize : cardImageWidth),
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: SHADOW_COLOR,
-            blurRadius: 9,
-            offset: const Offset(0, 2),
+    return Builder(
+      builder: (context) {
+        return Container(
+          alignment: Alignment.centerLeft,
+          width: labelBaseWidth + (isStore ? imageSize : cardImageWidth),
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: SHADOW_COLOR,
+                blurRadius: 9,
+                offset: const Offset(0, 2),
+              ),
+            ],
+            color: const Color.fromARGB(224, 255, 255, 255),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(labelRasius),
+              bottomLeft: Radius.circular(labelRasius),
+              bottomRight: Radius.circular(imageRadius),
+            ),
           ),
-        ],
-        color: const Color.fromARGB(224, 255, 255, 255),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(labelRasius),
-          bottomLeft: Radius.circular(labelRasius),
-          bottomRight: Radius.circular(imageRadius),
-        ),
-      ),
-      child: Container(
-        width: labelBaseWidth,
-        alignment: Alignment.center,
-        child: Text('₪${item.remainingAmount.toInt().toString()}',
-            style: primaryFont(
-                fontSize: 22,
-                fontWeight: FontWeight.w400,
-                color: TEXT_COLOR_1)),
-      ),
+          child: Container(
+            width: labelBaseWidth,
+            alignment: Alignment.center,
+            child: Text('₪${item.remainingAmount.toInt().toString()}',
+                style: Theme.of(context).textTheme.titleMedium,),
+          ),
+        );
+      }
     );
   }
 
