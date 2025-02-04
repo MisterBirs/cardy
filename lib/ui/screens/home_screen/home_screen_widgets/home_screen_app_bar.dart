@@ -1,5 +1,5 @@
-import 'package:cardy/ui/widgets/cardy_logo.dart';
-import 'package:cardy/ui_constants.dart';
+import 'package:cardy/ui/screens/home_screen/home_screen_widgets/cardy_logo.dart';
+import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {

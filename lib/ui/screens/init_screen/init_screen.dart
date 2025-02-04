@@ -1,6 +1,5 @@
-import 'package:cardy/ui/screens/home_screen.dart';
-import 'package:cardy/ui/widgets/floating_bottom_bar.dart';
-import 'package:cardy/ui/widgets/floating_bottom_bar.dart';
+import 'package:cardy/ui/screens/home_screen/home_screen.dart';
+import 'package:cardy/ui/screens/init_screen/init_screen_widgets/floating_bottom_bar.dart';
 import 'package:flutter/material.dart';
 
 class InitScreen extends StatefulWidget {
@@ -15,7 +14,6 @@ class _InitScreenState extends State<InitScreen> {
   @override
   Widget build(BuildContext context) {
 
-    
     final List<Widget> pages = [
       HomeScreen(),
       Container(color: Colors.green, child: Center(child: Text('קטגוריות'))),

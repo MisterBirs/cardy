@@ -8,6 +8,7 @@ class GiftCardTypeEntity extends BasePaymentMethodTypeEntity {
       {required super.id,
       required super.name,
       required super.imagePath,
+      super.isCard = true,
       required List<StoreEntity> storesToRedeem,
       required super.categories})
       : _storesToRedeem = storesToRedeem;

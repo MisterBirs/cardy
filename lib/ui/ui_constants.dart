@@ -11,7 +11,7 @@ const TEXT_COLOR_2 = Color(0xFF6B727F);
 const ICON_COLOR = Color(0xFF49454E);
 const TEXTBOX_COLOR = Color(0x29FFFFFF);
 const BACKGROUND_COLOR = Color(0xFFF3F4F5);
-const CONTAINER_COLOR = Color.fromARGB(86, 255, 255, 255);
+const CONTAINER_COLOR = Colors.white;
 const GRADIENT_COLOR = LinearGradient(
   colors: [PRIMARY_COLOR, SECONDRY_COLOR],
   begin: Alignment.topLeft,
@@ -26,20 +26,16 @@ const GRADIENT_COLOR_REVERSE = LinearGradient(
 //Sizes
 const ICON_SIZE = 30.0;
 const SQUARE_CARD_RATIO = 1.585;
+const SCREEN_HORIZONTAL_PADDING = 20.0;
+const CONTAINER_HORIZONTAL_PADDING = 15.0;
+
 
 //Fonts
 const PRIMARY_FONT_FAMILY = 'Fredoka';
 const primaryFont = GoogleFonts.fredoka;
 
 //Shadows
-const TEXT_SHADOW_1 = BoxShadow(
-  color: SHADOW_COLOR, // color
-  blurRadius: 10.0, // blur
-  offset: Offset(0, 0), // x ו-y
-  spreadRadius: 0.0, // spread
-);
-
-const TEXT_SHADOW_2 = [
+const SHADOW = [
   BoxShadow(
       color: SHADOW_COLOR,
       blurRadius: 4,
@@ -52,6 +48,5 @@ double getScaleSize(BuildContext context,double fontSize) {
   final screenWidth = MediaQuery.of(context).size.width;
   final scaleFactor = screenWidth / baseScreenWidth;
   final newFontSize = scaleFactor*fontSize;
-  print('New font size: $newFontSize');
   return newFontSize;
 }

@@ -1,10 +1,8 @@
 import 'package:cardy/gen/assets.gen.dart';
 import 'package:cardy/ui/widgets/gradient_color_mask.dart';
-import 'package:cardy/ui_constants.dart';
+import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:cardy/ui_constants.dart';
 
 class FloatingBottomBar extends StatefulWidget {
   final List<BottomBarItem> items;
@@ -32,7 +30,7 @@ class _FloatingBottomBarState extends State<FloatingBottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 160,
       child: Stack(
         children: [
@@ -54,7 +52,7 @@ class _FloatingBottomBarState extends State<FloatingBottomBar> {
                 borderRadius: BorderRadius.circular(100),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
+                    color: SHADOW_COLOR,
                     blurRadius: 10,
                     offset: const Offset(0, 5),
                   ),
@@ -109,7 +107,7 @@ class CenteralCircleButton extends StatelessWidget {
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.2),
+                color: SHADOW_COLOR,
                 blurRadius: 10,
                 offset: const Offset(0, 5),
               ),
@@ -129,7 +127,7 @@ class CenteralCircleButton extends StatelessWidget {
               Assets.icons.bottomBarIcons.addItemIcon,
               width: 45,
               height: 45,
-              color: Colors.white,
+              colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
             ),
           ],
         ),
@@ -156,7 +154,7 @@ class BottomBarOption extends StatelessWidget {
   final Color _selectedColor = Colors.white;
   final Color _unselectedColor = ICON_COLOR;
 
-  BottomBarOption({
+  const BottomBarOption({
     super.key,
     required this.iconData,
     required this.label,

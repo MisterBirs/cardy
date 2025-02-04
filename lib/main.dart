@@ -1,12 +1,8 @@
-import 'package:cardy/data/user_items_data.dart';
-import 'package:cardy/ui/screens/init_screen.dart';
-import 'package:cardy/ui/screens/item_screen.dart';
-import 'package:cardy/ui/widgets/bottom_bar.dart';
-import 'package:cardy/ui_constants.dart';
+import 'package:cardy/ui/screens/init_screen/init_screen.dart';
+import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'package:cardy/ui/screens/home_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -18,13 +14,14 @@ class CardyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    print(size);
     return MaterialApp(
       theme: ThemeData(
         textTheme: GoogleFonts.fredokaTextTheme().copyWith(
           displayLarge: GoogleFonts.fredoka(
-              fontSize: 32.0, color: TEXT_COLOR_1, fontWeight: FontWeight.w500),
+            fontSize: 32.0,
+            color: TEXT_COLOR_1,
+            fontWeight: FontWeight.w500,
+          ),
           displayMedium: GoogleFonts.fredoka(
               fontSize: 28.0, color: TEXT_COLOR_2, fontWeight: FontWeight.w600),
           titleMedium: GoogleFonts.fredoka(
@@ -50,9 +47,15 @@ class CardyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       builder: (context, child) {
-        return Directionality(
-          textDirection: TextDirection.rtl, // מכריח RTL
-          child: child!,
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaler:
+                TextScaler.noScaling, // מונע שינויי גודל טקסט ע"י המשתמש
+          ),
+          child: Directionality(
+            textDirection: TextDirection.rtl, // מכריח RTL לכל האפליקציה
+            child: child!,
+          ),
         );
       },
       home: InitScreen(),

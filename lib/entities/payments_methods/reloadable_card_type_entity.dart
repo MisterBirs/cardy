@@ -5,6 +5,7 @@ class ReloadableCardTypeEntity extends GiftCardTypeEntity {
       {required super.id,
       required super.name,
       required super.imagePath,
+      super.isCard = true,
       required super.storesToRedeem,
       required super.categories});
 

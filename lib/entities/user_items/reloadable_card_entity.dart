@@ -7,8 +7,9 @@ class ReloadableCardEntity extends PaymentMethodEntity {
       required super.code,
       super.cvv,
       required super.typeId,
+      required super.type,
       required super.initialAmount,
-      required super.remainingAmount,
+      required super.balance,
       required super.addTime,
       required super.expirationDate, super.notes});
 }

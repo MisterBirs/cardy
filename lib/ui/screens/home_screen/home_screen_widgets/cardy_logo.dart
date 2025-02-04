@@ -1,6 +1,6 @@
 import 'package:cardy/gen/assets.gen.dart';
 import 'package:cardy/ui/widgets/gradient_color_mask.dart';
-import 'package:cardy/ui_constants.dart';
+import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';

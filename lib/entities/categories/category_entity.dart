@@ -32,4 +32,5 @@ class CategoryEntity {
   String get name => _name;
   List<String> get allies => _allies;
   IconData get icon => _icon;
+  bool get isPrimaryCategory => _isPrimaryCategory;
 }
