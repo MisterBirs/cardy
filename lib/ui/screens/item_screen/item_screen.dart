@@ -2,6 +2,7 @@ import 'package:cardy/entities/payments_methods/base_payment_method_type_entity.
 import 'package:cardy/entities/payments_methods/gift_card_type_entity.dart';
 import 'package:cardy/entities/payments_methods/store_entity.dart';
 import 'package:cardy/entities/user_items/payment_method_entity.dart';
+import 'package:cardy/ui/widgets/item_tile.dart';
 import 'package:cardy/ui/widgets/gradient_button.dart';
 import 'package:cardy/ui/widgets/background.dart';
 import 'package:cardy/ui/widgets/gradient_color_mask.dart';
@@ -114,7 +115,7 @@ class ItemInfoBox extends StatelessWidget {
           child: Column(
             spacing: 25,
             children: [
-              ItemImage(itemType: item.type),
+              itemImage,
               itemInfoRows,
               itemInfoButtons
             ],
@@ -122,6 +123,23 @@ class ItemInfoBox extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget get itemImage {
+    return Builder(builder: (context) {
+      return ItemTile(
+        item,
+        size: MediaQuery.of(context).size.width * 0.34,
+        boxShadow: [
+          BoxShadow(
+            color: SHADOW_COLOR,
+            blurRadius: 8,
+            spreadRadius: 4,
+            offset: Offset(2, 4),
+          ),
+        ],
+      );
+    });
   }
 
   Widget get itemInfoRows {
@@ -168,42 +186,6 @@ class ItemInfoBox extends StatelessWidget {
     return item.code
         .replaceAllMapped(RegExp(r".{4}"), (match) => "${match.group(0)}-")
         .replaceAll(RegExp(r"-$"), "");
-  }
-}
-
-class ItemImage extends StatelessWidget {
-  final BasePaymentMethodTypeEntity itemType;
-
-  const ItemImage({
-    super.key,
-    required this.itemType,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final radius = 5.0;
-    final squareSize = MediaQuery.of(context).size.width * 0.34;
-    final cardWidth = squareSize * SQUARE_CARD_RATIO;
-
-    return Container(
-      height: squareSize,
-      width: itemType.isCard ? cardWidth : squareSize,
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: SHADOW_COLOR,
-            blurRadius: 8,
-            spreadRadius: 4,
-            offset: Offset(2, 4),
-          ),
-        ],
-        borderRadius: BorderRadius.circular(radius),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(radius),
-        child: Image.asset(itemType.imagePath, fit: BoxFit.cover),
-      ),
-    );
   }
 }
 
@@ -266,7 +248,10 @@ class StoresForReedem extends StatelessWidget {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: itemType.storesToRedeem.map((store) {
-              return StoreTile(store);
+              return ItemTile.type(
+                store,
+                margin: EdgeInsets.only(right: 10),
+              );
             }).toList(),
           ),
         ),
@@ -292,32 +277,6 @@ class StoresForReedem extends StatelessWidget {
             onPressed: () {},
           )
         ]),
-      ),
-    );
-  }
-}
-
-class StoreTile extends StatelessWidget {
-  final StoreEntity store;
-  const StoreTile(
-    this.store, {
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    // The Center is for prevent from the StoreTile to take the full height of the ListView
-    return Center(
-      child: Container(
-        height: 100,
-        margin: EdgeInsets.only(right: 10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
-          boxShadow: SHADOW,
-        ),
-        child: ClipRRect(
-            borderRadius: BorderRadius.circular(6),
-            child: Image.asset(store.imagePath, fit: BoxFit.cover)),
       ),
     );
   }

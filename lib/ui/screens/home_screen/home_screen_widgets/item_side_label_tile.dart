@@ -1,18 +1,18 @@
 import 'package:cardy/entities/user_items/payment_method_entity.dart';
 import 'package:cardy/ui/screens/item_screen/item_screen.dart';
 import 'package:cardy/ui/ui_constants.dart';
+import 'package:cardy/ui/widgets/item_tile.dart';
 import 'package:flutter/material.dart';
 
 class ItemSideLabelTile extends StatelessWidget {
   final squareSize = 70.0;
-  final cardImageWidth = 112.0;
   final unhiddenPartLabelWidth = 85.0;
-  final imageRadius = 6.0;
+  final imageRadius = 5.0;
   final labelRasius = 10.0;
   final PaymentMethodEntity item;
 
   double get tileWidth =>
-      unhiddenPartLabelWidth + (item.type.isCard ? cardImageWidth : squareSize);
+      unhiddenPartLabelWidth + (item.type.isCard ? squareSize*SQUARE_CARD_RATIO : squareSize);
 
   const ItemSideLabelTile({
     super.key,
@@ -88,24 +88,11 @@ class ItemSideLabelTile extends StatelessWidget {
   }
 
   Widget get itemImage {
-    final imagePath = item.type.imagePath;
-    final imageWidth = item.type.isCard ? cardImageWidth : squareSize;
-
-    return Container(
-      width: imageWidth,
-      height: squareSize,
-      decoration: BoxDecoration(
-        boxShadow: SHADOW,
+    return ItemTile(item,
+        size: squareSize ,
         borderRadius: BorderRadius.only(
-          topRight: Radius.circular(imageRadius),
-          bottomRight: Radius.circular(imageRadius),
-          topLeft: Radius.circular(imageRadius),
-        ),
-        image: DecorationImage(
-          image: AssetImage(imagePath),
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
+            topRight: Radius.circular(imageRadius),
+            bottomRight: Radius.circular(imageRadius),
+            topLeft: Radius.circular(imageRadius)));
   }
 }
