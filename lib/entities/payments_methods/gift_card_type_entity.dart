@@ -1,18 +1,12 @@
-import 'package:cardy/entities/payments_methods/base_payment_method_type_entity.dart';
-import 'package:cardy/entities/payments_methods/store_entity.dart';
+import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
 
-class GiftCardTypeEntity extends BasePaymentMethodTypeEntity {
-  final List<StoreEntity> _storesToRedeem;
-
+class GiftCardTypeEntity extends MultiRedemtionItemType {
   GiftCardTypeEntity(
       {required super.id,
       required super.name,
+      super.aliases,
       required super.imagePath,
-      super.isCard = true,
-      required List<StoreEntity> storesToRedeem,
+      required super.storesToRedeem,
       required super.categories})
-      : _storesToRedeem = storesToRedeem;
-
-  List<StoreEntity> get storesToRedeem => _storesToRedeem;
-
+      : super(isCard: true);
 }

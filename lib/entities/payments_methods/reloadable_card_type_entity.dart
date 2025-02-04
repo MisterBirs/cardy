@@ -1,12 +1,12 @@
-import 'package:cardy/entities/payments_methods/gift_card_type_entity.dart';
+import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
 
-class ReloadableCardTypeEntity extends GiftCardTypeEntity {
+class ReloadableCardTypeEntity extends MultiRedemtionItemType {
   ReloadableCardTypeEntity(
       {required super.id,
       required super.name,
+      super.aliases,
       required super.imagePath,
-      super.isCard = true,
       required super.storesToRedeem,
-      required super.categories});
-
+      required super.categories})
+      : super(isCard: true);
 }

@@ -10,7 +10,7 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      toolbarHeight: kToolbarHeight+15, // הגדר גובה נוסף כדי להתאים לריווח
+      toolbarHeight: APP_BAR_TOP_SPACING, //Spacing from top deive's frame
       title: CardyLogo(),
       backgroundColor: Colors.transparent,
       elevation: 0,

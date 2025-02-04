@@ -1,4 +1,6 @@
+import 'package:cardy/data/payments_methods_data.dart';
 import 'package:cardy/ui/screens/init_screen/init_screen.dart';
+import 'package:cardy/ui/screens/show_all_stores_screen/show_all_stores_screen.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -24,6 +26,10 @@ class CardyApp extends StatelessWidget {
           ),
           displayMedium: GoogleFonts.fredoka(
               fontSize: 28.0, color: TEXT_COLOR_2, fontWeight: FontWeight.w600),
+          headlineMedium: GoogleFonts.fredoka(
+              fontSize: 26.0, color: TEXT_COLOR_1, fontWeight: FontWeight.w400),
+          headlineSmall: GoogleFonts.fredoka(
+              fontSize: 18.0, color: TEXT_COLOR_1, fontWeight: FontWeight.w500),
           titleMedium: GoogleFonts.fredoka(
               fontSize: 22.0, color: TEXT_COLOR_1, fontWeight: FontWeight.w400),
           titleSmall: GoogleFonts.fredoka(

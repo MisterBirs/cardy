@@ -1,7 +1,9 @@
-import 'package:cardy/entities/payments_methods/base_payment_method_type_entity.dart';
+import 'package:cardy/entities/payments_methods/item_type_entity.dart';
 import 'package:cardy/entities/payments_methods/gift_card_type_entity.dart';
+import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
 import 'package:cardy/entities/payments_methods/store_entity.dart';
 import 'package:cardy/entities/user_items/payment_method_entity.dart';
+import 'package:cardy/ui/screens/show_all_stores_screen/show_all_stores_screen.dart';
 import 'package:cardy/ui/widgets/item_tile.dart';
 import 'package:cardy/ui/widgets/gradient_button.dart';
 import 'package:cardy/ui/widgets/background.dart';
@@ -114,11 +116,7 @@ class ItemInfoBox extends StatelessWidget {
           padding: const EdgeInsets.all(CONTAINER_HORIZONTAL_PADDING),
           child: Column(
             spacing: 25,
-            children: [
-              itemImage,
-              itemInfoRows,
-              itemInfoButtons
-            ],
+            children: [itemImage, itemInfoRows, itemInfoButtons],
           ),
         ),
       ),
@@ -238,7 +236,7 @@ class StoresForReedem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GiftCardTypeEntity itemType = item.type as GiftCardTypeEntity;
+    final MultiRedemtionItemType itemType = item.type as MultiRedemtionItemType;
     return Column(
       spacing: 5,
       children: [
@@ -274,7 +272,14 @@ class StoresForReedem extends StatelessWidget {
               'הצג הכל',
               style: Theme.of(context).textTheme.titleSmall,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ShowAllStoresScreen(item.type as MultiRedemtionItemType),
+                ),
+              );
+            },
           )
         ]),
       ),

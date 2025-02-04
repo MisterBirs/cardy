@@ -28,6 +28,7 @@ const ICON_SIZE = 30.0;
 const SQUARE_CARD_RATIO = 1.585;
 const SCREEN_HORIZONTAL_PADDING = 20.0;
 const CONTAINER_HORIZONTAL_PADDING = 15.0;
+const APP_BAR_TOP_SPACING = kToolbarHeight + 15.0;
 
 
 //Fonts

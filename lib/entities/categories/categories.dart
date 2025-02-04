@@ -349,6 +349,13 @@ class Categories {
   }
 
   void _initAllCategories() {
+    _map[CategoryKey.all] = CategoryEntity(
+      key: CategoryKey.all,
+      isPrimaryCategory: true,
+      name: 'הכל',
+      allies: ['הכל'],
+      icon: Icons.check,
+    );
     _initFashionCategory();
     _initVacationCategory();
     _initFoodCategory();

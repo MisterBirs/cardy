@@ -2,7 +2,7 @@ import 'package:cardy/entities/categories/category_key.dart';
 import 'package:flutter/material.dart';
 
 class CategoryEntity {
-  final bool _isPrimaryCategory;
+  final bool _isPrimary;
   final CategoryKey _key;
   final String _name;
   final List<String> _allies;
@@ -20,7 +20,7 @@ class CategoryEntity {
         _name = name,
         _allies = allies,
         _icon = icon,
-        _isPrimaryCategory = isPrimaryCategory;
+        _isPrimary = isPrimaryCategory;
 
   static void setParentToAll(List<CategoryEntity> children, CategoryEntity parent){
     for(CategoryEntity subCategory in children){
@@ -28,9 +28,18 @@ class CategoryEntity {
     }
   }
 
+  CategoryEntity get topParentCategory => _getTopParentCategory(this);
+
+  CategoryEntity _getTopParentCategory(CategoryEntity) {
+    if(parent == null || this.isPrimary){
+      return this;
+    }
+    return parent!._getTopParentCategory(this);
+  }
+
   CategoryKey get key => _key;
   String get name => _name;
   List<String> get allies => _allies;
   IconData get icon => _icon;
-  bool get isPrimaryCategory => _isPrimaryCategory;
+  bool get isPrimary => _isPrimary;
 }

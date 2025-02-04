@@ -1,11 +1,11 @@
-import 'package:cardy/entities/payments_methods/base_payment_method_type_entity.dart';
+import 'package:cardy/entities/payments_methods/item_type_entity.dart';
 
 abstract class PaymentMethodEntity {
   String? id;
   final String _code;
   final String? _cvv;
   final String _typeId;
-  final BasePaymentMethodTypeEntity _type;
+  final ItemTypeEntity _type;
   final double _initialAmount;
   double balance;
   final DateTime _addTime;
@@ -17,7 +17,7 @@ abstract class PaymentMethodEntity {
       required String code,
       String? cvv,
       required String typeId,
-      required BasePaymentMethodTypeEntity type,
+      required ItemTypeEntity type,
       required double initialAmount,
       required this.balance,
       required DateTime addTime,
@@ -35,7 +35,7 @@ abstract class PaymentMethodEntity {
   String get code => _code;
   String? get cvv => _cvv;
   String get typeId => _typeId;
-  BasePaymentMethodTypeEntity get type => _type;
+  ItemTypeEntity get type => _type;
   double get initialAmount => _initialAmount;
   DateTime get addTime => _addTime;
   DateTime get expirationDate => _expirationDate;
