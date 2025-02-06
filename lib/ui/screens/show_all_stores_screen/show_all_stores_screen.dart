@@ -4,6 +4,7 @@ import 'package:cardy/entities/categories/category_key.dart';
 import 'package:cardy/entities/payments_methods/item_type_entity.dart';
 import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
 import 'package:cardy/entities/payments_methods/store_entity.dart';
+import 'package:cardy/ui/widgets/filter_bar.dart';
 import 'package:cardy/ui/widgets/item_tile.dart';
 import 'package:cardy/ui/widgets/search_box.dart';
 import 'package:cardy/ui/widgets/back_two_titles_app_bar.dart';
@@ -21,6 +22,7 @@ class ShowAllStoresScreen extends StatefulWidget {
 
 class _ShowAllStoresScreenState extends State<ShowAllStoresScreen> {
   CategoryKey selectedCategoryKey = CategoryKey.all;
+  String _searchValue = '';
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +36,14 @@ class _ShowAllStoresScreenState extends State<ShowAllStoresScreen> {
         body: Column(
           children: [
             searchBoxWarpper,
-            FilterBar(stores: widget.itemType.storesToRedeem, onFiltered: (categoryKey) {
-              setState(() {
-                selectedCategoryKey = categoryKey;
-              });
-            }),
-            storesGrid(filteredstores)
+            FilterBar(
+                stores: widget.itemType.storesToRedeem,
+                onFiltered: (categoryKey) {
+                  setState(() {
+                    selectedCategoryKey = categoryKey;
+                  });
+                }),
+            storesGrid(_storesForShow)
           ],
         ),
       ),
@@ -58,15 +62,28 @@ class _ShowAllStoresScreenState extends State<ShowAllStoresScreen> {
         .toList();
   }
 
+  List<StoreEntity> get _storesForShow {
+    return filteredstores
+        .where((store) => store.aliases
+            .where((alias) =>
+                alias.toLowerCase().contains(_searchValue.toLowerCase()))
+            .isNotEmpty)
+        .toList();
+  }
+
   Widget get searchBoxWarpper {
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: SCREEN_HORIZONTAL_PADDING, vertical: 30),
-      child: SearchBox(),
+      child: SearchBox(onSearch: (value) {
+        setState(() {
+          _searchValue = value;
+        });
+      }),
     );
   }
 
-  Widget storesGrid(List<StoreEntity> stores) { 
+  Widget storesGrid(List<StoreEntity> stores) {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(SCREEN_HORIZONTAL_PADDING),
@@ -78,120 +95,9 @@ class _ShowAllStoresScreenState extends State<ShowAllStoresScreen> {
             mainAxisSpacing: 3.0,
             childAspectRatio: 1.0,
           ),
-          itemBuilder: (context, index) =>
-              ItemTile.type(stores[index]),
+          itemBuilder: (context, index) => ItemTile.type(stores[index]),
         ),
       ),
-    );
-  }
-}
-
-class FilterBar extends StatefulWidget {
-  final List<StoreEntity> stores;
-  final void Function(CategoryKey) onFiltered;
-
-  const FilterBar({
-    super.key,
-    required this.stores,
-    required this.onFiltered,
-  });
-
-  @override
-  State<FilterBar> createState() => _FilterBarState();
-}
-
-class _FilterBarState extends State<FilterBar> {
-  CategoryKey selectedCategoryKey = CategoryKey.all;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-              spacing: 5,
-              children: primaryCategories.map((category) {
-                return FilterButton(
-                  category,
-                  isSelected: selectedCategoryKey == category.key,
-                  onTap: (categoryKey) {
-                    setState(() {
-                      selectedCategoryKey = categoryKey;
-                      widget.onFiltered(categoryKey);
-                    });
-                  },
-                );
-              }).toList()),
-        )
-      ],
-    );
-  }
-
-  List<CategoryEntity> get primaryCategories {
-    Set<CategoryEntity> categories = {
-      Categories.instance.getCategory(CategoryKey.all)!
-    };
-
-    for (var store in widget.stores) {
-      final List<CategoryEntity> primaryCategories = store.categories
-          .map((category) => category.topParentCategory)
-          .toList();
-
-      categories.addAll(primaryCategories);
-    }
-
-    return categories.toList();
-  }
-}
-
-class FilterButton extends StatelessWidget {
-  final CategoryEntity category;
-  final bool isSelected;
-  final void Function(CategoryKey) onTap;
-  const FilterButton(this.category,
-      {super.key, required this.onTap, this.isSelected = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onTap(category.key),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-        decoration:
-            isSelected ? selectedBoxDecoration : unselectedBoxDecoration,
-        child: Row(
-          children: [
-            Text(category.name,
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color:
-                        isSelected ? selectedTextColor : unselectedTextColor)),
-            SizedBox(width: 5),
-            Icon(category.icon,
-                color: isSelected ? selectedTextColor : unselectedTextColor),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Color get selectedTextColor => Colors.white;
-
-  Color get unselectedTextColor => TEXT_COLOR_1;
-
-  BoxDecoration get selectedBoxDecoration {
-    return baseBoxDecoration.copyWith(gradient: GRADIENT_COLOR);
-  }
-
-  BoxDecoration get unselectedBoxDecoration {
-    return baseBoxDecoration.copyWith(
-      color: Colors.transparent,
-      border: Border.all(color: TEXT_COLOR_1, width: 2),
-    );
-  }
-
-  BoxDecoration get baseBoxDecoration {
-    return BoxDecoration(
-      borderRadius: BorderRadius.circular(50),
     );
   }
 }

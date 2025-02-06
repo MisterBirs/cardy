@@ -1,11 +1,18 @@
-import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:cardy/ui/ui_constants.dart';
 
-class SearchBox extends StatelessWidget {
+class SearchBox extends StatefulWidget {
+  final void Function(String) onSearch;
   const SearchBox({
     super.key,
+    required this.onSearch,
   });
 
+  @override
+  State<SearchBox> createState() => _SearchBoxState();
+}
+
+class _SearchBoxState extends State<SearchBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,6 +25,11 @@ class SearchBox extends StatelessWidget {
       child: Row(
         children: [
           Expanded(child: TextField(
+            onChanged: (value) {
+              setState(() {
+                widget.onSearch(value);
+              });
+            },
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyMedium,
             decoration: InputDecoration(

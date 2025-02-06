@@ -8,6 +8,7 @@ const SECONDRY_COLOR = Color(0xFF8263FD);
 const SHADOW_COLOR = Color.fromARGB(66, 0, 0, 0);
 const TEXT_COLOR_1 = Color(0xFF353941);
 const TEXT_COLOR_2 = Color(0xFF6B727F);
+const CONTRAST_TEXT_CORLOR = Colors.white;
 const ICON_COLOR = Color(0xFF49454E);
 const TEXTBOX_COLOR = Color(0x29FFFFFF);
 const BACKGROUND_COLOR = Color(0xFFF3F4F5);

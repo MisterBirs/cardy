@@ -37,7 +37,7 @@ class CardyApp extends StatelessWidget {
           bodyMedium: GoogleFonts.fredoka(
               fontSize: 20.0, color: TEXT_COLOR_1, fontWeight: FontWeight.w400),
           labelMedium: GoogleFonts.fredoka(
-              fontSize: 20.0, color: Colors.white, fontWeight: FontWeight.w400),
+              fontSize: 20.0, color: CONTRAST_TEXT_CORLOR, fontWeight: FontWeight.w400),
         ),
       ),
       debugShowCheckedModeBanner: false,
