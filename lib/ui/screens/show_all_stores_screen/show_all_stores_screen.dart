@@ -1,7 +1,4 @@
-import 'package:cardy/entities/categories/categories.dart';
-import 'package:cardy/entities/categories/category_entity.dart';
 import 'package:cardy/entities/categories/category_key.dart';
-import 'package:cardy/entities/payments_methods/item_type_entity.dart';
 import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
 import 'package:cardy/entities/payments_methods/store_entity.dart';
 import 'package:cardy/ui/widgets/filter_bar.dart';

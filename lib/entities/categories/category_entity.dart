@@ -30,8 +30,8 @@ class CategoryEntity {
 
   CategoryEntity get topParentCategory => _getTopParentCategory(this);
 
-  CategoryEntity _getTopParentCategory(CategoryEntity) {
-    if(parent == null || this.isPrimary){
+  CategoryEntity _getTopParentCategory(categoryEntity) {
+    if(parent == null || isPrimary){
       return this;
     }
     return parent!._getTopParentCategory(this);

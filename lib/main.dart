@@ -1,6 +1,4 @@
-import 'package:cardy/data/payments_methods_data.dart';
 import 'package:cardy/ui/screens/init_screen/init_screen.dart';
-import 'package:cardy/ui/screens/show_all_stores_screen/show_all_stores_screen.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

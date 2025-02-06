@@ -1,7 +1,4 @@
-import 'package:cardy/entities/payments_methods/item_type_entity.dart';
-import 'package:cardy/entities/payments_methods/gift_card_type_entity.dart';
 import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
-import 'package:cardy/entities/payments_methods/store_entity.dart';
 import 'package:cardy/entities/user_items/payment_method_entity.dart';
 import 'package:cardy/ui/screens/show_all_stores_screen/show_all_stores_screen.dart';
 import 'package:cardy/ui/widgets/item_tile.dart';
