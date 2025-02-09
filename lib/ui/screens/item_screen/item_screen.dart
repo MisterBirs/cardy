@@ -6,6 +6,7 @@ import 'package:cardy/ui/widgets/gradient_button.dart';
 import 'package:cardy/ui/widgets/background.dart';
 import 'package:cardy/ui/widgets/gradient_color_mask.dart';
 import 'package:cardy/ui/ui_constants.dart';
+import 'package:cardy/ui/widgets/show_all_list.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -34,8 +35,7 @@ class _ItemScreenState extends State<ItemScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ItemInfoBox(item: widget.item),
-                    if (widget.item.type.isCard)
-                      StoresForReedem(item: widget.item),
+                    if (widget.item.type.isCard) storesForReedem,
                     SizedBox(
                         height: 80), //Place holder for the UpdateReedemButton
                   ],
@@ -92,6 +92,33 @@ class _ItemScreenState extends State<ItemScreen> {
         },
       ),
     );
+  }
+
+  Widget get storesForReedem {
+    final MultiRedemtionItemType itemType =
+        widget.item.type as MultiRedemtionItemType;
+
+    return Builder(builder: (context) {
+      return ShowAllList(
+        label: 'חנויות למימוש',
+        height: BASE_ITEM_TILE_SIZE + 10,
+        spacing: 10,
+        items: itemType.storesToRedeem.map((store) {
+          return ItemTile.type(
+            store,
+          );
+        }).toList(),
+        onTapShowAll: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ShowAllStoresScreen(
+                  widget.item.type as MultiRedemtionItemType),
+            ),
+          );
+        },
+      );
+    });
   }
 }
 
@@ -220,66 +247,6 @@ class ItemInfoRow extends StatelessWidget {
                 .bodyMedium!
                 .copyWith(fontSize: labelFontSize, color: TEXT_COLOR_2)),
       ],
-    );
-  }
-}
-
-class StoresForReedem extends StatelessWidget {
-  final PaymentMethodEntity item;
-  const StoresForReedem({
-    super.key,
-    required this.item,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final MultiRedemtionItemType itemType = item.type as MultiRedemtionItemType;
-    return Column(
-      spacing: 5,
-      children: [
-        labelsRow,
-        SizedBox(
-          height: 120, //More Size for prevent hiding the shadow
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: itemType.storesToRedeem.map((store) {
-              return ItemTile.type(
-                store,
-                margin: EdgeInsets.only(right: 10),
-              );
-            }).toList(),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget get labelsRow {
-    return LayoutBuilder(
-      builder: (context, constraints) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Row(children: [
-          Text(
-            'חנויות למימוש',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          Spacer(),
-          TextButton(
-            child: Text(
-              'הצג הכל',
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ShowAllStoresScreen(item.type as MultiRedemtionItemType),
-                ),
-              );
-            },
-          )
-        ]),
-      ),
     );
   }
 }
