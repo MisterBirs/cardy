@@ -1,4 +1,8 @@
 import 'package:cardy/data/payments_methods_data.dart';
+import 'package:cardy/entities/payments_methods/store_summary_entity.dart';
+import 'package:cardy/entities/payments_methods/item_type_entity.dart';
+import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
+import 'package:cardy/entities/payments_methods/store_entity.dart';
 import 'package:cardy/entities/user_items/coupon_entity.dart';
 import 'package:cardy/entities/user_items/credit_entity.dart';
 import 'package:cardy/entities/user_items/gift_card_entity.dart';
@@ -218,5 +222,34 @@ class UserItemsData {
     return allPaymentMethods.values
         .map((item) => item.balance)
         .reduce((value, element) => value + element);
+  }
+
+  Map<String, StoreSummaryEntity> get userStores {
+    Map<String, StoreSummaryEntity> storesMap = {};
+
+    for (PaymentMethodEntity item in allPaymentMethods.values) {
+      ItemTypeEntity itemType = item.type;
+      if (itemType is MultiRedemtionItemType) {
+        for (StoreEntity store in itemType.storesToRedeem) {
+          _addItemToStoreMap(item, store, storesMap);
+        }
+      } else if (itemType is StoreEntity) {
+        _addItemToStoreMap(item, itemType, storesMap);
+      }
+    }
+    return storesMap;
+  }
+
+  void _addItemToStoreMap(PaymentMethodEntity item, StoreEntity itemStore,
+      Map<String, StoreSummaryEntity> storesMap) {
+    if (storesMap.containsKey(itemStore.id)) {
+      storesMap[itemStore.id]!.addPaymentMethod(item);
+    } else {
+      storesMap[itemStore.id] = StoreSummaryEntity(
+        store: itemStore,
+        paymentMethods: [item],
+        totalBalance: item.balance,
+      );
+    }
   }
 }

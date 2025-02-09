@@ -2,9 +2,9 @@ import 'package:cardy/entities/categories/category_key.dart';
 import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
 import 'package:cardy/entities/payments_methods/store_entity.dart';
 import 'package:cardy/ui/widgets/filter_bar.dart';
-import 'package:cardy/ui/widgets/item_tile.dart';
+import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
 import 'package:cardy/ui/widgets/search_box.dart';
-import 'package:cardy/ui/widgets/back_two_titles_app_bar.dart';
+import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/background.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class _ShowAllStoresScreenState extends State<ShowAllStoresScreen> {
     return Background(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: BackTwoTitlesAppBar(
+        appBar: BackAppBar(
           title: 'חנויות למימוש',
           subtitle: widget.itemType.name.toUpperCase(),
         ),

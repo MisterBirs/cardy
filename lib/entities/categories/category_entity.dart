@@ -1,4 +1,5 @@
 import 'package:cardy/entities/categories/category_key.dart';
+import 'package:cardy/entities/payments_methods/store_entity.dart';
 import 'package:flutter/material.dart';
 
 class CategoryEntity {
@@ -22,8 +23,9 @@ class CategoryEntity {
         _icon = icon,
         _isPrimary = isPrimaryCategory;
 
-  static void setParentToAll(List<CategoryEntity> children, CategoryEntity parent){
-    for(CategoryEntity subCategory in children){
+  static void setParentToAll(
+      List<CategoryEntity> children, CategoryEntity parent) {
+    for (CategoryEntity subCategory in children) {
       subCategory.parent = parent;
     }
   }
@@ -31,10 +33,34 @@ class CategoryEntity {
   CategoryEntity get topParentCategory => _getTopParentCategory(this);
 
   CategoryEntity _getTopParentCategory(categoryEntity) {
-    if(parent == null || isPrimary){
+    if (parent == null || isPrimary) {
       return this;
     }
     return parent!._getTopParentCategory(this);
+  }
+
+  static List<StoreEntity> filterStoresByKey(
+      List<StoreEntity> stores, CategoryKey key, String searchValue) {
+    List<StoreEntity> filteredStores = stores;
+
+    if (key != CategoryKey.all) {
+      filteredStores = stores
+          .where((store) => store.categories
+              .map((category) => category.topParentCategory.key)
+              .contains(key))
+          .toList();
+    }
+
+    if (searchValue.isNotEmpty) {
+      filteredStores = filteredStores
+          .where((store) => store.aliases
+              .where((alias) =>
+                  alias.toLowerCase().contains(searchValue.toLowerCase()))
+              .isNotEmpty)
+          .toList();
+    }
+
+    return filteredStores;
   }
 
   CategoryKey get key => _key;

@@ -1,7 +1,7 @@
 import 'package:cardy/entities/user_items/payment_method_entity.dart';
 import 'package:cardy/ui/screens/item_screen/item_screen.dart';
 import 'package:cardy/ui/ui_constants.dart';
-import 'package:cardy/ui/widgets/item_tile.dart';
+import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
 import 'package:flutter/material.dart';
 
 class ItemSideLabelTile extends StatelessWidget {

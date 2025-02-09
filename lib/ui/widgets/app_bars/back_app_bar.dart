@@ -1,14 +1,15 @@
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
 
-class BackTwoTitlesAppBar extends StatelessWidget
-    implements PreferredSizeWidget {
+class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  final String subtitle;
+  final String? subtitle;
+  final bool showBackButton;
 
-  const BackTwoTitlesAppBar({
+  const BackAppBar({
     required this.title,
-    required this.subtitle,
+    this.subtitle,
+    this.showBackButton = true,
     super.key,
   });
 
@@ -20,7 +21,7 @@ class BackTwoTitlesAppBar extends StatelessWidget
       centerTitle: true,
       leading: IconButton(
         iconSize: ICON_SIZE,
-        icon: Icon(Icons.arrow_back),
+        icon: showBackButton? Icon(Icons.arrow_back):SizedBox(),
         onPressed: () {
           Navigator.pop(context);
         },
@@ -31,10 +32,11 @@ class BackTwoTitlesAppBar extends StatelessWidget
             title,
             style: Theme.of(context).textTheme.headlineMedium,
           ),
-          Text(
-            subtitle,
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
+          if (subtitle != null)
+            Text(
+              subtitle!,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
         ],
       ),
     );

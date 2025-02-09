@@ -45,10 +45,10 @@ const SHADOW = [
       offset: Offset(0, 2))
 ];
 
-double getScaleSize(BuildContext context,double fontSize) {
-  final baseScreenWidth = 430.0;
+double getScaleSize(BuildContext context,double size) {
+  final baseScreenWidth = 460.0;
   final screenWidth = MediaQuery.of(context).size.width;
   final scaleFactor = screenWidth / baseScreenWidth;
-  final newFontSize = scaleFactor*fontSize;
+  final newFontSize = scaleFactor*size;
   return newFontSize;
 }
