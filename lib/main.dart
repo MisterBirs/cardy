@@ -1,6 +1,4 @@
-import 'package:cardy/data/user_items_data.dart';
 import 'package:cardy/ui/screens/init_screen/init_screen.dart';
-import 'package:cardy/ui/screens/stores_screen/stores_screen.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

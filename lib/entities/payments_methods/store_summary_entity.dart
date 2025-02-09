@@ -4,8 +4,8 @@ import 'package:cardy/entities/payments_methods/store_entity.dart';
 import 'package:cardy/entities/user_items/payment_method_entity.dart';
 
 class StoreSummaryEntity {
-  StoreEntity _store;
-  List<PaymentMethodEntity> _paymentMethods;
+  final StoreEntity _store;
+  final List<PaymentMethodEntity> _paymentMethods;
   double _totalBalance;
 
   StoreSummaryEntity({
