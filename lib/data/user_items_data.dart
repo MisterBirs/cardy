@@ -6,7 +6,7 @@ import 'package:cardy/entities/payments_methods/store_entity.dart';
 import 'package:cardy/entities/user_items/coupon_entity.dart';
 import 'package:cardy/entities/user_items/credit_entity.dart';
 import 'package:cardy/entities/user_items/gift_card_entity.dart';
-import 'package:cardy/entities/user_items/payment_method_entity.dart';
+import 'package:cardy/entities/user_items/item_entity.dart';
 import 'package:cardy/entities/user_items/reloadable_card_entity.dart';
 
 class UserItemsData {
@@ -18,7 +18,7 @@ class UserItemsData {
   late Map<String, CreditEntity> credits;
   late Map<String, CouponEntity> coupons;
   late Map<String, ReloadableCardEntity> reloadableCards;
-  late Map<String, PaymentMethodEntity> allPaymentMethods;
+  late Map<String, ItemEntity> allPaymentMethods;
 
   UserItemsData._() {
     _paymentsMethodsData = PaymentsMethodsData.instance;
@@ -245,7 +245,7 @@ class UserItemsData {
   Map<String, StoreSummaryEntity> get userStores {
     Map<String, StoreSummaryEntity> storesMap = {};
 
-    for (PaymentMethodEntity item in allPaymentMethods.values) {
+    for (ItemEntity item in allPaymentMethods.values) {
       ItemTypeEntity itemType = item.type;
       if (itemType is MultiRedemtionItemType) {
         for (StoreEntity store in itemType.storesToRedeem) {
@@ -258,7 +258,7 @@ class UserItemsData {
     return storesMap;
   }
 
-  void _addItemToStoreMap(PaymentMethodEntity item, StoreEntity itemStore,
+  void _addItemToStoreMap(ItemEntity item, StoreEntity itemStore,
       Map<String, StoreSummaryEntity> storesMap) {
     if (storesMap.containsKey(itemStore.id)) {
       storesMap[itemStore.id]!.addPaymentMethod(item);

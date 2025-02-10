@@ -1,100 +1,30 @@
-import 'package:cardy/entities/categories/category_key.dart';
 import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
-import 'package:cardy/entities/payments_methods/store_entity.dart';
-import 'package:cardy/ui/widgets/filter_bar.dart';
+import 'package:cardy/ui/screens/base_show_all_screen.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
-import 'package:cardy/ui/widgets/search_box.dart';
+import 'package:cardy/ui/widgets/item_tiles/item_tile_builder.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/ui/ui_constants.dart';
-import 'package:cardy/ui/widgets/background.dart';
 import 'package:flutter/material.dart';
 
-class ShowAllStoresScreen extends StatefulWidget {
+class ShowAllStoresScreen extends StatelessWidget {
   final MultiRedemtionItemType itemType;
   const ShowAllStoresScreen(this.itemType, {super.key});
 
   @override
-  State<ShowAllStoresScreen> createState() => _ShowAllStoresScreenState();
-}
-
-class _ShowAllStoresScreenState extends State<ShowAllStoresScreen> {
-  CategoryKey selectedCategoryKey = CategoryKey.all;
-  String _searchValue = '';
-
-  @override
   Widget build(BuildContext context) {
-    return Background(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: BackAppBar(
-          title: 'חנויות למימוש',
-          subtitle: widget.itemType.name.toUpperCase(),
-        ),
-        body: Column(
-          children: [
-            searchBoxWarpper,
-            FilterBar(
-                stores: widget.itemType.storesToRedeem,
-                onFiltered: (categoryKey) {
-                  setState(() {
-                    selectedCategoryKey = categoryKey;
-                  });
-                }),
-            storesGrid(_storesForShow)
-          ],
-        ),
+    return ItemsGridScreen(
+      itemWidth: BASE_ITEM_TILE_SIZE,
+      itemHeight: BASE_ITEM_TILE_SIZE,
+      appBar: BackAppBar(
+        title: 'חנויות למימוש',
+        subtitle: itemType.name.toUpperCase(),
       ),
-    );
-  }
-
-  List<StoreEntity> get filteredstores {
-    if (selectedCategoryKey == CategoryKey.all) {
-      return widget.itemType.storesToRedeem;
-    }
-
-    return widget.itemType.storesToRedeem
-        .where((store) => store.categories
-            .map((category) => category.topParentCategory.key)
-            .contains(selectedCategoryKey))
-        .toList();
-  }
-
-  List<StoreEntity> get _storesForShow {
-    return filteredstores
-        .where((store) => store.aliases
-            .where((alias) =>
-                alias.toLowerCase().contains(_searchValue.toLowerCase()))
-            .isNotEmpty)
-        .toList();
-  }
-
-  Widget get searchBoxWarpper {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: SCREEN_HORIZONTAL_PADDING, vertical: 30),
-      child: SearchBox(onSearch: (value) {
-        setState(() {
-          _searchValue = value;
-        });
-      }),
-    );
-  }
-
-  Widget storesGrid(List<StoreEntity> stores) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(SCREEN_HORIZONTAL_PADDING),
-        child: GridView.builder(
-          itemCount: stores.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 3.0,
-            mainAxisSpacing: 3.0,
-            childAspectRatio: 1.0,
-          ),
-          itemBuilder: (context, index) => ItemTile.type(stores[index]),
-        ),
-      ),
+      items: itemType.storesToRedeem.map((store) {
+        return ItemTileBuilder(
+            alias: store.aliases,
+            categories: store.categories,
+            tile: ItemTile.type(store));
+      }).toList(),
     );
   }
 }

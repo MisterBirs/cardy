@@ -2,7 +2,7 @@ import 'package:cardy/entities/payments_methods/store_summary_entity.dart';
 import 'package:cardy/entities/user_items/coupon_entity.dart';
 import 'package:cardy/entities/user_items/credit_entity.dart';
 import 'package:cardy/entities/user_items/gift_card_entity.dart';
-import 'package:cardy/entities/user_items/payment_method_entity.dart';
+import 'package:cardy/entities/user_items/item_entity.dart';
 import 'package:cardy/entities/user_items/reloadable_card_entity.dart';
 import 'package:cardy/ui/screens/home_screen/home_screen_widgets/items_list.dart';
 import 'package:cardy/ui/widgets/app_bars/back_add_app_bar.dart';
@@ -72,7 +72,7 @@ class StoreScreen extends StatelessWidget {
     );
   }
 
-  ShowAllList _itemsList(String label, List<PaymentMethodEntity> items) {
+  ShowAllList _itemsList(String label, List<ItemEntity> items) {
     return ShowAllList(
         label: label,
         items: items

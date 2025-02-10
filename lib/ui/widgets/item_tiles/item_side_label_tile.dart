@@ -1,4 +1,4 @@
-import 'package:cardy/entities/user_items/payment_method_entity.dart';
+import 'package:cardy/entities/user_items/item_entity.dart';
 import 'package:cardy/ui/screens/item_screen/item_screen.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
@@ -9,7 +9,7 @@ class ItemSideLabelTile extends StatelessWidget {
   final unhiddenPartLabelWidth = 85.0;
   final imageRadius = 5.0;
   final labelRasius = 10.0;
-  final PaymentMethodEntity item;
+  final ItemEntity item;
 
   double get tileWidth =>
       unhiddenPartLabelWidth + (item.type.isCard ? squareSize*SQUARE_CARD_RATIO : squareSize);

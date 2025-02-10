@@ -1,13 +1,13 @@
 import 'dart:core';
 
-import 'package:cardy/entities/user_items/payment_method_entity.dart';
-import 'package:cardy/ui/screens/home_screen/home_screen_widgets/item_side_label_tile.dart';
+import 'package:cardy/entities/user_items/item_entity.dart';
+import 'package:cardy/ui/widgets/item_tiles/item_side_label_tile.dart';
 import 'package:cardy/ui/widgets/show_all_list.dart';
 import 'package:flutter/material.dart';
 
 class ItemsList extends StatelessWidget {
   final String label;
-  final List<PaymentMethodEntity> items;
+  final List<ItemEntity> items;
   final Function() onTapShowAll;
 
   const ItemsList({

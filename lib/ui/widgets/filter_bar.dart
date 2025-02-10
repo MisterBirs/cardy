@@ -1,17 +1,16 @@
 import 'package:cardy/entities/categories/categories.dart';
 import 'package:cardy/entities/categories/category_entity.dart';
 import 'package:cardy/entities/categories/category_key.dart';
-import 'package:cardy/entities/payments_methods/store_entity.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
 
 class FilterBar extends StatefulWidget {
-  final List<StoreEntity> stores;
+  final List<CategoryEntity> categories;
   final void Function(CategoryKey) onFiltered;
 
   const FilterBar({
     super.key,
-    required this.stores,
+    required this.categories,
     required this.onFiltered,
   });
 
@@ -55,8 +54,8 @@ class _FilterBarState extends State<FilterBar> {
       Categories.instance.getCategory(CategoryKey.all)!
     };
 
-    for (var store in widget.stores) {
-      final List<CategoryEntity> storePrimaryCategories = store.categories
+    for (var store in widget.categories) {
+      final List<CategoryEntity> storePrimaryCategories = widget.categories
           .map((category) => category.topParentCategory)
           .toList();
 
@@ -80,9 +79,9 @@ class FilterButton extends StatelessWidget {
     return GestureDetector(
       onTap: () => onTap(category.key),
       child: Container(
-        padding:  EdgeInsets.symmetric(
+        padding: EdgeInsets.symmetric(
             horizontal: CONTAINER_HORIZONTAL_PADDING + (isSelected ? 2 : 0),
-             vertical: 5  + (isSelected ? 2 : 0)),
+            vertical: 5 + (isSelected ? 2 : 0)),
         decoration:
             isSelected ? selectedBoxDecoration : unselectedBoxDecoration,
         child: Row(

@@ -1,7 +1,7 @@
-import 'package:cardy/entities/user_items/payment_method_entity.dart';
+import 'package:cardy/entities/user_items/item_entity.dart';
 
 
-class ReloadableCardEntity extends PaymentMethodEntity {
+class ReloadableCardEntity extends ItemEntity {
   ReloadableCardEntity(
       {super.id,
       required super.code,

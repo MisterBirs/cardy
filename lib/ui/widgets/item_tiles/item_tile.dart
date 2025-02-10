@@ -1,11 +1,11 @@
 import 'package:cardy/entities/payments_methods/item_type_entity.dart';
-import 'package:cardy/entities/user_items/payment_method_entity.dart';
+import 'package:cardy/entities/user_items/item_entity.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/item_tiles/base_tile.dart';
 import 'package:flutter/material.dart';
 
 class ItemTile extends StatelessWidget {
-  final PaymentMethodEntity? item;
+  final ItemEntity? item;
   final ItemTypeEntity itemType;
   final double size;
   final BorderRadiusGeometry borderRadius;

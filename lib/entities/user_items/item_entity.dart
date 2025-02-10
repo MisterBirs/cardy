@@ -1,6 +1,6 @@
 import 'package:cardy/entities/payments_methods/item_type_entity.dart';
 
-abstract class PaymentMethodEntity {
+abstract class ItemEntity {
   String? id;
   final String _code;
   final String? _cvv;
@@ -12,7 +12,7 @@ abstract class PaymentMethodEntity {
   final DateTime _expirationDate;
   final String? _notes;
 
-  PaymentMethodEntity(
+  ItemEntity(
       {this.id,
       required String code,
       String? cvv,

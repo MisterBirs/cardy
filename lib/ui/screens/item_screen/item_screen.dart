@@ -1,5 +1,5 @@
 import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
-import 'package:cardy/entities/user_items/payment_method_entity.dart';
+import 'package:cardy/entities/user_items/item_entity.dart';
 import 'package:cardy/ui/screens/show_all_stores_screen/show_all_stores_screen.dart';
 import 'package:cardy/ui/widgets/gradient_button.dart';
 import 'package:cardy/ui/widgets/background.dart';
@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ItemScreen extends StatefulWidget {
-  final PaymentMethodEntity item;
+  final ItemEntity item;
   const ItemScreen({super.key, required this.item});
 
   @override
@@ -123,7 +123,7 @@ class _ItemScreenState extends State<ItemScreen> {
 }
 
 class ItemInfoBox extends StatelessWidget {
-  final PaymentMethodEntity item;
+  final ItemEntity item;
 
   const ItemInfoBox({
     super.key,

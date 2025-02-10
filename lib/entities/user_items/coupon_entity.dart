@@ -1,6 +1,6 @@
-import 'package:cardy/entities/user_items/payment_method_entity.dart';
+import 'package:cardy/entities/user_items/item_entity.dart';
 
-class CouponEntity extends PaymentMethodEntity {
+class CouponEntity extends ItemEntity {
   CouponEntity({
     required super.id,
     required super.code,
