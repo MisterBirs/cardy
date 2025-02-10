@@ -10,15 +10,15 @@ import 'package:cardy/ui/widgets/show_all_list.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class ItemScreen extends StatefulWidget {
+class ItemDetailsScreen extends StatefulWidget {
   final ItemEntity item;
-  const ItemScreen({super.key, required this.item});
+  const ItemDetailsScreen({super.key, required this.item});
 
   @override
-  State<ItemScreen> createState() => _ItemScreenState();
+  State<ItemDetailsScreen> createState() => _ItemDetailsScreenState();
 }
 
-class _ItemScreenState extends State<ItemScreen> {
+class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Background(
