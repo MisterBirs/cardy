@@ -1,5 +1,5 @@
 import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
-import 'package:cardy/ui/screens/base_show_all_screen.dart';
+import 'package:cardy/ui/screens/items_grid_screen.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile_builder.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
