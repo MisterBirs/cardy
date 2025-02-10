@@ -169,6 +169,24 @@ class UserItemsData {
           balance: 200,
           addTime: DateTime.now(),
           expirationDate: DateTime.now().add(const Duration(days: 250))),
+      'co0006': CouponEntity(
+          id: 'co0006',
+          code: '194259309',
+          typeId: 'sType001',
+          type: _paymentsMethodsData.stores['sType001']!,
+          initialAmount: 80,
+          balance: 60,
+          addTime: DateTime.now(),
+          expirationDate: DateTime.now().add(const Duration(days: 250))),
+      'co0007': CouponEntity(
+          id: 'co0007',
+          code: '194249319',
+          typeId: 'sType001',
+          type: _paymentsMethodsData.stores['sType001']!,
+          initialAmount: 50,
+          balance: 20,
+          addTime: DateTime.now(),
+          expirationDate: DateTime.now().add(const Duration(days: 250))),
     };
   }
 

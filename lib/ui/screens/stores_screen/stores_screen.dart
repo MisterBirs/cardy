@@ -89,7 +89,7 @@ class _StoresScreenState extends State<StoresScreen> {
             mainAxisSpacing: columnsSpacing,
             childAspectRatio: tileWidth / tileHeight,
           ),
-          itemBuilder: (context, index) => ItemBalanceTile(
+          itemBuilder: (context, index) => StoreBalanceTile(
               width: tileWidth,
               height: tileHeight,
               store: stores[index].store,
