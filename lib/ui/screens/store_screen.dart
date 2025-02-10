@@ -1,5 +1,4 @@
 import 'package:cardy/entities/payments_methods/store_summary_entity.dart';
-import 'package:cardy/ui/screens/home_screen/home_screen_widgets/items_list.dart';
 import 'package:cardy/ui/widgets/app_bars/back_add_app_bar.dart';
 import 'package:cardy/ui/widgets/background.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';

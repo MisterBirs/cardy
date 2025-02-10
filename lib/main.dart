@@ -1,6 +1,4 @@
-import 'package:cardy/data/user_items_data.dart';
 import 'package:cardy/ui/screens/init_screen/init_screen.dart';
-import 'package:cardy/ui/screens/store_screen.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -78,7 +76,7 @@ class CardyApp extends StatelessWidget {
             ),
           );
         },
-        // home: StoreScreen(UserItemsData.instance.userStores.values.toList()[0]!),
+        // home:  StoreScreen(UserItemsData.instance.userStores.values.toList()[0]!));
         home: InitScreen());
   }
 }

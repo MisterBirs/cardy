@@ -13,9 +13,10 @@ class ItemBalanceTile extends StatelessWidget {
     super.key,
     required this.store,
     required this.balance,
-    this.width = 100,
-    this.height = 130,
+    this.width = BASE_ITEM_TILE_SIZE,
+    this.height = BASE_ITEM_TILE_SIZE + 30,
   });
+  
 
   @override
   Widget build(BuildContext context) {
