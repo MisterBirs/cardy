@@ -3,13 +3,13 @@ import 'package:cardy/entities/categories/category_key.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/background.dart';
 import 'package:cardy/ui/widgets/filter_bar.dart';
-import 'package:cardy/ui/widgets/item_tiles/item_tile_builder.dart';
+import 'package:cardy/ui/widgets/item_tiles/item_grid_tile.dart';
 import 'package:cardy/ui/widgets/search_box.dart';
 import 'package:flutter/material.dart';
 
 class ItemsGridScreen extends StatefulWidget {
   final PreferredSizeWidget appBar;
-  final List<ItemTileBuilder> items;
+  final List<ItemGridTile> items;
   final double itemWidth;
   final double itemHeight;
   final double gridSpacing;
@@ -59,7 +59,7 @@ class _ItemsGridScreenState extends State<ItemsGridScreen> {
                     crossAxisSpacing: widget.gridSpacing,
                     mainAxisExtent: widget.itemHeight),
                 itemBuilder: (context, index) {
-                  return itemsForShow[index].tile;
+                  return itemsForShow[index];
                 },
               ),
             ),
@@ -115,7 +115,7 @@ class _ItemsGridScreenState extends State<ItemsGridScreen> {
     );
   }
 
-  List<ItemTileBuilder> _getFilteredItems() {
+  List<ItemGridTile> _getFilteredItems() {
     if (_selectedCategoryKey == CategoryKey.all) {
       return widget.items;
     }
@@ -127,7 +127,7 @@ class _ItemsGridScreenState extends State<ItemsGridScreen> {
         .toList();
   }
 
-  List<ItemTileBuilder> _getItemsForShow() {
+  List<ItemGridTile> _getItemsForShow() {
     return _getFilteredItems()
         .where((item) => item.alias
             .where((alias) =>
