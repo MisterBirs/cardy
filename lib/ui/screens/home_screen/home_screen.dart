@@ -57,6 +57,8 @@ class Items extends StatelessWidget {
   }
 
   Widget createItemsList(String label, List<ItemEntity> items) {
+    final itemType = items.first.type;
+    final tileWidth = itemType.isCard ? BASE_CARD_WIDTH : BASE_ITEM_TILE_SIZE;
     return Builder(builder: (context) {
       return ItemsList(
           label: label,
@@ -65,7 +67,7 @@ class Items extends StatelessWidget {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => ItemsGridScreen(
                     appBar: BackAppBar(title: label),
-                    itemWidth: BASE_ITEM_TILE_SIZE,
+                    itemWidth: tileWidth,
                     itemHeight: BASE_ITEM_TILE_SIZE + 30,
                     maxItemsInRow: 3,
                     items: items.map((item) {
