@@ -1,10 +1,10 @@
 import 'package:cardy/entities/user_items/item_entity.dart';
-import 'package:cardy/ui/screens/item_screen/item_details_screen.dart';
+import 'package:cardy/ui/screens/item_details_screen/item_details_screen.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
 import 'package:flutter/material.dart';
 
-class ItemSideLabelTile extends StatelessWidget {
+class ItemSideBalanceLabelTile extends StatelessWidget {
   final squareSize = 70.0;
   final unhiddenPartLabelWidth = 85.0;
   final imageRadius = 5.0;
@@ -14,7 +14,7 @@ class ItemSideLabelTile extends StatelessWidget {
   double get tileWidth =>
       unhiddenPartLabelWidth + (item.type.isCard ? squareSize*SQUARE_CARD_RATIO : squareSize);
 
-  const ItemSideLabelTile({
+  const ItemSideBalanceLabelTile({
     super.key,
     required this.item,
   });

@@ -1,16 +1,17 @@
 import 'package:cardy/entities/user_items/item_entity.dart';
-import 'package:cardy/ui/screens/item_screen/item_details_screen.dart';
+import 'package:cardy/ui/screens/item_details_screen/item_details_screen.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_balance_tile.dart';
-import 'package:cardy/ui/widgets/item_tiles/item_grid_tile.dart';
+import 'package:cardy/ui/widgets/item_tiles/grid_tiles/base_item_grid_tile.dart';
 import 'package:flutter/material.dart';
 
-class ItemGridBalanceTile extends ItemGridTile {
+class ItemGridBalanceTile extends BaseItemGridTile {
   final ItemEntity _item;
+  
   ItemGridBalanceTile(ItemEntity item, {super.key})
       : _item = item,
         super(
           alias: item.type.aliases,
-          amount: item.balance,
+          balance: item.balance,
           categories: item.type.categories,
         );
 
@@ -26,8 +27,7 @@ class ItemGridBalanceTile extends ItemGridTile {
           ),
         );
       },
-      child: ItemBalanceTile(
-        itemType: item.type, balance: item.balance),
+      child: ItemBalanceTile(itemType: item.type, balance: item.balance),
     );
   }
 

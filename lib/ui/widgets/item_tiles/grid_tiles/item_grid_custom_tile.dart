@@ -1,13 +1,13 @@
-import 'package:cardy/ui/widgets/item_tiles/item_grid_tile.dart';
+import 'package:cardy/ui/widgets/item_tiles/grid_tiles/base_item_grid_tile.dart';
 import 'package:flutter/material.dart';
 
-class ItemGridCustomTile extends ItemGridTile {
+class ItemGridCustomTile extends BaseItemGridTile {
   final Widget _tile;
 
   const ItemGridCustomTile({
     super.key,
     required super.alias,
-    super.amount,
+    super.balance,
     required super.categories,
     required Widget tile,
   }) : _tile = tile;

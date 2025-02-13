@@ -1,8 +1,7 @@
 import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
 import 'package:cardy/ui/screens/items_grid_screen.dart';
-import 'package:cardy/ui/widgets/item_tiles/item_grid_custom_tile.dart';
+import 'package:cardy/ui/widgets/item_tiles/grid_tiles/item_grid_custom_tile.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
-import 'package:cardy/ui/widgets/item_tiles/item_grid_tile.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';

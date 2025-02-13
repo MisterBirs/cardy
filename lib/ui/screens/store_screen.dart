@@ -4,12 +4,15 @@ import 'package:cardy/entities/user_items/credit_entity.dart';
 import 'package:cardy/entities/user_items/gift_card_entity.dart';
 import 'package:cardy/entities/user_items/item_entity.dart';
 import 'package:cardy/entities/user_items/reloadable_card_entity.dart';
-import 'package:cardy/ui/screens/home_screen/home_screen_widgets/items_list.dart';
+import 'package:cardy/ui/ui_constants.dart';
+import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
+import 'package:cardy/ui/widgets/item_tiles/grid_tiles/item_grid_custom_tile.dart';
+import 'package:cardy/ui/widgets/show_all_items_list/show_all_items_list.dart';
 import 'package:cardy/ui/widgets/app_bars/back_add_app_bar.dart';
 import 'package:cardy/ui/widgets/background.dart';
 import 'package:cardy/ui/widgets/item_tiles/base_tile.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
-import 'package:cardy/ui/widgets/show_all_list.dart';
+import 'package:cardy/ui/widgets/show_all_items_list/custom_show_all_items_list.dart';
 import 'package:flutter/material.dart';
 
 class StoreScreen extends StatelessWidget {
@@ -18,27 +21,11 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final coupons = storeSummary.paymentMethods
-        .where((item) => item is CouponEntity)
-        .toList();
-
-    final credits = storeSummary.paymentMethods
-        .where((item) => item is CreditEntity)
-        .toList();
-
-    final giftCards = storeSummary.paymentMethods
-        .where((item) => item is GiftCardEntity)
-        .toList();
-
-    final reloadableCards = storeSummary.paymentMethods
-        .where((item) => item is ReloadableCardEntity)
-        .toList();
-
     return Background(
       child: Scaffold(
           appBar: BackAddAppBar(title: storeSummary.store.name, onAdd: () {}),
           body: Padding(
-            padding: const EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.only(top: PADDING_FROM_TOP_SCREEN),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,17 +37,14 @@ class StoreScreen extends StatelessWidget {
                       spacing: 20,
                       children: [
                         if (giftCards.isNotEmpty)
-                          ItemsList(
-                              label: 'גיפטקארדים',
-                              items: giftCards,
-                              onTapShowAll: () {}),
+                          _imageItemsList('גיפטקארדים', giftCards, () {}),
                         if (reloadableCards.isNotEmpty)
-                          ItemsList(
-                              label: 'כרטיסים נטענים',
-                              items: reloadableCards,
-                              onTapShowAll: () {}),
-                        if (coupons.isNotEmpty) _itemsList('קופונים', coupons),
-                        if (credits.isNotEmpty) _itemsList('שוברים', credits),
+                          _imageItemsList(
+                              'כרטיסים נטענים', reloadableCards, () {}),
+                        if (coupons.isNotEmpty)
+                          _noImageitemsList('קופונים', coupons, () {}),
+                        if (credits.isNotEmpty)
+                          _noImageitemsList('שוברים', credits, () {}),
                         SizedBox(height: 20),
                       ],
                     ),
@@ -72,15 +56,39 @@ class StoreScreen extends StatelessWidget {
     );
   }
 
-  ShowAllList _itemsList(String label, List<ItemEntity> items) {
-    return ShowAllList(
-        label: label,
-        items: items
-            .map((coupon) => BaseTile(
-                  child: Text('₪${coupon.balance.toString()}'),
-                ))
-            .toList(),
-        onTapShowAll: () {});
+  ShowAllItemsList _imageItemsList(
+      String label, List<ItemEntity> items, void Function() onAdd) {
+        
+    return ShowAllItemsList(
+      label: label,
+      gridScreenAppBar: BackAppBar(
+          title: storeSummary.store.name, subtitle: label, onAdd: () {}),
+      items: items,
+    );
+  }
+
+  CustomShowAllItemsListView _noImageitemsList(
+      String label, List<ItemEntity> items, void Function() onAdd) {
+    return CustomShowAllItemsListView(
+      label: label,
+      gridScreenAppBar: BackAppBar(
+          title: storeSummary.store.name, subtitle: label, onAdd: onAdd),
+      listTiles: items.map((item) => buildNoImageItemTile(item)).toList(),
+      gridTiles: items
+          .map((item) => ItemGridCustomTile(
+                tile: buildNoImageItemTile(item),
+                alias: item.type.aliases,
+                categories: item.type.categories,
+                balance: item.balance,
+              ))
+          .toList(),
+    );
+  }
+
+  BaseTile buildNoImageItemTile(ItemEntity item) {
+    return BaseTile(
+      child: Text('₪${item.balance.toString()}'),
+    );
   }
 
   Widget get balanceTitle {
@@ -101,4 +109,18 @@ class StoreScreen extends StatelessWidget {
       );
     });
   }
+
+  List<CouponEntity> get coupons =>
+      storeSummary.paymentMethods.whereType<CouponEntity>().toList();
+
+  List<CreditEntity> get credits =>
+      storeSummary.paymentMethods.whereType<CreditEntity>().toList();
+
+  List<GiftCardEntity> get giftCards =>
+      storeSummary.paymentMethods.whereType<GiftCardEntity>().toList();
+
+  List<ReloadableCardEntity> get reloadableCards =>
+      storeSummary.paymentMethods.whereType<ReloadableCardEntity>().toList();
+
+
 }

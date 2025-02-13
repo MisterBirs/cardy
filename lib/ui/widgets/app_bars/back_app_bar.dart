@@ -5,11 +5,13 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final String? subtitle;
   final bool showBackButton;
+  final void Function()? onAdd;
 
   const BackAppBar({
     required this.title,
     this.subtitle,
     this.showBackButton = true,
+    this.onAdd,
     super.key,
   });
 
@@ -21,7 +23,7 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       leading: IconButton(
         iconSize: ICON_SIZE,
-        icon: showBackButton? Icon(Icons.arrow_back):SizedBox(),
+        icon: showBackButton ? Icon(Icons.arrow_back) : SizedBox(),
         onPressed: () {
           Navigator.pop(context);
         },
@@ -39,6 +41,14 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
         ],
       ),
+      actions: onAdd != null
+          ? [
+              IconButton(
+                icon: Icon(Icons.add, size: ICON_SIZE),
+                onPressed: onAdd,
+              ),
+            ]
+          : null,
     );
   }
 

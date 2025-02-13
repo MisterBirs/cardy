@@ -3,13 +3,13 @@ import 'package:cardy/entities/categories/category_key.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/background.dart';
 import 'package:cardy/ui/widgets/filter_bar.dart';
-import 'package:cardy/ui/widgets/item_tiles/item_grid_tile.dart';
+import 'package:cardy/ui/widgets/item_tiles/grid_tiles/base_item_grid_tile.dart';
 import 'package:cardy/ui/widgets/search_box.dart';
 import 'package:flutter/material.dart';
 
 class ItemsGridScreen extends StatefulWidget {
   final PreferredSizeWidget appBar;
-  final List<ItemGridTile> items;
+  final List<BaseItemGridTile> items;
   final double itemWidth;
   final double itemHeight;
   final double gridSpacing;
@@ -115,7 +115,7 @@ class _ItemsGridScreenState extends State<ItemsGridScreen> {
     );
   }
 
-  List<ItemGridTile> _getFilteredItems() {
+  List<BaseItemGridTile> _getFilteredItems() {
     if (_selectedCategoryKey == CategoryKey.all) {
       return widget.items;
     }
@@ -127,7 +127,7 @@ class _ItemsGridScreenState extends State<ItemsGridScreen> {
         .toList();
   }
 
-  List<ItemGridTile> _getItemsForShow() {
+  List<BaseItemGridTile> _getItemsForShow() {
     return _getFilteredItems()
         .where((item) => item.alias
             .where((alias) =>

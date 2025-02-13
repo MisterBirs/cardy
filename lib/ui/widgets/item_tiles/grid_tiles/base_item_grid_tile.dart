@@ -3,18 +3,18 @@ import 'dart:core';
 import 'package:cardy/entities/categories/category_entity.dart';
 import 'package:flutter/material.dart';
 
-abstract class ItemGridTile extends StatelessWidget {
+abstract class BaseItemGridTile extends StatelessWidget {
   final List<String> _alias;
   final double? _balance;
   final List<CategoryEntity> _categories;
 
-  const ItemGridTile({
+  const BaseItemGridTile({
     super.key,
     required List<String> alias,
-    double? amount,
+    double? balance,
     required List<CategoryEntity> categories,
   })  : _alias = alias,
-        _balance = amount,
+        _balance = balance,
         _categories = categories;
 
   List<String> get alias => _alias;

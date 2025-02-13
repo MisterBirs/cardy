@@ -1,28 +1,37 @@
 import 'dart:core';
-
+import 'package:cardy/ui/screens/items_grid_screen.dart';
 import 'package:cardy/ui/ui_constants.dart';
+import 'package:cardy/ui/widgets/item_tiles/grid_tiles/base_item_grid_tile.dart';
 import 'package:flutter/material.dart';
 
-class ShowAllList extends StatelessWidget {
+class CustomShowAllItemsListView extends StatelessWidget {
   final String label;
+  final PreferredSizeWidget gridScreenAppBar;
   final double spacing;
   final double height;
-  final List<Widget> items;
-  final void Function() onTapShowAll;
+  final List<Widget> listTiles;
+  final List<BaseItemGridTile> gridTiles;
+  final double gridTileWidth;
+  final double gridTileHeight;
+  final void Function()? onTapShowAll;
 
-  const ShowAllList({
+  const CustomShowAllItemsListView({
     super.key,
     required this.label,
-    required this.items,
-    required this.onTapShowAll,
+    required this.gridScreenAppBar,
     this.spacing = 20,
     this.height = BASE_ITEM_TILE_SIZE + 10,
+    required this.listTiles,
+    required this.gridTiles,
+    this.gridTileWidth = BASE_ITEM_TILE_SIZE,
+    this.gridTileHeight = BASE_ITEM_TILE_SIZE,
+    this.onTapShowAll,
   });
 
   void addSpacingToHeadAndTile() {
     final spacingBox = SizedBox(width: spacing);
-    items.insert(0, spacingBox);
-    items.add(spacingBox);
+    listTiles.insert(0, spacingBox);
+    listTiles.add(spacingBox);
   }
 
   @override
@@ -48,7 +57,8 @@ class ShowAllList extends StatelessWidget {
             ),
             Spacer(),
             TextButton(
-              onPressed: onTapShowAll,
+              onPressed:
+                  onTapShowAll ?? () => navigateToItemsGridScreen(context),
               child: Text(
                 'הצג הכל',
                 style: Theme.of(context).textTheme.titleSmall,
@@ -60,20 +70,34 @@ class ShowAllList extends StatelessWidget {
     });
   }
 
+  void navigateToItemsGridScreen(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => ItemsGridScreen(
+        appBar: gridScreenAppBar,
+        itemWidth: gridTileWidth,
+        itemHeight: gridTileHeight,
+        maxItemsInRow: 3,
+        items: gridTiles,
+      ),
+    ));
+  }
+
   Widget get itemsList {
     return SizedBox(
       height: height, // Adjust height as needed
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: items.length,
+        itemCount: listTiles.length,
         itemBuilder: (context, index) {
-          final isLast = index == items.length - 1;
+          final isLast = index == listTiles.length - 1;
 
           return Padding(
             padding: isLast
-                ? EdgeInsets.symmetric(horizontal: spacing) // Add spacing to the left of the last item
+                ? EdgeInsets.symmetric(
+                    horizontal:
+                        spacing) // Add spacing to the left of the last item
                 : EdgeInsets.only(right: spacing),
-            child: items[index],
+            child: listTiles[index],
           );
         },
       ),

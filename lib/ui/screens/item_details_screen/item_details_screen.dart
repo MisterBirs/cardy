@@ -1,12 +1,12 @@
 import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
 import 'package:cardy/entities/user_items/item_entity.dart';
-import 'package:cardy/ui/screens/show_all_stores_screen/show_all_stores_screen.dart';
+import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/ui/widgets/gradient_button.dart';
 import 'package:cardy/ui/widgets/background.dart';
 import 'package:cardy/ui/widgets/gradient_color_mask.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
-import 'package:cardy/ui/widgets/show_all_list.dart';
+import 'package:cardy/ui/widgets/show_all_items_list/show_all_items_list.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -98,27 +98,36 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
     final MultiRedemtionItemType itemType =
         widget.item.type as MultiRedemtionItemType;
 
-    return Builder(builder: (context) {
-      return ShowAllList(
+        return ShowAllItemsList.type(
         label: 'חנויות למימוש',
-        height: BASE_ITEM_TILE_SIZE + 10,
-        spacing: 10,
-        items: itemType.storesToRedeem.map((store) {
-          return ItemTile.type(
-            store,
-          );
-        }).toList(),
-        onTapShowAll: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ShowAllStoresScreen(
-                  widget.item.type as MultiRedemtionItemType),
-            ),
-          );
-        },
+        gridScreenAppBar:
+            BackAppBar(title: 'חנויות למימוש', subtitle:  widget.item.type.name),
+        listSpacing: 10,
+        itemsTypes: itemType.storesToRedeem,
       );
-    });
+
+    // return Builder(builder: (context) {
+      
+
+    //   return ShowAllItemsList(
+    //     label: 'חנויות למימוש',
+    //     spacing: 10,
+    //     listTiles: itemType.storesToRedeem.map((store) {
+    //       return ItemTile.type(
+    //         store,
+    //       );
+    //     }).toList(),
+    //     onTapShowAll: () {
+    //       Navigator.push(
+    //         context,
+    //         MaterialPageRoute(
+    //           builder: (context) => ShowAllStoresScreen(
+    //               widget.item.type as MultiRedemtionItemType),
+    //         ),
+    //       );
+    //     },
+    //   );
+    // });
   }
 }
 
