@@ -1,4 +1,5 @@
 import 'package:cardy/entities/user_items/item_entity.dart';
+import 'package:cardy/entities/user_items/items_enum.dart';
 
 class CreditEntity extends ItemEntity {
   CreditEntity({
@@ -13,4 +14,7 @@ class CreditEntity extends ItemEntity {
     required super.expirationDate,
     super.notes,
   });
+
+  @override
+  ItemsEnum get itemGroupType => ItemsEnum.credit;
 }

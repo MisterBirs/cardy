@@ -50,6 +50,7 @@ class _FilterBarState extends State<FilterBar> {
   }
 
   List<CategoryEntity> get primaryCategories {
+    
     Set<CategoryEntity> primaryCategoriesSet = {
       Categories.instance.getCategory(CategoryKey.all)!
     };

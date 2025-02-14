@@ -1,30 +1,39 @@
-import 'dart:collection';
-
+import 'package:cardy/entities/payments_methods/item_group.dart';
 import 'package:cardy/entities/payments_methods/store_entity.dart';
 import 'package:cardy/entities/user_items/item_entity.dart';
+import 'package:cardy/entities/user_items/items_enum.dart';
 
 class StoreSummaryEntity {
   final StoreEntity _store;
-  final List<ItemEntity> _paymentMethods;
+  final Map<ItemsEnum, ItemGroup> _itemsMap;
   double _totalBalance;
 
   StoreSummaryEntity({
     required StoreEntity store,
-    required List<ItemEntity> paymentMethods,
+    required Map<ItemsEnum, ItemGroup> itemsMap,
     required double totalBalance,
   })  : _store = store,
-        _paymentMethods = paymentMethods,
+        _itemsMap = itemsMap,
         _totalBalance = totalBalance;
 
   void addPaymentMethod(ItemEntity paymentMethod) {
-    _paymentMethods.add(paymentMethod);
+    final itemGroupType = paymentMethod.itemGroupType;
+    final itemGroup = _itemsMap[itemGroupType];
+    if (itemGroup != null) {
+      itemGroup.items.add(paymentMethod);
+    } else {
+      _itemsMap[itemGroupType] = ItemGroup(
+        name: itemGroupType.name,
+        groupType: itemGroupType,
+        items: [paymentMethod],
+      );
+    }
     _totalBalance += paymentMethod.balance;
   }
 
   StoreEntity get store => _store;
-  
-  UnmodifiableListView<ItemEntity> get paymentMethods =>
-      UnmodifiableListView(_paymentMethods);
+
+  Map<ItemsEnum, ItemGroup> get paymentMethods => _itemsMap;
 
   double get totalBalance => _totalBalance;
 }

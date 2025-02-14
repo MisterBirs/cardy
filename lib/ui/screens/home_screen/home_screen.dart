@@ -1,4 +1,5 @@
 import 'package:cardy/data/user_items_data.dart';
+import 'package:cardy/entities/payments_methods/item_group.dart';
 import 'package:cardy/entities/user_items/item_entity.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/ui/widgets/background.dart';
@@ -18,8 +19,8 @@ class HomeScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              TotalBalanceTitle(),
-              Items(),
+              _TotalBalanceTitle(),
+              _Items(),
             ],
           ),
         ),
@@ -28,36 +29,29 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class Items extends StatelessWidget {
-  const Items({
-    super.key,
-  });
+class _Items extends StatelessWidget {
+  const _Items();
 
   @override
   Widget build(BuildContext context) {
+    final List<ItemGroup> itemsGroups =
+        UserItemsData.instance.itemsGroups.values.toList();
     return Column(
-      children: [
-        createItemsList(
-            'גיפטקארדים', UserItemsData.instance.giftcards.values.toList()),
-        createItemsList('כרטיסים נטענים',
-            UserItemsData.instance.reloadableCards.values.toList()),
-        createItemsList(
-            'קופונים', UserItemsData.instance.coupons.values.toList()),
-        createItemsList(
-            'זיכויים', UserItemsData.instance.credits.values.toList()),
-      ],
+      children: itemsGroups
+          .map((itemsGroup) =>
+              _buildItemList(itemsGroup.name, itemsGroup.items))
+          .toList(),
     );
   }
 
-  ShowAllItemsList createItemsList(String label, List<ItemEntity> items) {
-    return ShowAllItemsList(label: label, gridScreenAppBar: BackAppBar(title: label), items: items);
+  ShowAllItemsList _buildItemList(String label, List<ItemEntity> items) {
+    return ShowAllItemsList(
+        label: label, gridScreenAppBar: BackAppBar(title: label), items: items);
   }
 }
 
-class TotalBalanceTitle extends StatelessWidget {
-  const TotalBalanceTitle({
-    super.key,
-  });
+class _TotalBalanceTitle extends StatelessWidget {
+  const _TotalBalanceTitle();
 
   @override
   Widget build(BuildContext context) {

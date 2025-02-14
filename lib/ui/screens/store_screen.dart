@@ -1,9 +1,7 @@
+import 'package:cardy/data/user_items_data.dart';
+import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
 import 'package:cardy/entities/payments_methods/store_summary_entity.dart';
-import 'package:cardy/entities/user_items/coupon_entity.dart';
-import 'package:cardy/entities/user_items/credit_entity.dart';
-import 'package:cardy/entities/user_items/gift_card_entity.dart';
 import 'package:cardy/entities/user_items/item_entity.dart';
-import 'package:cardy/entities/user_items/reloadable_card_entity.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/ui/widgets/item_tiles/grid_tiles/item_grid_custom_tile.dart';
@@ -35,18 +33,17 @@ class StoreScreen extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       spacing: 20,
-                      children: [
-                        if (giftCards.isNotEmpty)
-                          _imageItemsList('גיפטקארדים', giftCards, () {}),
-                        if (reloadableCards.isNotEmpty)
-                          _imageItemsList(
-                              'כרטיסים נטענים', reloadableCards, () {}),
-                        if (coupons.isNotEmpty)
-                          _noImageitemsList('קופונים', coupons, () {}),
-                        if (credits.isNotEmpty)
-                          _noImageitemsList('שוברים', credits, () {}),
-                        SizedBox(height: 20),
-                      ],
+                      children: UserItemsData.instance.itemsGroups.values
+                          .map((itemsGroup) {
+                        final isMultiRedemtion = itemsGroup.items.first.type
+                            is MultiRedemtionItemType;
+                            
+                        return isMultiRedemtion
+                            ? _imageItemsList(
+                                itemsGroup.name, itemsGroup.items, () {})
+                            : _noImageitemsList(
+                                itemsGroup.name, itemsGroup.items, () {});
+                      }).toList(),
                     ),
                   ),
                 )
@@ -58,7 +55,6 @@ class StoreScreen extends StatelessWidget {
 
   ShowAllItemsList _imageItemsList(
       String label, List<ItemEntity> items, void Function() onAdd) {
-        
     return ShowAllItemsList(
       label: label,
       gridScreenAppBar: BackAppBar(
@@ -109,18 +105,4 @@ class StoreScreen extends StatelessWidget {
       );
     });
   }
-
-  List<CouponEntity> get coupons =>
-      storeSummary.paymentMethods.whereType<CouponEntity>().toList();
-
-  List<CreditEntity> get credits =>
-      storeSummary.paymentMethods.whereType<CreditEntity>().toList();
-
-  List<GiftCardEntity> get giftCards =>
-      storeSummary.paymentMethods.whereType<GiftCardEntity>().toList();
-
-  List<ReloadableCardEntity> get reloadableCards =>
-      storeSummary.paymentMethods.whereType<ReloadableCardEntity>().toList();
-
-
 }
