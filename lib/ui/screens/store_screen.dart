@@ -32,7 +32,7 @@ class StoreScreen extends StatelessWidget {
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
-                      spacing: 20,
+                      spacing: SPACING_M,
                       children: storeSummary.itemsGroupsMap.entries
                           .map((itemsGroupEntry) {
                         final isMultiRedemtion = itemsGroupEntry
@@ -102,7 +102,7 @@ class StoreScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.displayMedium),
             ],
           ),
-          ItemTile.type(storeSummary.store, size: 130),
+          ItemTile.type(storeSummary.store, size: BIG_ITEM_TILE_SIZE),
         ],
       );
     });

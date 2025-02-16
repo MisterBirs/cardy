@@ -15,7 +15,7 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: IconButton(
-        iconSize: 30.0,
+        iconSize: ICON_SIZE,
         color: TEXT_COLOR_1,
         icon: Icon(Icons.menu),
         onPressed: () {
@@ -26,5 +26,5 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight+20); // הגדר גובה נוסף כדי להתאים לריווח
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight+SPACING_M); // Add the spacing from the top of the device's frame
 }

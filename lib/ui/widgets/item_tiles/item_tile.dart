@@ -15,7 +15,7 @@ class ItemTile extends StatelessWidget {
   ItemTile(
     this.item, {
     super.key,
-    this.size = 100,
+    this.size = BASE_ITEM_TILE_SIZE,
     this.borderRadius = const BorderRadius.all(Radius.circular(5)),
     this.margin = const EdgeInsets.all(0),
     this.boxShadow = SHADOW,
@@ -24,7 +24,7 @@ class ItemTile extends StatelessWidget {
   const ItemTile.type(
     this.itemType, {
     super.key,
-    this.size = 100,
+    this.size = BASE_ITEM_TILE_SIZE,
     this.borderRadius = const BorderRadius.all(Radius.circular(6)),
     this.margin = const EdgeInsets.all(0),
     this.boxShadow = SHADOW,

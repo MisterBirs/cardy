@@ -150,7 +150,7 @@ class BottomBarOption extends StatelessWidget {
   final IconData iconData;
   final String label;
   final bool isSelected;
-  final double _iconSize = 30.0;
+  final double _iconSize = ICON_SIZE;
   final Color _selectedColor = Colors.white;
   final Color _unselectedColor = ICON_COLOR;
 

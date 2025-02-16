@@ -15,7 +15,7 @@ class CardyLogo extends StatelessWidget {
     return GradientColorMask(
       child: SizedBox(
         child: Row(
-          spacing: 10,
+          spacing: SPACING_S,
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [SizedBox(), CardyIcon(), CardyLabel(), SizedBox()],

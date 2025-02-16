@@ -34,6 +34,6 @@ class StoresScreen extends StatelessWidget {
           );
         }).toList(),
         itemWidth: BASE_ITEM_TILE_SIZE,
-        itemHeight: BASE_ITEM_TILE_SIZE + 30);
+        itemHeight: BASE_ITEM_TILE_SIZE + SPACING_L);
   }
 }

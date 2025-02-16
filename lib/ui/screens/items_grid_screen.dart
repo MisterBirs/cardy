@@ -22,7 +22,7 @@ class ItemsGridScreen extends StatefulWidget {
     required this.itemWidth,
     required this.itemHeight,
     this.maxItemsInRow = 3,
-    this.gridSpacing = 10.0,
+    this.gridSpacing = SPACING_S,
   });
 
   @override
@@ -41,7 +41,7 @@ class _ItemsGridScreenState extends State<ItemsGridScreen> {
         backgroundColor: Colors.transparent,
         appBar: widget.appBar,
         body: Column(
-          spacing: 30.0,
+          spacing: SPACING_L,
           children: [
             _searchBoxWarpper,
             _filterBar,
@@ -51,7 +51,7 @@ class _ItemsGridScreenState extends State<ItemsGridScreen> {
                 padding: EdgeInsets.only(
                   right: horizontalPadding,
                   left: horizontalPadding,
-                  bottom: 20.0,
+                  bottom: SPACING_M,
                 ),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: numberOfItemsInRow,
@@ -104,7 +104,7 @@ class _ItemsGridScreenState extends State<ItemsGridScreen> {
   Widget get _searchBoxWarpper {
     return Padding(
       padding: EdgeInsets.only(
-          top: 30.0,
+          top: PADDING_FROM_TOP_SCREEN,
           right: SCREEN_HORIZONTAL_PADDING,
           left: SCREEN_HORIZONTAL_PADDING),
       child: SearchBox(onSearch: (value) {

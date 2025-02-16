@@ -14,7 +14,7 @@ class ItemBalanceTile extends StatelessWidget {
     required this.itemType,
     required this.balance,
     this.width = BASE_ITEM_TILE_SIZE,
-    this.height = BASE_ITEM_TILE_SIZE + 30,
+    this.height = BASE_ITEM_TILE_SIZE + SPACING_L, // Add spacing for the balance label
   });
 
   @override

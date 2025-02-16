@@ -22,7 +22,7 @@ class ShowAllItemsList extends StatelessWidget {
     super.key,
     required this.label,
     required this.gridScreenAppBar,
-    this.listSpacing = 20,
+    this.listSpacing = SPACING_M,
     required this.items,
   }) : itemsTypes = null;
 
@@ -30,7 +30,7 @@ class ShowAllItemsList extends StatelessWidget {
     super.key,
     required this.label,
     required this.gridScreenAppBar,
-    this.listSpacing = 20,
+    this.listSpacing = SPACING_M,
     required this.itemsTypes,
   }) : items = null;
 
@@ -72,5 +72,5 @@ class ShowAllItemsList extends StatelessWidget {
 
   double get gridTileHeight => isType
       ? BASE_ITEM_TILE_SIZE
-      : BASE_ITEM_TILE_SIZE + 30; //TODO: Add 30 to ui_constants.dart
+      : BASE_ITEM_TILE_SIZE + SPACING_L; // add spacing for balance label
 }

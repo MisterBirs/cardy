@@ -48,7 +48,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
               right: 0,
               child: Padding(
                 padding: const EdgeInsets.only(
-                    bottom: 20,
+                    bottom: SPACING_M,
                     left: SCREEN_HORIZONTAL_PADDING,
                     right: SCREEN_HORIZONTAL_PADDING),
                 child: updateReedemButton,
@@ -102,32 +102,9 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
         label: 'חנויות למימוש',
         gridScreenAppBar:
             BackAppBar(title: 'חנויות למימוש', subtitle:  widget.item.type.name),
-        listSpacing: 10,
+        listSpacing: SPACING_S,
         itemsTypes: itemType.storesToRedeem,
       );
-
-    // return Builder(builder: (context) {
-      
-
-    //   return ShowAllItemsList(
-    //     label: 'חנויות למימוש',
-    //     spacing: 10,
-    //     listTiles: itemType.storesToRedeem.map((store) {
-    //       return ItemTile.type(
-    //         store,
-    //       );
-    //     }).toList(),
-    //     onTapShowAll: () {
-    //       Navigator.push(
-    //         context,
-    //         MaterialPageRoute(
-    //           builder: (context) => ShowAllStoresScreen(
-    //               widget.item.type as MultiRedemtionItemType),
-    //         ),
-    //       );
-    //     },
-    //   );
-    // });
   }
 }
 
@@ -143,7 +120,7 @@ class ItemInfoBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(
-          vertical: 30, horizontal: SCREEN_HORIZONTAL_PADDING),
+          vertical: SPACING_L, horizontal: SCREEN_HORIZONTAL_PADDING),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(CONTAINER_HORIZONTAL_PADDING),
