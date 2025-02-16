@@ -13,6 +13,7 @@ class ItemsGridScreen extends StatefulWidget {
   final double itemWidth;
   final double itemHeight;
   final double gridSpacing;
+  final double bottomPadding;
   final int maxItemsInRow;
 
   const ItemsGridScreen({
@@ -23,6 +24,7 @@ class ItemsGridScreen extends StatefulWidget {
     required this.itemHeight,
     this.maxItemsInRow = 3,
     this.gridSpacing = SPACING_S,
+    this.bottomPadding = SPACING_M,
   });
 
   @override
@@ -51,7 +53,7 @@ class _ItemsGridScreenState extends State<ItemsGridScreen> {
                 padding: EdgeInsets.only(
                   right: horizontalPadding,
                   left: horizontalPadding,
-                  bottom: SPACING_M,
+                  bottom: widget.bottomPadding,
                 ),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: numberOfItemsInRow,

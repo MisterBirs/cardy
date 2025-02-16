@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class FloatingBottomBar extends StatefulWidget {
+  static const double height = 130;
   final List<BottomBarItem> items;
   final Function(int) onTap;
 
@@ -30,8 +31,9 @@ class _FloatingBottomBarState extends State<FloatingBottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 160,
+    return Container(
+      color: Colors.transparent,
+      height: FloatingBottomBar.height,
       child: Stack(
         children: [
           Positioned(
@@ -42,7 +44,7 @@ class _FloatingBottomBarState extends State<FloatingBottomBar> {
               margin: EdgeInsets.only(
                   left: getScaleSize(context, 20),
                   right: getScaleSize(context, 20),
-                  bottom: 40),
+                  bottom: SPACING_M),
               padding: EdgeInsets.symmetric(
                   horizontal: getScaleSize(context, 20),
                   vertical: getScaleSize(context, 10)),
@@ -81,7 +83,7 @@ class _FloatingBottomBarState extends State<FloatingBottomBar> {
             ),
           ),
           Positioned(
-            bottom: 70,
+            bottom: SPACING_M*2,
             left: MediaQuery.of(context).size.width / 2 - 35,
             child: CenteralCircleButton(),
           ),

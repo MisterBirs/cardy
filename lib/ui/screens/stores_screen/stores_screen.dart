@@ -8,8 +8,9 @@ import 'package:cardy/ui/widgets/item_tiles/grid_tiles/item_grid_custom_tile.dar
 import 'package:flutter/material.dart';
 
 class StoresScreen extends StatelessWidget {
+  final double? bottomSpacing;
   final Map<String, StoreSummaryEntity> stores;
-  const StoresScreen(this.stores, {super.key});
+  const StoresScreen(this.stores, {super.key, this.bottomSpacing});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +19,7 @@ class StoresScreen extends StatelessWidget {
           title: 'חנויות',
           showBackButton: false,
         ),
+        bottomPadding: bottomSpacing ?? 0, //Spacing for the floating bottom bar
         items: stores.values.map((storeSummary) {
           return ItemGridCustomTile(
             alias: storeSummary.store.aliases,
