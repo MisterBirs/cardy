@@ -2,6 +2,7 @@ import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
 import 'package:cardy/entities/payments_methods/store_summary_entity.dart';
 import 'package:cardy/entities/user_items/item_entity.dart';
 import 'package:cardy/entities/user_items/items_group_enum.dart';
+import 'package:cardy/ui/screens/item_details_screen/item_details_screen.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/ui/widgets/item_tiles/grid_tiles/item_grid_custom_tile.dart';
@@ -31,27 +32,32 @@ class StoreScreen extends StatelessWidget {
                 balanceTitle,
                 Expanded(
                   child: SingleChildScrollView(
-                    child: Column(
-                      spacing: SPACING_M,
-                      children: storeSummary.itemsGroupsMap.entries
-                          .map((itemsGroupEntry) {
-                        final isMultiRedemtion = itemsGroupEntry
-                            .value.first.type is MultiRedemtionItemType;
-
-                        final String label =
-                            itemsGroupEntry.key.groupDisplayName;
-                        final List<ItemEntity> items = itemsGroupEntry.value;
-
-                        return isMultiRedemtion
-                            ? _imageItemsList(label, items, () {})
-                            : _noImageitemsList(label, items, () {});
-                      }).toList(),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: SPACING_L),
+                      child: itemsLists,
                     ),
                   ),
                 )
               ],
             ),
           )),
+    );
+  }
+
+  Widget get itemsLists {
+    return Column(
+      spacing: SPACING_M,
+      children: storeSummary.itemsGroupsMap.entries.map((itemsGroupEntry) {
+        final isMultiRedemtion =
+            itemsGroupEntry.value.first.type is MultiRedemtionItemType;
+
+        final String label = itemsGroupEntry.key.groupDisplayName;
+        final List<ItemEntity> items = itemsGroupEntry.value;
+
+        return isMultiRedemtion
+            ? _imageItemsList(label, items, () {})
+            : _noImageitemsList(label, items, () {});
+      }).toList(),
     );
   }
 
@@ -83,10 +89,20 @@ class StoreScreen extends StatelessWidget {
     );
   }
 
-  BaseTile buildNoImageItemTile(ItemEntity item) {
-    return BaseTile(
-      child: Text('₪${item.balance.toString()}'),
-    );
+  Widget buildNoImageItemTile(ItemEntity item) {
+    return Builder(builder: (context) {
+      return GestureDetector(
+        onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ItemDetailsScreen(
+                      item: item,
+                    ))),
+        child: BaseTile(
+          child: Text('₪${item.balance.toString()}'),
+        ),
+      );
+    });
   }
 
   Widget get balanceTitle {
