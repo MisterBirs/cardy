@@ -1,5 +1,5 @@
 import 'package:cardy/entities/payments_methods/item_type_entity.dart';
-import 'package:cardy/entities/user_items/items_enum.dart';
+import 'package:cardy/entities/user_items/items_group_enum.dart';
 
 abstract class ItemEntity {
   String? id;
@@ -41,5 +41,5 @@ abstract class ItemEntity {
   DateTime get addTime => _addTime;
   DateTime get expirationDate => _expirationDate;
   String? get notes => _notes;
-  ItemsEnum get itemGroupType;
+  ItemsGroupEnum get itemGroupType;
 }

@@ -1,5 +1,4 @@
 import 'package:cardy/data/payments_methods_data.dart';
-import 'package:cardy/entities/payments_methods/item_group.dart';
 import 'package:cardy/entities/payments_methods/store_summary_entity.dart';
 import 'package:cardy/entities/payments_methods/item_type_entity.dart';
 import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
@@ -8,7 +7,7 @@ import 'package:cardy/entities/user_items/coupon_entity.dart';
 import 'package:cardy/entities/user_items/credit_entity.dart';
 import 'package:cardy/entities/user_items/gift_card_entity.dart';
 import 'package:cardy/entities/user_items/item_entity.dart';
-import 'package:cardy/entities/user_items/items_enum.dart';
+import 'package:cardy/entities/user_items/items_group_enum.dart';
 import 'package:cardy/entities/user_items/reloadable_card_entity.dart';
 
 class UserItemsData {
@@ -21,7 +20,7 @@ class UserItemsData {
   late Map<String, CouponEntity> coupons;
   late Map<String, ReloadableCardEntity> reloadableCards;
   late Map<String, ItemEntity> allPaymentMethods;
-  late Map<ItemsEnum, ItemGroup> itemsGroups;
+  late Map<ItemsGroupEnum, List<ItemEntity>> itemsGroups;
 
   UserItemsData._() {
     _paymentsMethodsData = PaymentsMethodsData.instance;
@@ -242,26 +241,10 @@ class UserItemsData {
 
   void _initItemsGroups() {
     itemsGroups = {
-      ItemsEnum.giftCard: ItemGroup(
-        name: 'גיפטקארדים',
-        groupType: ItemsEnum.giftCard,
-        items: giftcards.values.toList(),
-      ),
-      ItemsEnum.reloadableCard: ItemGroup(
-        name: 'כרטיסים נטענים',
-        groupType: ItemsEnum.reloadableCard,
-        items: reloadableCards.values.toList(),
-      ),
-      ItemsEnum.coupon: ItemGroup(
-        name: 'קופונים',
-        groupType: ItemsEnum.coupon,
-        items: coupons.values.toList(),
-      ),
-      ItemsEnum.credit: ItemGroup(
-        name: 'זיכויים',
-        groupType: ItemsEnum.credit,
-        items: credits.values.toList(),
-      ),
+      ItemsGroupEnum.giftCard: giftcards.values.toList(),
+      ItemsGroupEnum.reloadableCard: reloadableCards.values.toList(),
+      ItemsGroupEnum.coupon: coupons.values.toList(),
+      ItemsGroupEnum.credit: credits.values.toList(),
     };
   }
 
@@ -289,13 +272,19 @@ class UserItemsData {
 
   void _addItemToStoreMap(ItemEntity item, StoreEntity itemStore,
       Map<String, StoreSummaryEntity> storesMap) {
+
     if (!storesMap.containsKey(itemStore.id)) {
       storesMap[itemStore.id] = StoreSummaryEntity(
         store: itemStore,
-        itemsMap: {},
+        itemsGroupsMap: {
+          ItemsGroupEnum.giftCard: [],
+          ItemsGroupEnum.reloadableCard: [],
+          ItemsGroupEnum.coupon: [],
+          ItemsGroupEnum.credit: [],
+        },
         totalBalance: item.balance,
       );
     }
-    storesMap[itemStore.id]!.addPaymentMethod(item);
+    storesMap[itemStore.id]!.addItem(item);
   }
 }

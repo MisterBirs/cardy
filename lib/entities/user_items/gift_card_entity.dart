@@ -1,5 +1,5 @@
 import 'package:cardy/entities/user_items/item_entity.dart';
-import 'package:cardy/entities/user_items/items_enum.dart';
+import 'package:cardy/entities/user_items/items_group_enum.dart';
 
 class GiftCardEntity extends ItemEntity {
   GiftCardEntity({
@@ -16,5 +16,5 @@ class GiftCardEntity extends ItemEntity {
   });
 
   @override
-  ItemsEnum get itemGroupType => ItemsEnum.giftCard;
+  ItemsGroupEnum get itemGroupType => ItemsGroupEnum.giftCard;
 }

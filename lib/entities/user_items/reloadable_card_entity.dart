@@ -1,5 +1,5 @@
 import 'package:cardy/entities/user_items/item_entity.dart';
-import 'package:cardy/entities/user_items/items_enum.dart';
+import 'package:cardy/entities/user_items/items_group_enum.dart';
 
 class ReloadableCardEntity extends ItemEntity {
   ReloadableCardEntity(
@@ -15,5 +15,5 @@ class ReloadableCardEntity extends ItemEntity {
       super.notes});
 
   @override
-  ItemsEnum get itemGroupType => ItemsEnum.reloadableCard;
+  ItemsGroupEnum get itemGroupType => ItemsGroupEnum.reloadableCard;
 }

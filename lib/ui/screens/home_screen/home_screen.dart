@@ -1,6 +1,6 @@
 import 'package:cardy/data/user_items_data.dart';
-import 'package:cardy/entities/payments_methods/item_group.dart';
 import 'package:cardy/entities/user_items/item_entity.dart';
+import 'package:cardy/entities/user_items/items_group_enum.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/ui/widgets/background.dart';
 import 'package:cardy/ui/widgets/show_all_items_list/show_all_items_list.dart';
@@ -34,12 +34,12 @@ class _Items extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<ItemGroup> itemsGroups =
-        UserItemsData.instance.itemsGroups.values.toList();
+    final Map<ItemsGroupEnum, List<ItemEntity>> itemsGroups =
+        UserItemsData.instance.itemsGroups;
     return Column(
-      children: itemsGroups
-          .map((itemsGroup) =>
-              _buildItemList(itemsGroup.name, itemsGroup.items))
+      children: itemsGroups.entries
+          .map(
+              (itemsGroup) => _buildItemList(itemsGroup.key.groupDisplayName, itemsGroup.value))
           .toList(),
     );
   }

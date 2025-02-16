@@ -1,7 +1,7 @@
-import 'package:cardy/data/user_items_data.dart';
 import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
 import 'package:cardy/entities/payments_methods/store_summary_entity.dart';
 import 'package:cardy/entities/user_items/item_entity.dart';
+import 'package:cardy/entities/user_items/items_group_enum.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/ui/widgets/item_tiles/grid_tiles/item_grid_custom_tile.dart';
@@ -33,16 +33,18 @@ class StoreScreen extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       spacing: 20,
-                      children: UserItemsData.instance.itemsGroups.values
-                          .map((itemsGroup) {
-                        final isMultiRedemtion = itemsGroup.items.first.type
-                            is MultiRedemtionItemType;
-                            
+                      children: storeSummary.itemsGroupsMap.entries
+                          .map((itemsGroupEntry) {
+                        final isMultiRedemtion = itemsGroupEntry
+                            .value.first.type is MultiRedemtionItemType;
+
+                        final String label =
+                            itemsGroupEntry.key.groupDisplayName;
+                        final List<ItemEntity> items = itemsGroupEntry.value;
+
                         return isMultiRedemtion
-                            ? _imageItemsList(
-                                itemsGroup.name, itemsGroup.items, () {})
-                            : _noImageitemsList(
-                                itemsGroup.name, itemsGroup.items, () {});
+                            ? _imageItemsList(label, items, () {})
+                            : _noImageitemsList(label, items, () {});
                       }).toList(),
                     ),
                   ),

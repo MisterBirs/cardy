@@ -50,18 +50,15 @@ class _FilterBarState extends State<FilterBar> {
   }
 
   List<CategoryEntity> get primaryCategories {
-    
     Set<CategoryEntity> primaryCategoriesSet = {
       Categories.instance.getCategory(CategoryKey.all)!
     };
 
-    for (var store in widget.categories) {
-      final List<CategoryEntity> storePrimaryCategories = widget.categories
-          .map((category) => category.topParentCategory)
-          .toList();
+    final List<CategoryEntity> storePrimaryCategories = widget.categories
+        .map((category) => category.topParentCategory)
+        .toList();
 
-      primaryCategoriesSet.addAll(storePrimaryCategories);
-    }
+    primaryCategoriesSet.addAll(storePrimaryCategories);
 
     return primaryCategoriesSet.toList();
   }
