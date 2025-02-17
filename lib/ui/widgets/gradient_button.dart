@@ -2,7 +2,7 @@ import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
 
 class GradientButton extends StatelessWidget {
-  final Function()? onTap;
+  final Function()? onPressed;
   final String label;
   final bool isColorReversed;
   final double height;
@@ -11,7 +11,7 @@ class GradientButton extends StatelessWidget {
 
   const GradientButton({
     super.key,
-    this.onTap,
+    this.onPressed,
     required this.label,
     this.isColorReversed = false,
     this.height = 50,
@@ -27,12 +27,11 @@ class GradientButton extends StatelessWidget {
     return Material( 
       child: InkWell(
         borderRadius: BorderRadius.circular(borderRadius),
-        onTap: onTap,
+        onTap: onPressed,
         child: Ink(
           height: height,
           width: width,
           decoration: BoxDecoration(
-            boxShadow: SHADOW,
             borderRadius: BorderRadius.circular(borderRadius),
             gradient: isColorReversed ? GRADIENT_COLOR_REVERSE : GRADIENT_COLOR,
           ),

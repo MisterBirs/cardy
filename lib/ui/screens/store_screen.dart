@@ -47,7 +47,9 @@ class StoreScreen extends StatelessWidget {
   Widget get itemsLists {
     return Column(
       spacing: SPACING_M,
-      children: storeSummary.itemsGroupsMap.entries.map((itemsGroupEntry) {
+      children: storeSummary.itemsGroupsMap.entries
+          .where((itemsGroupEntry) => itemsGroupEntry.value.isNotEmpty)
+          .map((itemsGroupEntry) {
         final isMultiRedemtion =
             itemsGroupEntry.value.first.type is MultiRedemtionItemType;
 

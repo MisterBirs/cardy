@@ -22,6 +22,17 @@ abstract class ItemTypeEntity {
         _isCard = isCard,
         _categories = categories;
 
+  bool isAliasContains(String query) {
+    final lowerCaseQuery = query.toLowerCase();
+    return _aliases
+        .any((alias) => alias.toLowerCase().contains(lowerCaseQuery));
+  }
+
+  bool isMatchToAlias(String query) {
+    final lowerCaseQuery = query.toLowerCase();
+    return _aliases.any((alias) => alias.toLowerCase() == lowerCaseQuery);
+  }
+
   String get id => _id;
   String get name => _name;
   List<String> get aliases => [..._aliases];

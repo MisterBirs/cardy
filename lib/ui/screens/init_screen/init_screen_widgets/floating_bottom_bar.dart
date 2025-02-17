@@ -1,4 +1,5 @@
 import 'package:cardy/gen/assets.gen.dart';
+import 'package:cardy/ui/screens/add_item_screen/add_item_screen.dart';
 import 'package:cardy/ui/widgets/gradient_color_mask.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +84,7 @@ class _FloatingBottomBarState extends State<FloatingBottomBar> {
             ),
           ),
           Positioned(
-            bottom: SPACING_M*2,
+            bottom: SPACING_M * 2,
             left: MediaQuery.of(context).size.width / 2 - 35,
             child: CenteralCircleButton(),
           ),
@@ -101,7 +102,46 @@ class CenteralCircleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => {},
+      onTap: () {
+        final textStyle = Theme.of(context).textTheme.bodyMedium;
+        showModalBottomSheet(
+            context: context,
+            builder: (context) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListTile(
+                    title: Text('גיפטקארד', style: textStyle),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  AddItemScreen(title: 'גיפטקארד חדש')));
+                    },
+                  ),
+                  ListTile(
+                    title: Text('כרטיס נטען', style: textStyle),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: Text('שובר', style: textStyle),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: Text('זיכוי', style: textStyle),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              );
+            });
+      },
       child: Container(
         width: 70,
         height: 70,
@@ -205,3 +245,33 @@ class NotchClipper extends CustomClipper<Path> {
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
+
+
+        // final RenderBox button = context.findRenderObject() as RenderBox;
+        // final Offset offset = button.localToGlobal(Offset.zero);
+        // final Size parentSize = button.size;
+        // final screenSize = MediaQuery.of(context).size;
+        // final centerX = screenSize.width / 2;
+        // final centerY = screenSize.height / 2;
+        // final textStyle = Theme.of(context).textTheme.bodyMedium;
+ // showMenu(
+
+        //   context: context,
+        //   elevation: 10,
+        //   color: Colors.white,
+        //   shape: RoundedRectangleBorder(
+        //     borderRadius: BorderRadius.circular(30),
+        //   ),
+        //   position: RelativeRect.fromLTRB(
+        //     100,
+        //     screenSize.height * 17/30, // Adjust the vertical position to be slightly above the container
+        //     100, // Adjust the horizontal position to be centered
+        //     screenSize.height * 13/30,
+        //   ),
+        //   items: [
+        //     PopupMenuItem(child: Center(child: Text('גיפטקארד', style: textStyle))),
+        //     PopupMenuItem(child: Center(child: Text('כרטיס נטען', style: textStyle))),
+        //     PopupMenuItem(child: Center(child: Text('שובר', style: textStyle))),
+        //     PopupMenuItem(child: Center(child: Text('זיכוי', style: textStyle))),
+        //   ],
+        // );

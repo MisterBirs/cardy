@@ -2,7 +2,6 @@ import 'package:cardy/data/user_items_data.dart';
 import 'package:cardy/ui/screens/home_screen/home_screen.dart';
 import 'package:cardy/ui/screens/init_screen/init_screen_widgets/floating_bottom_bar.dart';
 import 'package:cardy/ui/screens/stores_screen/stores_screen.dart';
-import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
 
 class InitScreen extends StatefulWidget {

@@ -61,7 +61,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
   }
 
   Widget get updateReedemButton =>
-      GradientButton(label: 'עדכן יתרה', borderRadius: 50, onTap: () {});
+      GradientButton(label: 'עדכן יתרה', borderRadius: 50, onPressed: () {});
 
   AppBar appbar(BuildContext context) {
     return AppBar(
@@ -180,8 +180,8 @@ class ItemInfoBox extends StatelessWidget {
       children: [
         Expanded(
             child: GradientButton(
-                label: 'העתק קוד', onTap: () {}, isColorReversed: true)),
-        Expanded(child: GradientButton(label: 'הצג קוד', onTap: () {})),
+                label: 'העתק קוד', onPressed: () {}, isColorReversed: true)),
+        Expanded(child: GradientButton(label: 'הצג קוד', onPressed: () {})),
       ],
     );
   }

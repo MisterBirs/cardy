@@ -13,6 +13,7 @@ const ICON_COLOR = Color(0xFF49454E);
 const TEXTBOX_COLOR = Color(0x29FFFFFF);
 const BACKGROUND_COLOR = Color(0xFFF3F4F5);
 const CONTAINER_COLOR = Colors.white;
+const TEXT_FIELD_COLOR = Color.fromARGB(241, 255, 255, 255);
 const GRADIENT_COLOR = LinearGradient(
   colors: [PRIMARY_COLOR, SECONDRY_COLOR],
   begin: Alignment.topLeft,
