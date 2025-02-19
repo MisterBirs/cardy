@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class IconTextField extends StatefulWidget {
   final IconData icon;
   final String label;
+  final bool readOnly;
   final TextEditingController controller;
   final double height;
   final Color color;
@@ -22,6 +23,7 @@ class IconTextField extends StatefulWidget {
       this.radius = 30,
       this.focusNode,
       this.onChanged,
+      this.readOnly = false,
       this.color = const Color.fromARGB(241, 255, 255, 255),
       this.padding});
 
@@ -58,6 +60,8 @@ class IconTextField extends StatefulWidget {
   Widget buildTextFormField() {
     return Builder(builder: (context) {
       return TextFormField(
+        readOnly: readOnly,
+        enableInteractiveSelection: !readOnly,
         focusNode: focusNode,
         onChanged: onChanged,
         controller: controller,
