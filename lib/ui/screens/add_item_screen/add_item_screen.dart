@@ -1,4 +1,5 @@
 import 'package:cardy/data/payments_methods_data.dart';
+import 'package:cardy/ui/widgets/text_fields/code_text_field.dart';
 import 'package:cardy/ui/widgets/text_fields/icon_text_field.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
@@ -48,20 +49,18 @@ class _AddItemScreenState extends State<AddItemScreen> {
                               .toList()),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: SCREEN_HORIZONTAL_PADDING),
-                      child: IconTextField(
-                          icon: Symbols.barcode,
-                          controller: _cardNumberController,
-                          hintText: 'מספר כרטיס'),
-                    ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: SCREEN_HORIZONTAL_PADDING),
+                        child: CodeTextField(
+                            controller: _cardNumberController,
+                            label: 'מספר כרטיס')),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: SCREEN_HORIZONTAL_PADDING),
                       child: IconTextField(
                           icon: Symbols.calendar_clock,
                           controller: _expirationDateController,
-                          hintText: 'תוקף'),
+                          label: 'תוקף'),
                     ),
                     // IconTextField(
                     //     icon: Icons.password,

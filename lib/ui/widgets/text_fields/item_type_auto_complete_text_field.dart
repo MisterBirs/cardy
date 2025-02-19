@@ -166,7 +166,7 @@ class _ItemTypeTextField extends IconTextField {
     super.focusNode,
   }) : super(
             icon: Icons.card_giftcard,
-            hintText: 'סוג',
+            label: 'סוג',
             padding:
                 EdgeInsets.only(left: 35, right: SCREEN_HORIZONTAL_PADDING));
 

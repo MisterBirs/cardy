@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class IconTextField extends StatefulWidget {
   final IconData icon;
-  final String hintText;
+  final String label;
   final TextEditingController controller;
   final double height;
   final Color color;
@@ -16,7 +16,7 @@ class IconTextField extends StatefulWidget {
   const IconTextField(
       {super.key,
       required this.icon,
-      required this.hintText,
+      required this.label,
       required this.controller,
       this.height = 60,
       this.radius = 30,
@@ -67,7 +67,7 @@ class IconTextField extends StatefulWidget {
           border: InputBorder.none,
           label: Padding(
               padding: const EdgeInsets.only(right: 15),
-              child: Text(hintText,
+              child: Text(label,
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium!
