@@ -18,4 +18,17 @@ extension ItemsGroupDisplayNames on ItemsGroupEnum {
         return 'זיכויים';
     }
   }
+
+  String get singleDisplayName {
+    switch (this) {
+      case ItemsGroupEnum.giftCard:
+        return 'גיפטקארד';
+      case ItemsGroupEnum.reloadableCard:
+        return 'כרטיס נטען';
+      case ItemsGroupEnum.coupon:
+        return 'שובר';
+      case ItemsGroupEnum.credit:
+        return 'זיכוי';
+    }
+  }
 }
