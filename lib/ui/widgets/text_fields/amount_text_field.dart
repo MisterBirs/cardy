@@ -3,14 +3,20 @@ import 'package:cardy/ui/widgets/text_fields/icon_text_field.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 
-class AmountTextField extends StatelessWidget {
+class AmountTextField extends StatefulWidget {
   final DoubleFormController amountController;
-  final TextEditingController txtContoller = TextEditingController();
 
-  AmountTextField({
+  const AmountTextField({
     super.key,
     required this.amountController,
   });
+
+  @override
+  State<AmountTextField> createState() => _AmountTextFieldState();
+}
+
+class _AmountTextFieldState extends State<AmountTextField> {
+  final TextEditingController txtContoller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +40,7 @@ class AmountTextField extends StatelessWidget {
     if (amount == null || amount <= 0) {
       return 'סכום לא תקין';
     }
-    amountController.setDate(amount);
+    widget.amountController.setDate(amount);
     return null;
   }
 }
