@@ -1,4 +1,3 @@
-import 'package:cardy/ui/widgets/barcode_scanner.dart';
 import 'package:cardy/ui/screens/init_screen/init_screen.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';

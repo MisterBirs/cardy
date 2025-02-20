@@ -42,6 +42,7 @@ dependencies:
   iconify_flutter_plus: ^1.0.4
   material_symbols_icons: ^4.2805.1
   mobile_scanner: ^6.0.6
+  currency_text_input_formatter: ^2.2.8
 
 dev_dependencies:
   flutter_gen_runner: ^5.2.0

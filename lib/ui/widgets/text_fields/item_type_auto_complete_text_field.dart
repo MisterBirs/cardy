@@ -8,9 +8,13 @@ import 'package:flutter/material.dart';
 class ItemTypeAutoCompleteTextField extends StatefulWidget {
   final List<ItemTypeEntity> itemsTypes;
   final int maxOptionsCount;
+  final ItemTypeFormController controller;
 
   const ItemTypeAutoCompleteTextField(
-      {super.key, required this.itemsTypes, this.maxOptionsCount = 5});
+      {super.key,
+      required this.itemsTypes,
+      this.maxOptionsCount = 5,
+      required this.controller});
 
   @override
   State<ItemTypeAutoCompleteTextField> createState() =>
@@ -19,53 +23,71 @@ class ItemTypeAutoCompleteTextField extends StatefulWidget {
 
 class _ItemTypeAutoCompleteTextFieldState
     extends State<ItemTypeAutoCompleteTextField> {
-  ItemTypeEntity? _selectedItemType;
   final Set<FocusNode> _registeredFocusNodes = {};
 
   @override
   Widget build(BuildContext context) {
-    return Autocomplete<ItemTypeEntity>(
-      fieldViewBuilder: fieldViewBuilder,
-      optionsViewBuilder: optionsViewBuilder,
-      optionsBuilder: optionsBuilder,
-      displayStringForOption: (option) => option.name,
-      onSelected: (selectedItemType) {
-        setState(() {
-          _selectedItemType = selectedItemType;
-        });
-      },
-    );
+    return FormField<ItemTypeEntity>(
+        builder: (state) {
+          return Autocomplete<ItemTypeEntity>(
+            fieldViewBuilder: buildFieldViewBuilder(state),
+            optionsViewBuilder: optionsViewBuilder,
+            optionsBuilder: optionsBuilder,
+            displayStringForOption: (option) => option.name,
+            onSelected: (selectedItemType) {
+              state.didChange(selectedItemType);
+              widget.controller.setItemType(selectedItemType);
+            },
+          );
+        },
+        validator: defaultValidator);
   }
 
-  Widget fieldViewBuilder(
-    BuildContext context,
-    TextEditingController txtEditingCtrl,
-    FocusNode focusNode,
-    VoidCallback onFieldSubmitted,
-  ) {
-    //Show the selected product type in the text field
-    if (_selectedItemType != null) {
-      txtEditingCtrl.text = _selectedItemType!.name;
+  String? defaultValidator(ItemTypeEntity? itemType) {
+    if (itemType == null) {
+      return 'שדה חובה';
     }
+    return null;
+  }
 
-    if (!_registeredFocusNodes.contains(focusNode)) {
-      _registeredFocusNodes.add(focusNode);
-      focusNode.addListener(() {
-        setState(() {});
-      });
-    }
+  Widget Function(BuildContext, TextEditingController, FocusNode, VoidCallback)
+      buildFieldViewBuilder(FormFieldState<ItemTypeEntity> state) {
+    return (
+      BuildContext context,
+      TextEditingController txtEditingCtrl,
+      FocusNode focusNode,
+      VoidCallback onFieldSubmitted,
+    ) {
+      //Show the selected product type in the text field
+      if (widget.controller.value != null) {
+        txtEditingCtrl.text = widget.controller.value!.name;
+      }
 
-    return Container(
-      padding:
-          const EdgeInsets.symmetric(horizontal: SCREEN_HORIZONTAL_PADDING),
-      margin: EdgeInsets.only(bottom: focusNode.hasFocus ? SPACING_S : 0),
-      child: _ItemTypeTextField(
-        controller: txtEditingCtrl,
-        onChanged: (_) => _removeItemTypeImageIfNeeded(txtEditingCtrl),
-        itemTypeEntity: _selectedItemType,
-        focusNode: focusNode,
-      ),
-    );
+      if (!_registeredFocusNodes.contains(focusNode)) {
+        _registeredFocusNodes.add(focusNode);
+        focusNode.addListener(() {
+          setState(() {});
+        });
+      }
+
+      return Container(
+          padding:
+              const EdgeInsets.symmetric(horizontal: SCREEN_HORIZONTAL_PADDING),
+          margin: EdgeInsets.only(bottom: focusNode.hasFocus ? SPACING_S : 0),
+          child: _ItemTypeTextField(
+            validator: (_) {
+              if (state.hasError) {
+                return state.errorText;
+              }
+              return null;
+            },
+            controller: txtEditingCtrl,
+            onChanged: (_) =>
+                _removeItemTypeImageIfNeeded(txtEditingCtrl, state),
+            itemTypeEntity: widget.controller.value,
+            focusNode: focusNode,
+          ));
+    };
   }
 
   Widget optionsViewBuilder(context, onSelected, options) {
@@ -147,47 +169,60 @@ class _ItemTypeAutoCompleteTextFieldState
         .toList();
   }
 
-  void _removeItemTypeImageIfNeeded(TextEditingController txtEditingCtrl) {
-    if (_selectedItemType != null &&
-        !_selectedItemType!.isMatchToAlias(txtEditingCtrl.text)) {
+  void _removeItemTypeImageIfNeeded(TextEditingController txtEditingCtrl,
+      FormFieldState<ItemTypeEntity> state) {
+    final selectedItemType = widget.controller.value;
+
+    if (selectedItemType != null &&
+        !selectedItemType.isMatchToAlias(txtEditingCtrl.text)) {
       setState(() {
-        _selectedItemType = null;
+        widget.controller.value = null;
+        state.didChange(null);
       });
     }
   }
 }
 
-class _ItemTypeTextField extends IconTextField {
+class _ItemTypeTextField extends StatelessWidget {
+  final String? Function(String?)? validator;
+  final TextEditingController? controller;
   final ItemTypeEntity? itemTypeEntity;
-  _ItemTypeTextField({
-    required super.controller,
+  final void Function(String)? onChanged;
+  final FocusNode? focusNode;
+
+  const _ItemTypeTextField({
+    this.validator,
+    this.controller,
     this.itemTypeEntity,
-    super.onChanged,
-    super.focusNode,
-  }) : super(
-            icon: Icons.card_giftcard,
-            label: 'סוג',
-            padding:
-                EdgeInsets.only(left: 35, right: SCREEN_HORIZONTAL_PADDING));
+    this.onChanged,
+    this.focusNode,
+  });
 
-  @override
-  State<IconTextField> createState() => _ItemTypeTextFieldState();
-}
-
-class _ItemTypeTextFieldState extends State<_ItemTypeTextField> {
   @override
   Widget build(BuildContext context) {
-    return widget.buildTextFieldContainer(
-      [
-        widget.buildIcon(widget.icon),
-        Expanded(child: widget.buildTextFormField()),
-        if (widget.itemTypeEntity != null) itemTile,
-      ],
+    return IconTextField(
+      icon: Icons.card_giftcard,
+      label: 'סוג',
+      controller: controller,
+      validator: validator,
+      onChanged: onChanged,
+      focusNode: focusNode,
+      padding: EdgeInsets.only(left: 35, right: SCREEN_HORIZONTAL_PADDING),
+      tail: itemTypeEntity != null ? itemTile : null,
     );
   }
 
   ItemTile get itemTile {
-    return ItemTile.type(widget.itemTypeEntity!,
+    return ItemTile.type(itemTypeEntity!,
         size: 40, borderRadius: BorderRadius.all(Radius.circular(2)));
+  }
+}
+
+class ItemTypeFormController extends ValueNotifier<ItemTypeEntity?> {
+  ItemTypeFormController({ItemTypeEntity? initialItemType})
+      : super(initialItemType);
+
+  void setItemType(ItemTypeEntity itemType) {
+    value = itemType;
   }
 }

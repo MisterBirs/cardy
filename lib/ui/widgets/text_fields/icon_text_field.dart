@@ -1,29 +1,44 @@
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/gradient_color_mask.dart';
+import 'package:cardy/ui/widgets/text_fields/amount_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class IconTextField extends StatefulWidget {
   final IconData icon;
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
+  final int? maxLength;
   final String label;
   final bool readOnly;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final double height;
   final Color color;
   final double radius;
   final EdgeInsetsGeometry? padding;
   final FocusNode? focusNode;
   final void Function(String)? onChanged;
+  final String? Function(String?)? validator; 
+  final String? initText;
+  final Widget? tail;
+
 
   const IconTextField(
       {super.key,
       required this.icon,
       required this.label,
-      required this.controller,
+      this.initText,
+      this.controller,
       this.height = 60,
       this.radius = 30,
       this.focusNode,
       this.onChanged,
+      this.inputFormatters,
       this.readOnly = false,
+      this.keyboardType,
+      this.maxLength,
+      this.validator,
+      this.tail,
       this.color = const Color.fromARGB(241, 255, 255, 255),
       this.padding});
 
@@ -60,13 +75,18 @@ class IconTextField extends StatefulWidget {
   Widget buildTextFormField() {
     return Builder(builder: (context) {
       return TextFormField(
+        validator: validator,
         readOnly: readOnly,
+        keyboardType: keyboardType,
+        maxLength: maxLength,
         enableInteractiveSelection: !readOnly,
         focusNode: focusNode,
         onChanged: onChanged,
         controller: controller,
+        initialValue: initText,
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.bodyMedium,
+        inputFormatters: inputFormatters,
         decoration: InputDecoration(
           border: InputBorder.none,
           label: Padding(
@@ -92,6 +112,7 @@ class _IconTextFieldState extends State<IconTextField> {
       [
         widget.buildIcon(widget.icon),
         Expanded(child: widget.buildTextFormField()),
+        if (widget.tail != null) widget.tail!,
       ],
     );
   }
