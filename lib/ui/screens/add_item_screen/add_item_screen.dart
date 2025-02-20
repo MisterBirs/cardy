@@ -1,7 +1,11 @@
 import 'package:cardy/data/payments_methods_data.dart';
 import 'package:cardy/entities/payments_methods/item_type_entity.dart';
 import 'package:cardy/entities/user_items/gift_card_entity.dart';
+import 'package:cardy/entities/user_items/item_entity.dart';
+import 'package:cardy/entities/user_items/items_group_enum.dart';
+import 'package:cardy/ui/screens/add_item_screen/widgets/item_added_successfully_snack_bar.dart';
 import 'package:cardy/ui/widgets/gradient_button.dart';
+import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
 import 'package:cardy/ui/widgets/text_fields/amount_text_field.dart';
 import 'package:cardy/ui/widgets/text_fields/code_text_field.dart';
 import 'package:cardy/ui/widgets/text_fields/cvv_text_field.dart';
@@ -49,9 +53,10 @@ class _AddItemScreenState extends State<AddItemScreen> {
       cvv: cvv,
     );
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Center(child: Text('הגיפטקארד נוסף בהצלחה'))),
-    );
+    Navigator.of(context).pop();
+
+    ScaffoldMessenger.of(context)
+        .showSnackBar(ItemAddedSuccessfullySnackBar(newGiftCard));
   }
 
   @override

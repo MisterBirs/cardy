@@ -113,6 +113,7 @@ class CenteralCircleButton extends StatelessWidget {
                   ListTile(
                     title: Text('גיפטקארד', style: textStyle),
                     onTap: () {
+                      Navigator.pop(context);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -245,33 +246,3 @@ class NotchClipper extends CustomClipper<Path> {
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
-
-
-        // final RenderBox button = context.findRenderObject() as RenderBox;
-        // final Offset offset = button.localToGlobal(Offset.zero);
-        // final Size parentSize = button.size;
-        // final screenSize = MediaQuery.of(context).size;
-        // final centerX = screenSize.width / 2;
-        // final centerY = screenSize.height / 2;
-        // final textStyle = Theme.of(context).textTheme.bodyMedium;
- // showMenu(
-
-        //   context: context,
-        //   elevation: 10,
-        //   color: Colors.white,
-        //   shape: RoundedRectangleBorder(
-        //     borderRadius: BorderRadius.circular(30),
-        //   ),
-        //   position: RelativeRect.fromLTRB(
-        //     100,
-        //     screenSize.height * 17/30, // Adjust the vertical position to be slightly above the container
-        //     100, // Adjust the horizontal position to be centered
-        //     screenSize.height * 13/30,
-        //   ),
-        //   items: [
-        //     PopupMenuItem(child: Center(child: Text('גיפטקארד', style: textStyle))),
-        //     PopupMenuItem(child: Center(child: Text('כרטיס נטען', style: textStyle))),
-        //     PopupMenuItem(child: Center(child: Text('שובר', style: textStyle))),
-        //     PopupMenuItem(child: Center(child: Text('זיכוי', style: textStyle))),
-        //   ],
-        // );
