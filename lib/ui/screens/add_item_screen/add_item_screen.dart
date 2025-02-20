@@ -1,32 +1,21 @@
-import 'package:cardy/data/payments_methods_data.dart';
-import 'package:cardy/entities/payments_methods/gift_card_type_entity.dart';
-import 'package:cardy/entities/payments_methods/item_type_entity.dart';
-import 'package:cardy/entities/user_items/gift_card_entity.dart';
-import 'package:cardy/entities/user_items/item_entity.dart';
-import 'package:cardy/entities/user_items/items_group_enum.dart';
-import 'package:cardy/ui/screens/add_item_screen/widgets/item_added_successfully_snack_bar.dart';
 import 'package:cardy/ui/widgets/gradient_button.dart';
-import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
-import 'package:cardy/ui/widgets/text_fields/amount_text_field.dart';
-import 'package:cardy/ui/widgets/text_fields/code_text_field.dart';
-import 'package:cardy/ui/widgets/text_fields/cvv_text_field.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/ui/widgets/background.dart';
-import 'package:cardy/ui/widgets/text_fields/expiration_date_text_field.dart';
 import 'package:cardy/ui/widgets/text_fields/item_type_auto_complete_text_field.dart';
 import 'package:flutter/material.dart';
 
-class AddItemScreen extends StatefulWidget {
+abstract class AddItemScreen extends StatefulWidget {
   final String title;
-  final List<Widget> formFields;
-  final void Function(GlobalKey<FormState> key) onSubmit;
+
   const AddItemScreen({
     super.key,
     required this.title,
-    required this.formFields,
-    required this.onSubmit,
   });
+
+  List<Widget> initformFields();
+  
+  void sumbitForm(GlobalKey<FormState> formKey, BuildContext context);
 
   @override
   State<AddItemScreen> createState() => _AddItemScreenState();
@@ -34,6 +23,13 @@ class AddItemScreen extends StatefulWidget {
 
 class _AddItemScreenState extends State<AddItemScreen> {
   final _formKey = GlobalKey<FormState>();
+  late List<Widget> _formFields;
+
+  @override
+  void initState() {
+    _formFields = widget.initformFields();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +53,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                   child: SingleChildScrollView(
                     child: Column(
                       spacing: SPACING_S,
-                      children: widget.formFields.map((field) {
+                      children: _formFields.map((field) {
                         return Padding(
                           padding: field is ItemTypeAutoCompleteTextField
                               ? EdgeInsets.all(0)
@@ -76,7 +72,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                       borderRadius: 30,
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          widget.onSubmit(_formKey);
+                          widget.sumbitForm(_formKey, context);
                         }
                       }),
                 ),

@@ -11,28 +11,24 @@ import 'package:cardy/ui/widgets/text_fields/expiration_date_text_field.dart';
 import 'package:cardy/ui/widgets/text_fields/item_type_auto_complete_text_field.dart';
 import 'package:flutter/material.dart';
 
-class AddGiftCardScreen extends StatefulWidget {
-  const AddGiftCardScreen({super.key});
+class AddGiftCardScreen extends AddItemScreen {
+  late final ItemTypeFormController _itemTypeController;
+  late final TextEditingController _cardNumberController;
+  late final DateTimeController _expirationDateController;
+  late final TextEditingController _cvvController;
+  late final DoubleFormController _amountController;
+
+  AddGiftCardScreen({super.key}) : super(title: 'גיפטקארד חדש');
 
   @override
-  State<AddGiftCardScreen> createState() => _AddGiftCardScreen();
-}
+  List<Widget> initformFields() {
+     _itemTypeController = ItemTypeFormController();
+    _cardNumberController = TextEditingController();
+    _expirationDateController = DateTimeController();
+    _cvvController = TextEditingController();
+    _amountController = DoubleFormController();
 
-class _AddGiftCardScreen extends State<AddGiftCardScreen> {
-  final ItemTypeFormController _itemTypeController = ItemTypeFormController();
-  final TextEditingController _cardNumberController = TextEditingController();
-  final DateTimeController _expirationDateController = DateTimeController();
-  final TextEditingController _cvvController = TextEditingController();
-  final DoubleFormController _amountController = DoubleFormController();
-  late List<Widget> _formFields;
-
-  @override
-  void initState() {
-    _initFormFields();
-    super.initState();
-  }
-
-  void _initFormFields() {
+    late List<Widget> _formFields;
     final itemTypeField = ItemTypeAutoCompleteTextField<GiftCardTypeEntity>(
         controller: _itemTypeController,
         itemsTypes: PaymentsMethodsData.instance.giftcards.values.toList());
@@ -48,7 +44,7 @@ class _AddGiftCardScreen extends State<AddGiftCardScreen> {
 
     final amountField = AmountTextField(amountController: _amountController);
 
-    _formFields = [
+    return [
       itemTypeField,
       cardNumberField,
       expirationDateField,
@@ -57,7 +53,8 @@ class _AddGiftCardScreen extends State<AddGiftCardScreen> {
     ];
   }
 
-  void _sumbitForm(GlobalKey<FormState> formKey) {
+  @override
+  void sumbitForm(GlobalKey<FormState> formKey, BuildContext context) {
     if (!formKey.currentState!.validate()) {
       return;
     }
@@ -66,6 +63,7 @@ class _AddGiftCardScreen extends State<AddGiftCardScreen> {
     final expirationDate = _expirationDateController.value!;
     final String cvv = _cvvController.text;
     final double amount = _amountController.value!;
+
 
     final newGiftCard = GiftCardEntity(
       typeId: itemType.id,
@@ -82,11 +80,5 @@ class _AddGiftCardScreen extends State<AddGiftCardScreen> {
 
     ScaffoldMessenger.of(context)
         .showSnackBar(ItemAddedSuccessfullySnackBar(newGiftCard));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AddItemScreen(
-        title: 'גיפטקארד חדש', formFields: _formFields, onSubmit: _sumbitForm);
   }
 }

@@ -219,7 +219,7 @@ class _ItemTypeTextField extends StatelessWidget {
 }
 
 class ItemTypeFormController extends ValueNotifier<ItemTypeEntity?> {
-  ItemTypeFormController({ItemTypeEntity? initialItemType})
+   ItemTypeFormController({ItemTypeEntity? initialItemType})
       : super(initialItemType);
 
   void setItemType(ItemTypeEntity itemType) {
