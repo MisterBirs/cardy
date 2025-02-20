@@ -5,8 +5,8 @@ import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
 import 'package:cardy/ui/widgets/text_fields/icon_text_field.dart';
 import 'package:flutter/material.dart';
 
-class ItemTypeAutoCompleteTextField extends StatefulWidget {
-  final List<ItemTypeEntity> itemsTypes;
+class ItemTypeAutoCompleteTextField<T extends ItemTypeEntity> extends StatefulWidget {
+  final List<T> itemsTypes;
   final int maxOptionsCount;
   final ItemTypeFormController controller;
 

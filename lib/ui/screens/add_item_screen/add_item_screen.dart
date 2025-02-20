@@ -1,4 +1,5 @@
 import 'package:cardy/data/payments_methods_data.dart';
+import 'package:cardy/entities/payments_methods/gift_card_type_entity.dart';
 import 'package:cardy/entities/payments_methods/item_type_entity.dart';
 import 'package:cardy/entities/user_items/gift_card_entity.dart';
 import 'package:cardy/entities/user_items/item_entity.dart';
@@ -18,7 +19,14 @@ import 'package:flutter/material.dart';
 
 class AddItemScreen extends StatefulWidget {
   final String title;
-  const AddItemScreen({super.key, required this.title});
+  final List<Widget> formFields;
+  final void Function(GlobalKey<FormState> key) onSubmit;
+  const AddItemScreen({
+    super.key,
+    required this.title,
+    required this.formFields,
+    required this.onSubmit,
+  });
 
   @override
   State<AddItemScreen> createState() => _AddItemScreenState();
@@ -26,38 +34,6 @@ class AddItemScreen extends StatefulWidget {
 
 class _AddItemScreenState extends State<AddItemScreen> {
   final _formKey = GlobalKey<FormState>();
-  final ItemTypeFormController _itemTypeController = ItemTypeFormController();
-  final TextEditingController _cardNumberController = TextEditingController();
-  final DateTimeController _expirationDateController = DateTimeController();
-  final TextEditingController _cvvController = TextEditingController();
-  final DoubleFormController _amountController = DoubleFormController();
-
-  void _sumbitForm() {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-    final ItemTypeEntity itemType = _itemTypeController.value!;
-    final String cardNumber = _cardNumberController.text;
-    final expirationDate = _expirationDateController.value!;
-    final String cvv = _cvvController.text;
-    final double amount = _amountController.value!;
-
-    final newGiftCard = GiftCardEntity(
-      typeId: itemType.id,
-      type: itemType,
-      code: cardNumber,
-      initialAmount: amount,
-      balance: amount,
-      addTime: DateTime.now(),
-      expirationDate: expirationDate,
-      cvv: cvv,
-    );
-
-    Navigator.of(context).pop();
-
-    ScaffoldMessenger.of(context)
-        .showSnackBar(ItemAddedSuccessfullySnackBar(newGiftCard));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,33 +57,14 @@ class _AddItemScreenState extends State<AddItemScreen> {
                   child: SingleChildScrollView(
                     child: Column(
                       spacing: SPACING_S,
-                      children: [
-                        ItemTypeAutoCompleteTextField(
-                            controller: _itemTypeController,
-                            itemsTypes: PaymentsMethodsData
-                                .instance.giftcards.values
-                                .toList()),
-                        Padding(
-                            padding: padding,
-                            child: CodeTextField(
-                                controller: _cardNumberController,
-                                label: 'מספר כרטיס')),
-                        Padding(
-                          padding: padding,
-                          child: ExpirationDateTextField(
-                            controller: _expirationDateController,
-                          ),
-                        ),
-                        Padding(
-                          padding: padding,
-                          child: CvvTextField(cvvController: _cvvController),
-                        ),
-                        Padding(
-                          padding: padding,
-                          child: AmountTextField(
-                              amountController: _amountController),
-                        ),
-                      ],
+                      children: widget.formFields.map((field) {
+                        return Padding(
+                          padding: field is ItemTypeAutoCompleteTextField
+                              ? EdgeInsets.all(0)
+                              : padding,
+                          child: field,
+                        );
+                      }).toList(),
                     ),
                   ),
                 ),
@@ -115,7 +72,13 @@ class _AddItemScreenState extends State<AddItemScreen> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: SCREEN_HORIZONTAL_PADDING),
                   child: GradientButton(
-                      label: 'הוסף', borderRadius: 30, onPressed: _sumbitForm),
+                      label: 'הוסף',
+                      borderRadius: 30,
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          widget.onSubmit(_formKey);
+                        }
+                      }),
                 ),
               ],
             ),

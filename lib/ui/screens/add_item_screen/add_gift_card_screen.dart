@@ -1,0 +1,92 @@
+import 'package:cardy/data/payments_methods_data.dart';
+import 'package:cardy/entities/payments_methods/gift_card_type_entity.dart';
+import 'package:cardy/entities/payments_methods/item_type_entity.dart';
+import 'package:cardy/entities/user_items/gift_card_entity.dart';
+import 'package:cardy/ui/screens/add_item_screen/add_item_screen.dart';
+import 'package:cardy/ui/screens/add_item_screen/widgets/item_added_successfully_snack_bar.dart';
+import 'package:cardy/ui/widgets/text_fields/amount_text_field.dart';
+import 'package:cardy/ui/widgets/text_fields/code_text_field.dart';
+import 'package:cardy/ui/widgets/text_fields/cvv_text_field.dart';
+import 'package:cardy/ui/widgets/text_fields/expiration_date_text_field.dart';
+import 'package:cardy/ui/widgets/text_fields/item_type_auto_complete_text_field.dart';
+import 'package:flutter/material.dart';
+
+class AddGiftCardScreen extends StatefulWidget {
+  const AddGiftCardScreen({super.key});
+
+  @override
+  State<AddGiftCardScreen> createState() => _AddGiftCardScreen();
+}
+
+class _AddGiftCardScreen extends State<AddGiftCardScreen> {
+  final ItemTypeFormController _itemTypeController = ItemTypeFormController();
+  final TextEditingController _cardNumberController = TextEditingController();
+  final DateTimeController _expirationDateController = DateTimeController();
+  final TextEditingController _cvvController = TextEditingController();
+  final DoubleFormController _amountController = DoubleFormController();
+  late List<Widget> _formFields;
+
+  @override
+  void initState() {
+    _initFormFields();
+    super.initState();
+  }
+
+  void _initFormFields() {
+    final itemTypeField = ItemTypeAutoCompleteTextField<GiftCardTypeEntity>(
+        controller: _itemTypeController,
+        itemsTypes: PaymentsMethodsData.instance.giftcards.values.toList());
+
+    final cardNumberField =
+        CodeTextField(controller: _cardNumberController, label: 'מספר כרטיס');
+
+    final expirationDateField = ExpirationDateTextField(
+      controller: _expirationDateController,
+    );
+
+    final cvvField = CvvTextField(cvvController: _cvvController);
+
+    final amountField = AmountTextField(amountController: _amountController);
+
+    _formFields = [
+      itemTypeField,
+      cardNumberField,
+      expirationDateField,
+      cvvField,
+      amountField,
+    ];
+  }
+
+  void _sumbitForm(GlobalKey<FormState> formKey) {
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
+    final ItemTypeEntity itemType = _itemTypeController.value!;
+    final String cardNumber = _cardNumberController.text;
+    final expirationDate = _expirationDateController.value!;
+    final String cvv = _cvvController.text;
+    final double amount = _amountController.value!;
+
+    final newGiftCard = GiftCardEntity(
+      typeId: itemType.id,
+      type: itemType as GiftCardTypeEntity,
+      code: cardNumber,
+      initialAmount: amount,
+      balance: amount,
+      addTime: DateTime.now(),
+      expirationDate: expirationDate,
+      cvv: cvv,
+    );
+
+    Navigator.of(context).pop();
+
+    ScaffoldMessenger.of(context)
+        .showSnackBar(ItemAddedSuccessfullySnackBar(newGiftCard));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AddItemScreen(
+        title: 'גיפטקארד חדש', formFields: _formFields, onSubmit: _sumbitForm);
+  }
+}

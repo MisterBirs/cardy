@@ -1,4 +1,5 @@
 import 'package:cardy/gen/assets.gen.dart';
+import 'package:cardy/ui/screens/add_item_screen/add_gift_card_screen.dart';
 import 'package:cardy/ui/screens/add_item_screen/add_item_screen.dart';
 import 'package:cardy/ui/widgets/gradient_color_mask.dart';
 import 'package:cardy/ui/ui_constants.dart';
@@ -118,7 +119,7 @@ class CenteralCircleButton extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  AddItemScreen(title: 'גיפטקארד חדש')));
+                                  AddGiftCardScreen()));
                     },
                   ),
                   ListTile(
