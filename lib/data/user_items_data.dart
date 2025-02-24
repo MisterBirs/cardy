@@ -1,6 +1,6 @@
 import 'package:cardy/data/payments_methods_data.dart';
+import 'package:cardy/entities/categories/category_key.dart';
 import 'package:cardy/entities/payments_methods/store_summary_entity.dart';
-import 'package:cardy/entities/payments_methods/item_type_entity.dart';
 import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
 import 'package:cardy/entities/payments_methods/store_entity.dart';
 import 'package:cardy/entities/user_items/coupon_entity.dart';
@@ -254,25 +254,11 @@ class UserItemsData {
         .reduce((value, element) => value + element);
   }
 
-  Map<String, StoreSummaryEntity> get userStores {
-    Map<String, StoreSummaryEntity> storesMap = {};
-
-    for (ItemEntity item in allPaymentMethods.values) {
-      ItemTypeEntity itemType = item.type;
-      if (itemType is MultiRedemtionItemType) {
-        for (StoreEntity store in itemType.storesToRedeem) {
-          _addItemToStoreMap(item, store, storesMap);
-        }
-      } else if (itemType is StoreEntity) {
-        _addItemToStoreMap(item, itemType, storesMap);
-      }
-    }
-    return storesMap;
-  }
+  Map<String, StoreSummaryEntity> get userStores =>
+      getStoresByItemsAndCategory(allPaymentMethods.values.toList(), CategoryKey.all);
 
   void _addItemToStoreMap(ItemEntity item, StoreEntity itemStore,
       Map<String, StoreSummaryEntity> storesMap) {
-
     if (!storesMap.containsKey(itemStore.id)) {
       storesMap[itemStore.id] = StoreSummaryEntity(
         store: itemStore,
@@ -282,9 +268,42 @@ class UserItemsData {
           ItemsGroupEnum.coupon: [],
           ItemsGroupEnum.credit: [],
         },
-        totalBalance: item.balance,
+        totalBalance: 0,
       );
     }
     storesMap[itemStore.id]!.addItem(item);
+  }
+
+  List<ItemEntity> getItemsByCategory(CategoryKey categoryKey) {
+    return allPaymentMethods.values
+        .where((item) => item.type.categories
+            .any((category) => category.childOf(categoryKey)))
+        .toList();
+  }
+
+  Map<String, StoreSummaryEntity> getStoresByItemsAndCategory(
+      List<ItemEntity> items, CategoryKey categoryKey) {
+    final storesMap = <String, StoreSummaryEntity>{};
+
+    for (var item in items) {
+      final itemType = item.type;
+      final List<StoreEntity> stores = itemType is MultiRedemtionItemType
+          ? itemType.storesToRedeem
+          : itemType is StoreEntity
+              ? [itemType]
+              : [];
+
+      for (var store in stores) {
+        if(store.categories.any((category) => category.childOf(categoryKey))) {
+          _addItemToStoreMap(item, store, storesMap);
+        }
+      }
+    }
+    return storesMap;
+  }
+
+  Map<String, StoreSummaryEntity> getStoresByCategory(CategoryKey categoryKey) {
+    final items = getItemsByCategory(categoryKey);
+    return getStoresByItemsAndCategory(items, categoryKey);
   }
 }

@@ -1,6 +1,5 @@
 import 'package:cardy/gen/assets.gen.dart';
 import 'package:cardy/ui/screens/add_item_screen/add_gift_card_screen.dart';
-import 'package:cardy/ui/screens/add_item_screen/add_item_screen.dart';
 import 'package:cardy/ui/widgets/gradient_color_mask.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
@@ -160,13 +159,6 @@ class CenteralCircleButton extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Text(
-            //   'הוסף',
-            //   style: primaryFont(
-            //       fontSize: 17,
-            //       fontWeight: FontWeight.w600,
-            //       color: Colors.white),
-            // ),
             SvgPicture.asset(
               Assets.icons.bottomBarIcons.addItemIcon,
               width: 45,

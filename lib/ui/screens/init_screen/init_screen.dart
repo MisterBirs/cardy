@@ -1,4 +1,5 @@
 import 'package:cardy/data/user_items_data.dart';
+import 'package:cardy/ui/screens/categories_screen/categories_screen.dart';
 import 'package:cardy/ui/screens/home_screen/home_screen.dart';
 import 'package:cardy/ui/screens/init_screen/init_screen_widgets/floating_bottom_bar.dart';
 import 'package:cardy/ui/screens/stores_screen/stores_screen.dart';
@@ -16,9 +17,10 @@ class _InitScreenState extends State<InitScreen> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
-      HomeScreen(bottomSpacing: FloatingBottomBar.height-20),
-      Container(color: Colors.green, child: Center(child: Text('קטגוריות'))),
-      StoresScreen(UserItemsData.instance.userStores, bottomSpacing: FloatingBottomBar.height),
+      HomeScreen(bottomSpacing: FloatingBottomBar.height - 20),
+      CategoriesScreen(bottomSpacing: FloatingBottomBar.height),
+      StoresScreen(UserItemsData.instance.userStores,
+          bottomSpacing: FloatingBottomBar.height),
       Container(color: Colors.yellow, child: Center(child: Text('הגדרות'))),
     ];
 

@@ -22,7 +22,7 @@ enum CategoryKey {
   shows,
   fitness,
   gym,
-  sportFashion,
+  fitnessClothing,
   fitnessEquipment,
   fashion,
   mensFashion,

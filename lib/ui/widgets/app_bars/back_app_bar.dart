@@ -21,13 +21,13 @@ class BackAppBar extends StatelessWidget implements PreferredSizeWidget {
       toolbarHeight: APP_BAR_TOP_SPACING,
       backgroundColor: Colors.transparent,
       centerTitle: true,
-      leading: IconButton(
+      leading: showBackButton? IconButton(
         iconSize: ICON_SIZE,
-        icon: showBackButton ? Icon(Icons.arrow_back) : SizedBox(),
+        icon: Icon(Icons.arrow_back),
         onPressed: () {
           Navigator.pop(context);
         },
-      ),
+      ):SizedBox(),
       title: Column(
         children: [
           Text(

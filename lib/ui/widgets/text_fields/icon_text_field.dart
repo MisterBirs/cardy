@@ -1,6 +1,5 @@
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/gradient_color_mask.dart';
-import 'package:cardy/ui/widgets/text_fields/amount_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

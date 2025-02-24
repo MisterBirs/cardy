@@ -9,6 +9,16 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsFontsGen {
+  const $AssetsFontsGen();
+
+  /// File path: assets/fonts/cardy_icons.ttf
+  String get cardyIcons => 'assets/fonts/cardy_icons.ttf';
+
+  /// List of all assets
+  List<String> get values => [cardyIcons];
+}
+
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
@@ -31,6 +41,10 @@ class $AssetsIconsGen {
 
 class $AssetsImagesGen {
   const $AssetsImagesGen();
+
+  /// Directory path: assets/images/categories
+  $AssetsImagesCategoriesGen get categories =>
+      const $AssetsImagesCategoriesGen();
 
   /// Directory path: assets/images/items
   $AssetsImagesItemsGen get items => const $AssetsImagesItemsGen();
@@ -58,6 +72,64 @@ class $AssetsIconsBottomBarIconsGen {
 
   /// List of all assets
   List<String> get values => [addItemIcon, categoiesIcon, shopIcon];
+}
+
+class $AssetsImagesCategoriesGen {
+  const $AssetsImagesCategoriesGen();
+
+  /// File path: assets/images/categories/baby-category-image.png
+  AssetGenImage get babyCategoryImage =>
+      const AssetGenImage('assets/images/categories/baby-category-image.png');
+
+  /// File path: assets/images/categories/entertainment-category-image.png
+  AssetGenImage get entertainmentCategoryImage => const AssetGenImage(
+      'assets/images/categories/entertainment-category-image.png');
+
+  /// File path: assets/images/categories/fashion-category-image.png
+  AssetGenImage get fashionCategoryImage => const AssetGenImage(
+      'assets/images/categories/fashion-category-image.png');
+
+  /// File path: assets/images/categories/food-category-image.png
+  AssetGenImage get foodCategoryImage =>
+      const AssetGenImage('assets/images/categories/food-category-image.png');
+
+  /// File path: assets/images/categories/home-category-image.png
+  AssetGenImage get homeCategoryImage =>
+      const AssetGenImage('assets/images/categories/home-category-image.png');
+
+  /// File path: assets/images/categories/makeup-category-image.png
+  AssetGenImage get makeupCategoryImage =>
+      const AssetGenImage('assets/images/categories/makeup-category-image.png');
+
+  /// File path: assets/images/categories/sport-category-image.png
+  AssetGenImage get sportCategoryImage =>
+      const AssetGenImage('assets/images/categories/sport-category-image.png');
+
+  /// File path: assets/images/categories/super-market-category-image.png
+  AssetGenImage get superMarketCategoryImage => const AssetGenImage(
+      'assets/images/categories/super-market-category-image.png');
+
+  /// File path: assets/images/categories/technology-category-image.png
+  AssetGenImage get technologyCategoryImage => const AssetGenImage(
+      'assets/images/categories/technology-category-image.png');
+
+  /// File path: assets/images/categories/vacation-category-image.png
+  AssetGenImage get vacationCategoryImage => const AssetGenImage(
+      'assets/images/categories/vacation-category-image.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [
+        babyCategoryImage,
+        entertainmentCategoryImage,
+        fashionCategoryImage,
+        foodCategoryImage,
+        homeCategoryImage,
+        makeupCategoryImage,
+        sportCategoryImage,
+        superMarketCategoryImage,
+        technologyCategoryImage,
+        vacationCategoryImage
+      ];
 }
 
 class $AssetsImagesItemsGen {
@@ -225,6 +297,7 @@ class $AssetsImagesItemsStoresGen {
 class Assets {
   Assets._();
 
+  static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }

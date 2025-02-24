@@ -1,3 +1,4 @@
+import 'package:cardy/entities/categories/categories.dart';
 import 'package:cardy/entities/categories/category_entity.dart';
 import 'package:cardy/entities/categories/category_key.dart';
 import 'package:cardy/ui/ui_constants.dart';
@@ -15,13 +16,17 @@ class ItemsGridScreen extends StatefulWidget {
   final double gridSpacing;
   final double bottomPadding;
   final int maxItemsInRow;
+  final bool primaryCategoriesOnly;
+  final CategoryKey? category;
 
   const ItemsGridScreen({
     super.key,
+    this.category,
     required this.appBar,
     required this.items,
     required this.itemWidth,
     required this.itemHeight,
+    this.primaryCategoriesOnly = true,
     this.maxItemsInRow = 3,
     this.gridSpacing = SPACING_S,
     this.bottomPadding = SPACING_M,
@@ -46,7 +51,8 @@ class _ItemsGridScreenState extends State<ItemsGridScreen> {
           spacing: SPACING_L,
           children: [
             _searchBoxWarpper,
-            _filterBar,
+            // Show filter bar only if there are more than 2 categories (All and another one)
+            if (categories.length > 2) _filterBar,
             Expanded(
               child: GridView.builder(
                 itemCount: itemsForShow.length,
@@ -90,12 +96,41 @@ class _ItemsGridScreenState extends State<ItemsGridScreen> {
 
   double get horizontalPadding => freeWidthSpacing / 2;
 
+  List<CategoryEntity> get categories {
+    List<CategoryEntity> result =
+        widget.items.expand((item) => item.categories).toSet().toList();
+
+    if (widget.primaryCategoriesOnly) {
+      result = result
+          .expand((category) => category.primaryCategorirs)
+          .toSet()
+          .toList();
+    }
+
+    //TODO Sholud improve the code to prevent the need to remove the 'All' category
+    result.removeWhere((category) => category.key == CategoryKey.all);
+
+    if (widget.category != null) {
+      result.removeWhere((category) =>
+          !category.childOf(widget.category!) ||
+          category.key == widget.category);
+    }
+
+    result.insert(0, Categories.instance.getCategory(CategoryKey.all)!);
+    return result;
+  }
+
   Widget get _filterBar {
-    Set<CategoryEntity> categories =
-        widget.items.expand((item) => item.categories).toSet();
+    final filterBarCategories = widget.category != null
+        ? categories
+            .map((category) =>
+                category.convertDataByParentRelation(widget.category!))
+            .toSet()
+            .toList()
+        : categories;
 
     return FilterBar(
-        categories: categories.toList(),
+        categories: filterBarCategories,
         onFiltered: (value) {
           setState(() {
             _selectedCategoryKey = value;
@@ -124,8 +159,7 @@ class _ItemsGridScreenState extends State<ItemsGridScreen> {
 
     return widget.items
         .where((item) => item.categories
-            .map((category) => category.topParentCategory.key)
-            .contains(_selectedCategoryKey))
+            .any((category) => category.childOf(_selectedCategoryKey)))
         .toList();
   }
 

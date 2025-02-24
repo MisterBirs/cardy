@@ -74,6 +74,7 @@ flutter:
     - assets/images/items/stores/
     - assets/images/items/giftcards/
     - assets/images/items/reloadable-cards/
+    - assets/images/categories/
     - assets/fonts/
     - assets/icons/
     - assets/icons/bottom-bar-icons/

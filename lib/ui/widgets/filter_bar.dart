@@ -1,4 +1,3 @@
-import 'package:cardy/entities/categories/categories.dart';
 import 'package:cardy/entities/categories/category_entity.dart';
 import 'package:cardy/entities/categories/category_key.dart';
 import 'package:cardy/ui/ui_constants.dart';
@@ -7,12 +6,13 @@ import 'package:flutter/material.dart';
 class FilterBar extends StatefulWidget {
   final List<CategoryEntity> categories;
   final void Function(CategoryKey) onFiltered;
+  final CategoryEntity? parentCategory;
 
-  const FilterBar({
-    super.key,
-    required this.categories,
-    required this.onFiltered,
-  });
+  const FilterBar(
+      {super.key,
+      required this.categories,
+      required this.onFiltered,
+      this.parentCategory});
 
   @override
   State<FilterBar> createState() => _FilterBarState();
@@ -35,7 +35,7 @@ class _FilterBarState extends State<FilterBar> {
   }
 
   List<FilterButton> get filterButtons {
-    return primaryCategories.map((category) {
+    return widget.categories.map((category) {
       return FilterButton(
         category,
         isSelected: selectedCategoryKey == category.key,
@@ -49,19 +49,19 @@ class _FilterBarState extends State<FilterBar> {
     }).toList();
   }
 
-  List<CategoryEntity> get primaryCategories {
-    Set<CategoryEntity> primaryCategoriesSet = {
-      Categories.instance.getCategory(CategoryKey.all)!
-    };
+  // List<CategoryEntity> get primaryCategories {
+  //   Set<CategoryEntity> primaryCategoriesSet = {
+  //     Categories.instance.getCategory(CategoryKey.all)!
+  //   };
 
-    final List<CategoryEntity> storePrimaryCategories = widget.categories
-        .map((category) => category.topParentCategory)
-        .toList();
+  //   final List<CategoryEntity> storePrimaryCategories = widget.categories
+  //       .map((category) => category.topParentCategory)
+  //       .toList();
 
-    primaryCategoriesSet.addAll(storePrimaryCategories);
+  //   primaryCategoriesSet.addAll(storePrimaryCategories);
 
-    return primaryCategoriesSet.toList();
-  }
+  //   return primaryCategoriesSet.toList();
+  // }
 }
 
 class FilterButton extends StatelessWidget {

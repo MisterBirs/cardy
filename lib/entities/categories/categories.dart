@@ -1,6 +1,8 @@
 import 'package:cardy/entities/categories/category_entity.dart';
 import 'package:cardy/entities/categories/category_key.dart';
+import 'package:cardy/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 class Categories {
 // #region Attributes
@@ -34,6 +36,8 @@ class Categories {
     _map[CategoryKey.fashion] = CategoryEntity(
       key: CategoryKey.fashion,
       isPrimaryCategory: true,
+      image: Assets.images.categories.fashionCategoryImage
+          .image(fit: BoxFit.cover),
       name: 'אופנה',
       allies: ['אופנה'],
       icon: Icons.shopping_bag,
@@ -59,8 +63,8 @@ class Categories {
         allies: ['בגדים ילדים', 'בגדי ילדים'],
         icon: Icons.shopping_bag);
 
-    _map[CategoryKey.sportFashion] = CategoryEntity(
-      key: CategoryKey.sportFashion,
+    _map[CategoryKey.fitnessClothing] = CategoryEntity(
+      key: CategoryKey.fitnessClothing,
       name: 'אופנת ספורט',
       allies: ['אופנת ספורט'],
       icon: Icons.sports,
@@ -83,11 +87,30 @@ class Categories {
 
   void _setFashionRelations() {
     _setCategoriesRelations(CategoryKey.fashion, [
-      CategoryKey.mensFashion,
-      CategoryKey.womensFashion,
-      CategoryKey.kidsFashion,
-      CategoryKey.sportFashion,
-      CategoryKey.jewelry
+      CategoriesRelationship(
+          child: _map[CategoryKey.mensFashion]!,
+          name: 'גברים',
+          icon: Symbols.man),
+      CategoriesRelationship(
+          child: _map[CategoryKey.womensFashion]!,
+          name: 'נשים',
+          icon: Symbols.woman),
+      CategoriesRelationship(
+          child: _map[CategoryKey.kidsFashion]!,
+          name: 'ילדים',
+          icon: Symbols.child_care),
+      CategoriesRelationship(
+          child: _map[CategoryKey.fitnessClothing]!,
+          name: 'ספורט',
+          icon: Icons.sports_tennis),
+      CategoriesRelationship(
+          child: _map[CategoryKey.jewelry]!,
+          name: 'תכשיטים',
+          icon: Symbols.diamond),
+      CategoriesRelationship(
+          child: _map[CategoryKey.shoes]!,
+          name: 'נעליים',
+          icon: Symbols.footprint),
     ]);
   }
 
@@ -95,6 +118,7 @@ class Categories {
     _map[CategoryKey.vacation] = CategoryEntity(
       key: CategoryKey.vacation,
       isPrimaryCategory: true,
+      image: Assets.images.categories.vacationCategoryImage.image(),
       name: 'נופש',
       allies: ['חופשה'],
       icon: Icons.beach_access,
@@ -123,14 +147,26 @@ class Categories {
   }
 
   void _setVacationRelations() {
-    _setCategoriesRelations(CategoryKey.vacation,
-        [CategoryKey.hotels, CategoryKey.zimmer, CategoryKey.flights]);
+    final List<CategoriesRelationship> childrenRelations = [
+      CategoriesRelationship(
+        child: _map[CategoryKey.hotels]!,
+      ),
+      CategoriesRelationship(
+        child: _map[CategoryKey.zimmer]!,
+      ),
+      CategoriesRelationship(
+        child: _map[CategoryKey.flights]!,
+      ),
+    ];
+
+    _setCategoriesRelations(CategoryKey.vacation, childrenRelations);
   }
 
   void _initFoodCategory() {
     _map[CategoryKey.food] = CategoryEntity(
       key: CategoryKey.food,
       isPrimaryCategory: true,
+      image: Assets.images.categories.foodCategoryImage.image(),
       name: 'אוכל',
       allies: ['מזון'],
       icon: Icons.fastfood,
@@ -202,15 +238,25 @@ class Categories {
 
   void _setFoodRelations() {
     _setCategoriesRelations(CategoryKey.food, [
-      CategoryKey.meat,
-      CategoryKey.hamburger,
-      CategoryKey.dairy,
-      CategoryKey.pizza,
-      CategoryKey.sweets,
-      CategoryKey.iceCream,
-      CategoryKey.fish,
-      CategoryKey.cafe,
-      CategoryKey.asin
+      CategoriesRelationship(child: _map[CategoryKey.meat]!),
+      CategoriesRelationship(child: _map[CategoryKey.dairy]!),
+      CategoriesRelationship(child: _map[CategoryKey.sweets]!),
+      CategoriesRelationship(child: _map[CategoryKey.fish]!),
+      CategoriesRelationship(child: _map[CategoryKey.cafe]!),
+      CategoriesRelationship(child: _map[CategoryKey.asin]!),
+    ]);
+
+    _setCategoriesRelations(CategoryKey.meat, [
+      CategoriesRelationship(child: _map[CategoryKey.hamburger]!),
+    ]);
+
+    _setCategoriesRelations(CategoryKey.dairy, [
+      CategoriesRelationship(child: _map[CategoryKey.pizza]!),
+      CategoriesRelationship(child: _map[CategoryKey.iceCream]!),
+    ]);
+
+    _setCategoriesRelations(CategoryKey.sweets, [
+      CategoriesRelationship(child: _map[CategoryKey.iceCream]!),
     ]);
   }
 
@@ -218,6 +264,7 @@ class Categories {
     _map[CategoryKey.entertainment] = CategoryEntity(
       key: CategoryKey.entertainment,
       isPrimaryCategory: true,
+      image: Assets.images.categories.entertainmentCategoryImage.image(),
       name: 'בידור',
       allies: ['בידור'],
       icon: Icons.movie,
@@ -261,11 +308,11 @@ class Categories {
 
   void _setEntertainmentRelations() {
     _setCategoriesRelations(CategoryKey.entertainment, [
-      CategoryKey.cinema,
-      CategoryKey.escapeRooms,
-      CategoryKey.theater,
-      CategoryKey.museum,
-      CategoryKey.shows
+      CategoriesRelationship(child: _map[CategoryKey.cinema]!),
+      CategoriesRelationship(child: _map[CategoryKey.escapeRooms]!),
+      CategoriesRelationship(child: _map[CategoryKey.theater]!),
+      CategoriesRelationship(child: _map[CategoryKey.museum]!),
+      CategoriesRelationship(child: _map[CategoryKey.shows]!),
     ]);
   }
 
@@ -273,6 +320,7 @@ class Categories {
     _map[CategoryKey.fitness] = CategoryEntity(
       key: CategoryKey.fitness,
       isPrimaryCategory: true,
+      image: Assets.images.categories.sportCategoryImage.image(),
       name: 'כושר',
       allies: ['כושר'],
       icon: Icons.fitness_center,
@@ -295,8 +343,12 @@ class Categories {
 
   void _setFitnessRelations() {
     _setCategoriesRelations(CategoryKey.fitness, [
-      CategoryKey.gym,
-      CategoryKey.fitnessEquipment
+      CategoriesRelationship(child: _map[CategoryKey.gym]!),
+      CategoriesRelationship(child: _map[CategoryKey.fitnessEquipment]!),
+      CategoriesRelationship(
+          child: _map[CategoryKey.fitnessClothing]!,
+          name: 'ביגוד',
+          icon: Icons.checkroom),
     ]);
   }
 
@@ -304,6 +356,7 @@ class Categories {
     _map[CategoryKey.electronics] = CategoryEntity(
       key: CategoryKey.electronics,
       isPrimaryCategory: true,
+      image: Assets.images.categories.technologyCategoryImage.image(),
       name: 'אלקטרוניקה',
       allies: ['אלקטרוניקה'],
       icon: Icons.electrical_services,
@@ -313,6 +366,7 @@ class Categories {
   void _initSupermarketCategory() {
     _map[CategoryKey.supermarket] = CategoryEntity(
       key: CategoryKey.supermarket,
+      image: Assets.images.categories.superMarketCategoryImage.image(),
       isPrimaryCategory: true,
       name: 'סופרמרקט',
       allies: ['סופרמרקט'],
@@ -323,6 +377,7 @@ class Categories {
   void _initHomeCategory() {
     _map[CategoryKey.home] = CategoryEntity(
       key: CategoryKey.home,
+      image: Assets.images.categories.homeCategoryImage.image(),
       isPrimaryCategory: true,
       name: 'בית',
       allies: ['בית'],
@@ -336,12 +391,15 @@ class Categories {
       name: 'תינוקות',
       allies: ['תינוקות'],
       icon: Icons.child_friendly,
+      image: Assets.images.categories.babyCategoryImage.image(),
     );
   }
 
   void _initBeautyCategory() {
     _map[CategoryKey.beauty] = CategoryEntity(
       key: CategoryKey.beauty,
+      image: Assets.images.categories.makeupCategoryImage.image(),
+      isPrimaryCategory: true,
       name: 'טיפוח וקוסמטיקה',
       allies: ['איפור, טיפוח ,קוסמטיקה'],
       icon: Icons.face,
@@ -374,19 +432,63 @@ class Categories {
     _setFoodRelations();
     _setEntertainmentRelations();
     _setFitnessRelations();
+    initAllCategoryRelations();
   }
 
   void _setCategoriesRelations(
-      CategoryKey parentKey, List<CategoryKey> childrenKeys) {
+      CategoryKey parentKey, List<CategoriesRelationship> childrenRelations) {
     final CategoryEntity parentEntity = _map[parentKey]!;
 
-    List<CategoryEntity> childrenEntities =
-        childrenKeys.map((child) => _map[child]!).toList();
+    parentEntity.subCategories =
+        Map.fromEntries(childrenRelations.map((childRelation) {
+      return MapEntry(childRelation.child.key, childRelation);
+    }));
 
-    parentEntity.subCategories = childrenEntities;
+    final List<CategoryEntity> childrenEntities =
+        childrenRelations.map((childRelation) {
+      return childRelation.child;
+    }).toList();
 
     CategoryEntity.setParentToAll(childrenEntities, parentEntity);
   }
 
+  void initAllCategoryRelations() {
+    final Map<String, CategoryKey> primaryCategoriesMap = {};
+
+    for (CategoryEntity category in primaryCategories) {
+      primaryCategoriesMap[category.name] = category.key;
+    }
+    _setCategoriesRelations(
+        CategoryKey.all,
+        primaryCategories.map(
+          (primaryCategory) {
+            return CategoriesRelationship(child: _map[primaryCategory.key]!);
+          },
+        ).toList());
+  }
 // #endregion
+
+// #region Getters
+  List<CategoryEntity> get primaryCategories {
+    return _map.values
+        .where(
+            (category) => category.isPrimary && category.key != CategoryKey.all)
+        .toList();
+  }
+}
+
+class CategoriesRelationship {
+  final CategoryEntity _child;
+  final IconData _icon;
+  final String _name;
+
+  CategoriesRelationship(
+      {required CategoryEntity child, IconData? icon, String? name})
+      : _child = child,
+        _icon = icon ?? child.icon,
+        _name = name ?? child.name;
+
+  CategoryEntity get child => _child;
+  IconData get icon => _icon;
+  String get name => _name;
 }

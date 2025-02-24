@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
+
 import 'package:cardy/data/payments_methods_data.dart';
 import 'package:cardy/entities/payments_methods/gift_card_type_entity.dart';
 import 'package:cardy/entities/payments_methods/item_type_entity.dart';
@@ -28,7 +30,6 @@ class AddGiftCardScreen extends AddItemScreen {
     _cvvController = TextEditingController();
     _amountController = DoubleFormController();
 
-    late List<Widget> _formFields;
     final itemTypeField = ItemTypeAutoCompleteTextField<GiftCardTypeEntity>(
         controller: _itemTypeController,
         itemsTypes: PaymentsMethodsData.instance.giftcards.values.toList());

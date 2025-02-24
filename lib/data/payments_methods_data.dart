@@ -32,7 +32,7 @@ class PaymentsMethodsData {
           name: 'Nike',
           aliases: ['נייק', 'נייקי'],
           categories:
-              Categories.instance.getCategories([CategoryKey.sportFashion]),
+              Categories.instance.getCategories([CategoryKey.fitnessClothing]),
           imagePath: storesImagesPath.nikeLogo.path),
       'sType002': StoreEntity(
           id: 'sType002',
@@ -60,7 +60,7 @@ class PaymentsMethodsData {
           name: 'Quik Silver',
           aliases: ['קוויק סילבר'],
           categories: Categories.instance.getCategories(
-              [CategoryKey.mensFashion, CategoryKey.sportFashion]),
+              [CategoryKey.mensFashion, CategoryKey.fitnessClothing]),
           imagePath: storesImagesPath.quiksilverLogo.path),
       'sType006': StoreEntity(
           id: 'sType006',
@@ -86,7 +86,7 @@ class PaymentsMethodsData {
           name: 'Aerie',
           aliases: ['ארי'],
           categories: Categories.instance.getCategories(
-              [CategoryKey.womensFashion, CategoryKey.sportFashion]),
+              [CategoryKey.womensFashion, CategoryKey.fitnessClothing]),
           imagePath: storesImagesPath.aerieLogo.path),
       'sType010': StoreEntity(
           id: 'sType010',
@@ -95,7 +95,7 @@ class PaymentsMethodsData {
           categories: Categories.instance.getCategories([
             CategoryKey.mensFashion,
             CategoryKey.womensFashion,
-            CategoryKey.sportFashion
+            CategoryKey.fitnessClothing
           ]),
           imagePath: storesImagesPath.boardridersLogo.path),
       'sType011': StoreEntity(
@@ -129,7 +129,7 @@ class PaymentsMethodsData {
           name: 'Dream Sport',
           aliases: ['דרים ספורט'],
           categories:
-              Categories.instance.getCategories([CategoryKey.sportFashion]),
+              Categories.instance.getCategories([CategoryKey.fitnessClothing]),
           imagePath: storesImagesPath.dreamSportLogo.path),
       'sType016': StoreEntity(
           id: 'sType016',
@@ -144,7 +144,7 @@ class PaymentsMethodsData {
           categories: Categories.instance.getCategories([
             CategoryKey.mensFashion,
             CategoryKey.womensFashion,
-            CategoryKey.sportFashion
+            CategoryKey.fitnessClothing
           ]),
           imagePath: storesImagesPath.bilabongLogo.path),
       'sType018': StoreEntity(

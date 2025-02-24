@@ -1,3 +1,4 @@
+import 'package:cardy/entities/categories/categories.dart';
 import 'package:cardy/entities/categories/category_key.dart';
 import 'package:cardy/entities/payments_methods/store_entity.dart';
 import 'package:flutter/material.dart';
@@ -8,35 +9,110 @@ class CategoryEntity {
   final String _name;
   final List<String> _allies;
   final IconData _icon;
-  List<CategoryEntity>? subCategories;
-  CategoryEntity? parent;
+  final Image? _image;
+  Map<CategoryKey, CategoriesRelationship>? subCategories;
+  Map<CategoryKey, CategoryEntity>? _parents;
 
   CategoryEntity({
     required CategoryKey key,
     required String name,
     required List<String> allies,
     required IconData icon,
+    Image? image,
     bool isPrimaryCategory = false,
   })  : _key = key,
         _name = name,
         _allies = allies,
         _icon = icon,
+        _image = image,
         _isPrimary = isPrimaryCategory;
 
   static void setParentToAll(
       List<CategoryEntity> children, CategoryEntity parent) {
-    for (CategoryEntity subCategory in children) {
-      subCategory.parent = parent;
+    for (CategoryEntity child in children) {
+      child.addParent(parent);
     }
   }
 
-  CategoryEntity get topParentCategory => _getTopParentCategory(this);
+  List<CategoryEntity> get primaryCategorirs => _getPrimariesParents(this);
 
-  CategoryEntity _getTopParentCategory(categoryEntity) {
-    if (parent == null || isPrimary) {
+  void addSubCategory(
+      {required CategoryEntity category, String? name, IconData? icon}) {
+    subCategories ??= {};
+    subCategories![category.key] = CategoriesRelationship(
+        child: category,
+        name: name ?? category.name,
+        icon: icon ?? category.icon);
+  }
+
+  bool childOf(CategoryKey parentKey) {
+    if (key == CategoryKey.all) {
+      return true;
+    }
+
+    if (key == parentKey) {
+      return true;
+    }
+
+    if (parents == null) {
+      return false;
+    }
+
+    if (isContainParnet(parentKey)) {
+      return true;
+    }
+
+    if (parents!.length <= 1 && isContainParnet(CategoryKey.all)) {
+      return false;
+    }
+
+    return parents!.values
+        .where((parents) => parents.key != CategoryKey.all)
+        .any((parent) => parent.childOf(parentKey));
+  }
+
+  CategoryEntity convertDataByParentRelation(CategoryKey parentKey) {
+    if (key == parentKey || parents == null) {
       return this;
     }
-    return parent!._getTopParentCategory(this);
+
+    final CategoryEntity? parent = parents![parentKey];
+    if (parent == null ||
+        parent.subCategories == null ||
+        parent.subCategories![key] == null) {
+      return this;
+    }
+
+    final CategoriesRelationship parentRelation = parent.subCategories![key]!;
+
+    return CategoryEntity(
+      key: key,
+      name: parentRelation.name,
+      allies: allies,
+      icon: parentRelation.icon,
+      image: image,
+      isPrimaryCategory: isPrimary,
+    );
+  }
+
+  List<CategoryEntity> _getPrimariesParents(categoryEntity) {
+    if (parents == null || isPrimary) {
+      return [this];
+    }
+    return parents!.values
+        .expand((parent) => parent._getPrimariesParents(this))
+        .toSet()
+        .toList();
+  }
+
+  void addParent(CategoryEntity parent) {
+    _parents ??= {};
+    _parents![parent.key] = parent;
+  }
+
+  static List<CategoryEntity> filterPrimaryCategories(
+      List<CategoryEntity> categories) {
+    return categories.where((category) => category.isPrimary).toSet().toList();
   }
 
   static List<StoreEntity> filterStoresByKey(
@@ -45,9 +121,8 @@ class CategoryEntity {
 
     if (key != CategoryKey.all) {
       filteredStores = stores
-          .where((store) => store.categories
-              .map((category) => category.topParentCategory.key)
-              .contains(key))
+          .where((store) =>
+              store.categories.any((category) => category.childOf(key)))
           .toList();
     }
 
@@ -63,9 +138,14 @@ class CategoryEntity {
     return filteredStores;
   }
 
+  bool isContainParnet(CategoryKey parentKey) =>
+      parents?.containsKey(parentKey) ?? false;
+
   CategoryKey get key => _key;
   String get name => _name;
   List<String> get allies => _allies;
   IconData get icon => _icon;
   bool get isPrimary => _isPrimary;
+  Image? get image => _image;
+  Map<CategoryKey, CategoryEntity>? get parents => _parents;
 }
