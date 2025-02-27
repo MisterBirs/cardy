@@ -1,5 +1,5 @@
-import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
-import 'package:cardy/entities/user_items/item_entity.dart';
+import 'package:cardy/entities/payment_methods/multi_stores_payment_method_entity.dart';
+import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/ui/widgets/gradient_button.dart';
 import 'package:cardy/ui/widgets/background.dart';
@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ItemDetailsScreen extends StatefulWidget {
-  final ItemEntity item;
+  final PaymentItemEntity item;
   const ItemDetailsScreen({super.key, required this.item});
 
   @override
@@ -35,7 +35,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ItemInfoBox(item: widget.item),
-                    if (widget.item.type.isCard) storesForReedem,
+                    if (widget.item.paymentMethod.isCard) storesForReedem,
                     SizedBox(
                         height: 80), //Place holder for the UpdateReedemButton
                   ],
@@ -95,21 +95,21 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
   }
 
   Widget get storesForReedem {
-    final MultiRedemtionItemType itemType =
-        widget.item.type as MultiRedemtionItemType;
+    final MultiStoresPaymentMethodEntity itemType =
+        widget.item.paymentMethod as MultiStoresPaymentMethodEntity;
 
-        return ShowAllItemsList.type(
-        label: 'חנויות למימוש',
-        gridScreenAppBar:
-            BackAppBar(title: 'חנויות למימוש', subtitle:  widget.item.type.name),
-        listSpacing: SPACING_S,
-        itemsTypes: itemType.storesToRedeem,
-      );
+    return ShowAllItemsList.type(
+      label: 'חנויות למימוש',
+      gridScreenAppBar: BackAppBar(
+          title: 'חנויות למימוש', subtitle: widget.item.paymentMethod.name),
+      listSpacing: SPACING_S,
+      itemsTypes: itemType.redeemableStores,
+    );
   }
 }
 
 class ItemInfoBox extends StatelessWidget {
-  final ItemEntity item;
+  final PaymentItemEntity item;
 
   const ItemInfoBox({
     super.key,
@@ -154,22 +154,36 @@ class ItemInfoBox extends StatelessWidget {
     return Column(
       spacing: 15,
       children: [
-        ItemInfoRow(
-          label: 'יתרה',
-          value: '₪${item.balance.toString()}',
-          icon: Icons.payment,
-        ),
-        ItemInfoRow(
-          label: 'קוד',
-          value: _formattedCode,
-          icon: Icons.qr_code,
-          scaleFont: true,
-        ),
-        ItemInfoRow(
-            label: 'תוקף', value: _formattedData, icon: Icons.date_range),
-        if (item.cvv != null)
-          ItemInfoRow(label: 'CVV', value: item.cvv!, icon: Icons.password),
+        if (item.balance != null) balanceRow,
+        codeRow,
+        expirationDateRow,
+        if (item.cvv != null) cvvRow,
       ],
+    );
+  }
+
+  ItemInfoRow get cvvRow =>
+      ItemInfoRow(label: 'CVV', value: item.cvv!, icon: Icons.password);
+
+  ItemInfoRow get expirationDateRow {
+    return ItemInfoRow(
+        label: 'תוקף', value: _formattedData, icon: Icons.date_range);
+  }
+
+  ItemInfoRow get codeRow {
+    return ItemInfoRow(
+      label: 'קוד',
+      value: _formattedCode,
+      icon: Icons.qr_code,
+      scaleFont: true,
+    );
+  }
+
+  ItemInfoRow get balanceRow {
+    return ItemInfoRow(
+      label: 'יתרה',
+      value: '₪${item.balance.toString()}',
+      icon: Icons.payment,
     );
   }
 

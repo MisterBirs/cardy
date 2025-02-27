@@ -1,95 +1,111 @@
+import 'dart:math';
+
 import 'package:cardy/entities/categories/categories.dart';
 import 'package:cardy/entities/categories/category_key.dart';
-import 'package:cardy/entities/payments_methods/item_type_entity.dart';
-import 'package:cardy/entities/payments_methods/gift_card_type_entity.dart';
-import 'package:cardy/entities/payments_methods/reloadable_card_type_entity.dart';
-import 'package:cardy/entities/payments_methods/store_entity.dart';
+import 'package:cardy/entities/payment_methods/multi_stores_payment_method_entity.dart';
+import 'package:cardy/entities/payment_methods/payment_method_entity.dart';
+import 'package:cardy/entities/payment_methods/single_store_payment_method_entity.dart';
+import 'package:cardy/entities/payment_methods/store_entity.dart';
+import 'package:cardy/entities/payment_methods/payment_method_type.dart';
 import 'package:cardy/gen/assets.gen.dart';
+import 'package:uuid/uuid.dart';
 
 class PaymentsMethodsData {
+  //#region Singleton
   static final PaymentsMethodsData instance = PaymentsMethodsData._();
+  //#endregion
 
+  //#region Attributes
+
+  //Images paths
   final storesImagesPath = Assets.images.items.stores;
   final giftcardsImagesPath = Assets.images.items.giftcards;
   final reloadableImagesPath = Assets.images.items.reloadableCards;
 
-  late final Map<String, StoreEntity> stores;
-  late final Map<String, GiftCardTypeEntity> giftcards;
-  late final Map<String, ReloadableCardTypeEntity> reloadableCards;
-  late final Map<String, ItemTypeEntity> allPaymentMethods;
+  final Map<PaymentMethodType, Map<String, PaymentMethodEntity>>
+      paymentsMethodsMap = {};
 
+  Map<String, PaymentMethodEntity> allPaymentMethodsMap = {};
+  //#endregion
+
+  //#region Private Constructor
   PaymentsMethodsData._() {
     _initStores();
     _initGiftcards();
     _initReloadableCards();
+    _initVouchers();
+    _initCredits();
     _initAllPaymentMethods();
   }
+  //#endregion
 
+  //#region Initializations Methods
   void _initStores() {
-    stores = {
-      'sType001': StoreEntity(
-          id: 'sType001',
+    int index = 1;
+    final List<StoreEntity> storesList = [
+      StoreEntity(
+          id: 'store_Type_${index++}',
           name: 'Nike',
           aliases: ['נייק', 'נייקי'],
           categories:
               Categories.instance.getCategories([CategoryKey.fitnessClothing]),
           imagePath: storesImagesPath.nikeLogo.path),
-      'sType002': StoreEntity(
-          id: 'sType002',
+      StoreEntity(
+          id: 'store_Type_${index++}',
           name: 'Childrens Place',
           aliases: ['צילדרנס פלייס'],
           categories:
               Categories.instance.getCategories([CategoryKey.kidsFashion]),
           imagePath: storesImagesPath.childrensplaceLogo.path),
-      'sType003': StoreEntity(
-          id: 'sType003',
+      StoreEntity(
+          id: 'store_Type_${index++}',
           name: 'Ruby Bay',
           aliases: ['רובי ביי'],
           categories:
               Categories.instance.getCategories([CategoryKey.womensFashion]),
           imagePath: storesImagesPath.rubyBayLogo.path),
-      'sType004': StoreEntity(
-          id: 'sType004',
+      StoreEntity(
+          id: 'store_Type_${index++}',
           name: 'Yanga',
           aliases: ['ינגה'],
           categories:
               Categories.instance.getCategories([CategoryKey.womensFashion]),
           imagePath: storesImagesPath.yangaLogo.path),
-      'sType005': StoreEntity(
-          id: 'sType005',
+      StoreEntity(
+          id: 'store_Type_${index++}',
           name: 'Quik Silver',
           aliases: ['קוויק סילבר'],
           categories: Categories.instance.getCategories(
               [CategoryKey.mensFashion, CategoryKey.fitnessClothing]),
           imagePath: storesImagesPath.quiksilverLogo.path),
-      'sType006': StoreEntity(
-          id: 'sType006',
+      StoreEntity(
+          id: 'store_Type_${index++}',
           name: "Sack's",
           aliases: ['סאקס'],
           categories:
               Categories.instance.getCategories([CategoryKey.womensFashion]),
           imagePath: storesImagesPath.sacksLogo.path),
-      'sType007': StoreEntity(
-          id: 'sType007',
+      StoreEntity(
+          id: 'store_Type_${index++}',
           name: 'Flying Tiger',
           aliases: ['פליינג טייגר'],
           categories: Categories.instance.getCategories([CategoryKey.home]),
           imagePath: storesImagesPath.flyingTigerLogo.path),
-      'sType008': StoreEntity(
-          id: 'sType008',
+      StoreEntity(
+          id: 'store_Type_${index++}',
           name: 'Fox',
           aliases: ['פוקס'],
           categories: Categories.instance.getCategories([CategoryKey.fashion]),
           imagePath: storesImagesPath.foxLogo.path),
-      'sType009': StoreEntity(
-          id: 'sType009',
+      StoreEntity(
+          id: 'store_Type_${index++}',
           name: 'Aerie',
           aliases: ['ארי'],
           categories: Categories.instance.getCategories(
               [CategoryKey.womensFashion, CategoryKey.fitnessClothing]),
           imagePath: storesImagesPath.aerieLogo.path),
-      'sType010': StoreEntity(
-          id: 'sType010',
+      StoreEntity(
+          id: 'store_Type_${index++}',
           name: 'Board Riders',
           aliases: ['בורד ריידרס'],
           categories: Categories.instance.getCategories([
@@ -98,19 +114,19 @@ class PaymentsMethodsData {
             CategoryKey.fitnessClothing
           ]),
           imagePath: storesImagesPath.boardridersLogo.path),
-      'sType011': StoreEntity(
-          id: 'sType011',
+      StoreEntity(
+          id: 'store_Type_${index++}',
           name: 'Fox Home',
           aliases: ['פוקס הום'],
           categories: Categories.instance.getCategories([CategoryKey.home]),
           imagePath: storesImagesPath.foxHomeLogo.path),
-      'sType012': StoreEntity(
-          id: 'sType012',
+      StoreEntity(
+          id: 'store_Type_${index++}',
           name: 'שילב',
           categories: Categories.instance.getCategories([CategoryKey.babies]),
           imagePath: storesImagesPath.shilavLogo.path),
-      'sType013': StoreEntity(
-          id: 'sType013',
+      StoreEntity(
+          id: 'store_Type_${index++}',
           name: 'MANGO',
           aliases: ['מנגו'],
           categories: Categories.instance.getCategories([
@@ -118,27 +134,27 @@ class PaymentsMethodsData {
             CategoryKey.womensFashion,
           ]),
           imagePath: storesImagesPath.mangoLogo.path),
-      'sType014': StoreEntity(
-          id: 'sType014',
+      StoreEntity(
+          id: 'store_Type_${index++}',
           name: 'Foot Locker',
           aliases: ['פוט לוקר'],
           categories: Categories.instance.getCategories([CategoryKey.shoes]),
           imagePath: storesImagesPath.footLockerLogo.path),
-      'sType015': StoreEntity(
-          id: 'sType015',
+      StoreEntity(
+          id: 'store_Type_${index++}',
           name: 'Dream Sport',
           aliases: ['דרים ספורט'],
           categories:
               Categories.instance.getCategories([CategoryKey.fitnessClothing]),
           imagePath: storesImagesPath.dreamSportLogo.path),
-      'sType016': StoreEntity(
-          id: 'sType016',
+      StoreEntity(
+          id: 'store_Type_${index++}',
           name: 'Laline',
           aliases: ['ללין'],
           categories: Categories.instance.getCategories([CategoryKey.beauty]),
           imagePath: storesImagesPath.lalineLogo.path),
-      'sType017': StoreEntity(
-          id: 'sType017',
+      StoreEntity(
+          id: 'store_Type_${index++}',
           name: 'BILABONG',
           aliases: ['בילבונג'],
           categories: Categories.instance.getCategories([
@@ -147,8 +163,8 @@ class PaymentsMethodsData {
             CategoryKey.fitnessClothing
           ]),
           imagePath: storesImagesPath.bilabongLogo.path),
-      'sType018': StoreEntity(
-          id: 'sType018',
+      StoreEntity(
+          id: 'store_Type_${index++}',
           name: 'American Eagle',
           aliases: ['אמריקן איגל'],
           categories: Categories.instance.getCategories([
@@ -156,21 +172,31 @@ class PaymentsMethodsData {
             CategoryKey.womensFashion,
           ]),
           imagePath: storesImagesPath.americanEagleLogo.path),
-    };
+    ];
+
+    final storesMap =
+        Map.fromEntries(storesList.map((store) => MapEntry(store.id, store)));
+
+    paymentsMethodsMap[PaymentMethodType.store] = storesMap;
   }
 
   void _initGiftcards() {
-    giftcards = {
-      'gftype001': GiftCardTypeEntity(
-        id: 'gftype001',
+    int index = 1;
+    final List<MultiStoresPaymentMethodEntity> giftcardsList = [
+      MultiStoresPaymentMethodEntity(
+        id: 'giftcard_Type_${index++}',
         name: 'BUYME all',
         aliases: ['ביימי אול'],
         categories: Categories.instance.getCategories([CategoryKey.all]),
         imagePath: giftcardsImagesPath.buymeallGiftcard.path,
-        storesToRedeem: stores.values.toList(),
+        redeemableStores: storesMap.values.toList(),
+        type: PaymentMethodType.giftCard,
+        hasBalance: true,
+        hasCvv: false,
+        hasDescription: false,
       ),
-      'gftype002': GiftCardTypeEntity(
-        id: 'gftype002',
+      MultiStoresPaymentMethodEntity(
+        id: 'giftcard_Type_${index++}',
         name: 'DREAM CARD',
         aliases: ['דרים קארד'],
         categories: Categories.instance.getCategories([
@@ -181,64 +207,137 @@ class PaymentsMethodsData {
           CategoryKey.beauty
         ]),
         imagePath: giftcardsImagesPath.dreamcardGiftcard.path,
-        storesToRedeem: stores.values.toList(),
+        redeemableStores: storesMap.values.toList(),
+        type: PaymentMethodType.giftCard,
+        hasBalance: true,
+        hasCvv: false,
+        hasDescription: false,
       ),
-      'gftype003': GiftCardTypeEntity(
-        id: 'gftype003',
+      MultiStoresPaymentMethodEntity(
+        id: 'giftcard_Type_${index++}',
         name: 'GAVEKORT',
         aliases: ['גאבקורט'],
         categories: Categories.instance.getCategories([CategoryKey.all]),
         imagePath: giftcardsImagesPath.gavekortGiftcard.path,
-        storesToRedeem: stores.values.toList(),
+        redeemableStores: storesMap.values.toList(),
+        type: PaymentMethodType.giftCard,
+        hasBalance: true,
+        hasCvv: false,
+        hasDescription: false,
       ),
-      'gftype004': GiftCardTypeEntity(
-        id: 'gftype004',
+      MultiStoresPaymentMethodEntity(
+        id: 'giftcard_Type_${index++}',
         name: 'GiftZone',
         aliases: ['גיפטזון'],
         categories: Categories.instance.getCategories([CategoryKey.all]),
         imagePath: giftcardsImagesPath.giftzozeGiftcard.path,
-        storesToRedeem: stores.values.toList(),
+        redeemableStores: storesMap.values.toList(),
+        type: PaymentMethodType.giftCard,
+        hasBalance: true,
+        hasCvv: false,
+        hasDescription: false,
       ),
-      'gftype005': GiftCardTypeEntity(
-        id: 'gftype005',
+      MultiStoresPaymentMethodEntity(
+        id: 'giftcard_Type_${index++}',
         name: 'Love',
         aliases: ['לאב'],
         categories: Categories.instance.getCategories([CategoryKey.all]),
         imagePath: giftcardsImagesPath.loveGiftcard.path,
-        storesToRedeem: stores.values.toList(),
+        redeemableStores: storesMap.values.toList(),
+        type: PaymentMethodType.giftCard,
+        hasBalance: true,
+        hasCvv: false,
+        hasDescription: false,
       ),
-    };
+    ];
+
+    Map<String, PaymentMethodEntity> giftcardsMap = Map.fromEntries(
+        giftcardsList.map((giftcard) => MapEntry(giftcard.id, giftcard)));
+
+    paymentsMethodsMap[PaymentMethodType.giftCard] = giftcardsMap;
   }
 
   void _initReloadableCards() {
-    reloadableCards = {
-      'rcType001': ReloadableCardTypeEntity(
-        id: 'rcType001',
+    int index = 0;
+
+    final List<MultiStoresPaymentMethodEntity> reloadableCardsList = [
+      MultiStoresPaymentMethodEntity(
+        id: 'reloadable_card_${index++}',
         name: 'בהצדעה',
         categories: Categories.instance.getCategories([CategoryKey.all]),
         imagePath: reloadableImagesPath.behatsdaaReloadableCard.path,
-        storesToRedeem: stores.values.toList(),
+        redeemableStores: storesMap.values.toList(),
+        type: PaymentMethodType.reloadableCard,
+        hasBalance: true,
+        hasCvv: false,
+        hasDescription: false,
       ),
-      'rcType002': ReloadableCardTypeEntity(
-        id: 'rcType002',
+      MultiStoresPaymentMethodEntity(
+        id: 'reloadable_card_${index++}',
         name: 'ביחד בשבילך',
         categories: Categories.instance.getCategories([CategoryKey.all]),
         imagePath: reloadableImagesPath.histReloadableCard.path,
-        storesToRedeem: stores.values.toList(),
+        redeemableStores: storesMap.values.toList(),
+        type: PaymentMethodType.reloadableCard,
+        hasBalance: true,
+        hasCvv: false,
+        hasDescription: false,
       ),
-    };
+    ];
+
+    final reloadableCardsMap = Map.fromEntries(reloadableCardsList
+        .map((reloadableCard) => MapEntry(reloadableCard.id, reloadableCard)));
+
+    paymentsMethodsMap[PaymentMethodType.reloadableCard] = reloadableCardsMap;
+  }
+
+  void _initVouchers() {
+    paymentsMethodsMap[PaymentMethodType.voucher] =
+        generateSingleStorePaymentMethods(
+            type: PaymentMethodType.voucher, hasBalance: true);
+  }
+
+  void _initCredits() {
+    paymentsMethodsMap[PaymentMethodType.credit] =
+        generateSingleStorePaymentMethods(
+            type: PaymentMethodType.credit, hasBalance: true);
   }
 
   void _initAllPaymentMethods() {
-    allPaymentMethods = {
-      // Insert items from stores map
-      ...stores.map((key, value) => MapEntry(key, value)),
-
-      // Insert items from giftcards map
-      ...giftcards.map((key, value) => MapEntry(key, value)),
-
-      // Insert items from reloadableCard map
-      ...reloadableCards.map((key, value) => MapEntry(key, value)),
-    };
+    allPaymentMethodsMap = Map.fromEntries(PaymentMethodType.values
+        .expand((type) => paymentsMethodsMap[type]!.entries));
   }
+  //#endregion
+
+  //#region Generate Methods
+  Map<String, PaymentMethodEntity> generateSingleStorePaymentMethods(
+      {required PaymentMethodType type,
+      int count = 10,
+      bool hasBalance = true,
+      bool hasCvv = false,
+      bool hasDescription = false}) {
+    final uuid = Uuid();
+    final random = Random();
+    Map<String, PaymentMethodEntity> paymentsMethods = {};
+    for (int i = 0; i < count; i++) {
+      String id = uuid.v4();
+      final storeIndex = random.nextInt(storesMap.values.toList().length);
+      paymentsMethods[id] = SingleStorePaymentMethodEntity(
+        id: id,
+        store: storesMap.values.toList()[storeIndex],
+        type: type,
+        hasBalance: hasBalance,
+        hasCvv: hasCvv,
+        hasDescription: hasDescription,
+      );
+    }
+
+    return paymentsMethods;
+  }
+  //#endregion
+
+  //#region Getters
+  Map<String, StoreEntity> get storesMap =>
+      paymentsMethodsMap[PaymentMethodType.store]!.cast<String, StoreEntity>();
+  //#endregion
 }

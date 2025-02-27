@@ -1,6 +1,6 @@
 import 'package:cardy/data/user_items_data.dart';
 import 'package:cardy/entities/categories/category_entity.dart';
-import 'package:cardy/entities/payments_methods/store_summary_entity.dart';
+import 'package:cardy/entities/payment_methods/store_summary_entity.dart';
 import 'package:cardy/ui/screens/items_grid_screen.dart';
 import 'package:cardy/ui/screens/store_screen.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_balance_tile.dart';

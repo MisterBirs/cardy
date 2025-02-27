@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
+
 import 'package:cardy/entities/categories/categories.dart';
 import 'package:cardy/entities/categories/category_key.dart';
-import 'package:cardy/entities/payments_methods/store_entity.dart';
-import 'package:flutter/material.dart';
+import 'package:cardy/entities/payment_methods/store_entity.dart';
 
 class CategoryEntity {
   final bool _isPrimary;

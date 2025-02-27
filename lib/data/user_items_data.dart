@@ -1,300 +1,164 @@
+import 'dart:math';
+
 import 'package:cardy/data/payments_methods_data.dart';
 import 'package:cardy/entities/categories/category_key.dart';
-import 'package:cardy/entities/payments_methods/store_summary_entity.dart';
-import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
-import 'package:cardy/entities/payments_methods/store_entity.dart';
-import 'package:cardy/entities/user_items/coupon_entity.dart';
-import 'package:cardy/entities/user_items/credit_entity.dart';
-import 'package:cardy/entities/user_items/gift_card_entity.dart';
-import 'package:cardy/entities/user_items/item_entity.dart';
-import 'package:cardy/entities/user_items/items_group_enum.dart';
-import 'package:cardy/entities/user_items/reloadable_card_entity.dart';
+import 'package:cardy/entities/payment_methods/multi_stores_payment_method_entity.dart';
+import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
+import 'package:cardy/entities/payment_methods/payment_method_entity.dart';
+import 'package:cardy/entities/payment_methods/single_store_payment_method_entity.dart';
+import 'package:cardy/entities/payment_methods/store_entity.dart';
+import 'package:cardy/entities/payment_methods/store_summary_entity.dart';
+import 'package:cardy/entities/payment_methods/payment_method_type.dart';
+import 'package:uuid/uuid.dart';
 
 class UserItemsData {
+  //#region Singleton
   static final UserItemsData instance = UserItemsData._();
+  //#endregion
 
+  //#region Attributes
   late PaymentsMethodsData _paymentsMethodsData;
+  final Map<String, PaymentItemEntity> allPaymentMethods = {};
+  late Map<PaymentMethodType, Map<String, PaymentItemEntity>> itemsGroups = {};
+  final Random random = Random();
+  final Uuid uuid = Uuid();
+  //#endregion
 
-  late Map<String, GiftCardEntity> giftcards;
-  late Map<String, CreditEntity> credits;
-  late Map<String, CouponEntity> coupons;
-  late Map<String, ReloadableCardEntity> reloadableCards;
-  late Map<String, ItemEntity> allPaymentMethods;
-  late Map<ItemsGroupEnum, List<ItemEntity>> itemsGroups;
-
+  //#region Private Constructor
   UserItemsData._() {
     _paymentsMethodsData = PaymentsMethodsData.instance;
-    _initGiftCards();
-    _initCredits();
-    _initCoupons();
-    _initReloadableCards();
+    _initItems();
     _initAllPaymentMethods();
-    _initItemsGroups();
   }
+  //#endregion
 
-  void _initGiftCards() {
-    giftcards = {
-      'gf0001': GiftCardEntity(
-        id: 'gf0001',
-        code: '9555098938828685',
-        cvv: '931',
-        typeId: 'gftype001',
-        type: _paymentsMethodsData.giftcards['gftype001']!,
-        initialAmount: 100,
-        balance: 90,
-        addTime: DateTime.now(),
-        expirationDate: DateTime.now().add(const Duration(days: 60)),
-      ),
-      'gf0002': GiftCardEntity(
-        id: 'gf0002',
-        typeId: 'gftype002',
-        type: _paymentsMethodsData.giftcards['gftype002']!,
-        code: '1254211317022706',
-        cvv: '361',
-        initialAmount: 250,
-        balance: 100,
-        addTime: DateTime.now(),
-        expirationDate: DateTime.now().add(const Duration(days: 95)),
-      ),
-      'gf0003': GiftCardEntity(
-        id: 'gf0003',
-        typeId: 'gftype003',
-        type: _paymentsMethodsData.giftcards['gftype003']!,
-        code: '1234567890123456',
-        cvv: '123',
-        initialAmount: 150,
-        balance: 75,
-        addTime: DateTime.now(),
-        expirationDate: DateTime.now().add(const Duration(days: 120)),
-      ),
-    };
-  }
+  //#region Initialization Methods
+  void _initItems() {
+    List<PaymentMethodType> paymentMethodForGenerateItems = PaymentMethodType
+        .values
+        .where((itemGroup) => itemGroup != PaymentMethodType.store)
+        .toList();
 
-  void _initCredits() {
-    credits = {
-      'cr0001': CreditEntity(
-        id: 'cr0001',
-        code: '194759309',
-        typeId: 'sType001',
-        type: _paymentsMethodsData.stores['sType001']!,
-        initialAmount: 200,
-        balance: 200,
-        addTime: DateTime.now(),
-        expirationDate: DateTime.now().add(const Duration(days: 250)),
-      ),
-      'cr0002': CreditEntity(
-        id: 'cr0002',
-        code: '294750385',
-        typeId: 'sType002',
-        type: _paymentsMethodsData.stores['sType002']!,
-        initialAmount: 300,
-        balance: 190,
-        addTime: DateTime.now(),
-        expirationDate: DateTime.now().add(const Duration(days: 150)),
-      ),
-      'cr0003': CreditEntity(
-        id: 'cr0003',
-        code: '194759309',
-        typeId: 'sType003',
-        type: _paymentsMethodsData.stores['sType003']!,
-        initialAmount: 200,
-        balance: 200,
-        addTime: DateTime.now(),
-        expirationDate: DateTime.now().add(const Duration(days: 250)),
-      ),
-      'cr0004': CreditEntity(
-        id: 'cr0004',
-        code: '894850284',
-        typeId: 'sType004',
-        type: _paymentsMethodsData.stores['sType004']!,
-        initialAmount: 100,
-        balance: 20,
-        addTime: DateTime.now().subtract(const Duration(days: 80)),
-        expirationDate: DateTime.now().add(const Duration(days: 100)),
-      ),
-      'cr0005': CreditEntity(
-        id: 'cr0005',
-        code: '436278934',
-        typeId: 'sType005',
-        type: _paymentsMethodsData.stores['sType005']!,
-        initialAmount: 500,
-        balance: 90,
-        addTime: DateTime.now().subtract(const Duration(days: 10)),
-        expirationDate: DateTime.now().add(const Duration(days: 300)),
-      )
-    };
-  }
-
-  void _initCoupons() {
-    coupons = {
-      'co0001': CouponEntity(
-          id: 'co0001',
-          code: '194759309',
-          typeId: 'sType006',
-          type: _paymentsMethodsData.stores['sType006']!,
-          initialAmount: 200,
-          balance: 200,
-          addTime: DateTime.now(),
-          expirationDate: DateTime.now().add(const Duration(days: 250))),
-      'co0002': CouponEntity(
-          id: 'co0002',
-          code: '294750385',
-          typeId: 'sType007',
-          type: _paymentsMethodsData.stores['sType007']!,
-          initialAmount: 300,
-          balance: 190,
-          addTime: DateTime.now(),
-          expirationDate: DateTime.now().add(const Duration(days: 150))),
-      'co0003': CouponEntity(
-          id: 'co0003',
-          code: '894850284',
-          typeId: 'sType010',
-          type: _paymentsMethodsData.stores['sType010']!,
-          initialAmount: 100,
-          balance: 20,
-          addTime: DateTime.now().subtract(const Duration(days: 80)),
-          expirationDate: DateTime.now().add(const Duration(days: 100))),
-      'co0004': CouponEntity(
-          id: 'co0004',
-          code: '436278934',
-          typeId: 'sType011',
-          type: _paymentsMethodsData.stores['sType011']!,
-          initialAmount: 500,
-          balance: 90,
-          addTime: DateTime.now().subtract(const Duration(days: 10)),
-          expirationDate: DateTime.now().add(const Duration(days: 300))),
-      'co0005': CouponEntity(
-          id: 'co0005',
-          code: '194759309',
-          typeId: 'sType008',
-          type: _paymentsMethodsData.stores['sType008']!,
-          initialAmount: 200,
-          balance: 200,
-          addTime: DateTime.now(),
-          expirationDate: DateTime.now().add(const Duration(days: 250))),
-      'co0006': CouponEntity(
-          id: 'co0006',
-          code: '194259309',
-          typeId: 'sType001',
-          type: _paymentsMethodsData.stores['sType001']!,
-          initialAmount: 80,
-          balance: 60,
-          addTime: DateTime.now(),
-          expirationDate: DateTime.now().add(const Duration(days: 250))),
-      'co0007': CouponEntity(
-          id: 'co0007',
-          code: '194249319',
-          typeId: 'sType001',
-          type: _paymentsMethodsData.stores['sType001']!,
-          initialAmount: 50,
-          balance: 20,
-          addTime: DateTime.now(),
-          expirationDate: DateTime.now().add(const Duration(days: 250))),
-    };
-  }
-
-  void _initReloadableCards() {
-    reloadableCards = {
-      'rc0001': ReloadableCardEntity(
-        id: 'rc0001',
-        code: '9876543210987654',
-        cvv: '456',
-        typeId: 'rctype001',
-        type: _paymentsMethodsData.reloadableCards['rcType001']!,
-        initialAmount: 200,
-        balance: 150,
-        addTime: DateTime.now(),
-        expirationDate: DateTime.now().add(const Duration(days: 180)),
-      ),
-      'rc0002': ReloadableCardEntity(
-        id: 'rc0002',
-        typeId: 'rctype002',
-        type: _paymentsMethodsData.reloadableCards['rcType001']!,
-        code: '8765432109876543',
-        cvv: '789',
-        initialAmount: 300,
-        balance: 250,
-        addTime: DateTime.now(),
-        expirationDate: DateTime.now().add(const Duration(days: 200)),
-      ),
-      'rc0003': ReloadableCardEntity(
-          id: 'rc0003',
-          code: '2015961235943548',
-          cvv: '064',
-          typeId: 'rcType002',
-          type: _paymentsMethodsData.reloadableCards['rcType001']!,
-          initialAmount: 500,
-          balance: 340,
-          addTime: DateTime.now(),
-          expirationDate: DateTime.now().add(const Duration(days: 95))),
-    };
+    paymentMethodForGenerateItems.forEach(
+      (itemsGroupEnum) {
+        itemsGroups[itemsGroupEnum] =
+            _generatePaymentItems(type: itemsGroupEnum)
+                .asMap()
+                .map((key, item) => MapEntry(item.id, item));
+      },
+    );
   }
 
   void _initAllPaymentMethods() {
-    allPaymentMethods = {
-      ...giftcards,
-      ...credits,
-      ...coupons,
-      ...reloadableCards,
-    };
+    final allItems = itemsGroups.values
+        .expand((itemGroup) => itemGroup.values)
+        .toList()
+        .asMap()
+        .map((key, item) => MapEntry(item.id, item));
+
+    allPaymentMethods.addAll(allItems);
+  }
+  //#endregion
+
+  //#region Generation Methods
+  String _generateRandomCode({int length = 16}) {
+    final random = Random();
+    return List.generate(length, (_) => random.nextInt(10).toString()).join();
   }
 
-  void _initItemsGroups() {
-    itemsGroups = {
-      ItemsGroupEnum.giftCard: giftcards.values.toList(),
-      ItemsGroupEnum.reloadableCard: reloadableCards.values.toList(),
-      ItemsGroupEnum.coupon: coupons.values.toList(),
-      ItemsGroupEnum.credit: credits.values.toList(),
-    };
+  String _generateCVV() {
+    return random.nextInt(1000).toString().padLeft(3, '0');
   }
 
+  PaymentMethodEntity _getRandomPaymentMethod(
+      List<PaymentMethodEntity> paymentMethods) {
+    return paymentMethods[random.nextInt(paymentMethods.length)];
+  }
+
+  double _generateRandomMultipleOfTen(int max) {
+    final random = Random();
+    max = max < 10 ? 10 : max;
+    return random.nextInt(max ~/ 10) * 10;
+  }
+
+  DateTime _generateRandomExpirationDate() {
+    return DateTime.now()
+        .add(Duration(days: random.nextInt(Random().nextInt(365 * 5))));
+  }
+
+  String get demyDescription => 'קיבלת שובר מיוחד.\n\n'
+      'נצל את ההטבה הבלעדית שלך ותהנה מחוויה משתלמת במיוחד.\n'
+      'השובר מעניק לך אפשרות ליהנות מהנחה או מוצר מתנה בהתאם לתנאי ההטבה.\n'
+      'השימוש קל ופשוט – הצג את השובר בקופה או השתמש בקוד ההטבה אונליין.\n'
+      'תקף לזמן מוגבל, אז אל תפספס.\n'
+      'לפרטים נוספים ולמימוש, יש לעיין בתנאים המצורפים.';
+
+  List<PaymentItemEntity> _generatePaymentItems({
+    int count = 10,
+    required PaymentMethodType type,
+  }) {
+    return List.generate(
+      count,
+      (_) {
+        final typePaymentMethodList =
+            _paymentsMethodsData.paymentsMethodsMap[type]!.values.toList();
+        final randomPaymentMethod =
+            _getRandomPaymentMethod(typePaymentMethodList);
+        final initialBalance = _generateRandomMultipleOfTen(1000);
+        final balance = _generateRandomMultipleOfTen(initialBalance.toInt());
+
+        return PaymentItemEntity(
+          id: uuid.v4(),
+          code: _generateRandomCode(),
+          paymentMethod: randomPaymentMethod,
+          expirationDate: _generateRandomExpirationDate(),
+          initialBalance:
+              randomPaymentMethod.hasBalance ? initialBalance : null,
+          balance: randomPaymentMethod.hasBalance ? balance : null,
+          cvv: randomPaymentMethod.hasCvv ? _generateCVV() : null,
+          description:
+              randomPaymentMethod.hasDescription ? demyDescription : null,
+        );
+      },
+    );
+  }
+  //#endregion
+
+  //#region Public Methods
   double getTotalBalance() {
     return allPaymentMethods.values
-        .map((item) => item.balance)
+        .map((item) => item.balance ?? 0)
         .reduce((value, element) => value + element);
   }
 
-  Map<String, StoreSummaryEntity> get userStores =>
-      getStoresByItemsAndCategory(allPaymentMethods.values.toList(), CategoryKey.all);
-
-  void _addItemToStoreMap(ItemEntity item, StoreEntity itemStore,
-      Map<String, StoreSummaryEntity> storesMap) {
-    if (!storesMap.containsKey(itemStore.id)) {
-      storesMap[itemStore.id] = StoreSummaryEntity(
-        store: itemStore,
-        itemsGroupsMap: {
-          ItemsGroupEnum.giftCard: [],
-          ItemsGroupEnum.reloadableCard: [],
-          ItemsGroupEnum.coupon: [],
-          ItemsGroupEnum.credit: [],
-        },
-        totalBalance: 0,
-      );
-    }
-    storesMap[itemStore.id]!.addItem(item);
-  }
-
-  List<ItemEntity> getItemsByCategory(CategoryKey categoryKey) {
+  List<PaymentItemEntity> getItemsByCategory(CategoryKey categoryKey) {
     return allPaymentMethods.values
-        .where((item) => item.type.categories
+        .where((item) => item.paymentMethod.categories
             .any((category) => category.childOf(categoryKey)))
         .toList();
   }
 
-  Map<String, StoreSummaryEntity> getStoresByItemsAndCategory(
-      List<ItemEntity> items, CategoryKey categoryKey) {
+  Map<String, StoreSummaryEntity> getStoresByCategory(CategoryKey categoryKey) {
+    final items = getItemsByCategory(categoryKey);
+    return _getStoresByItemsAndCategory(items, categoryKey);
+  }
+  //#endregion
+
+  //#region Private Methods
+  Map<String, StoreSummaryEntity> _getStoresByItemsAndCategory(
+      List<PaymentItemEntity> items, CategoryKey categoryKey) {
     final storesMap = <String, StoreSummaryEntity>{};
 
     for (var item in items) {
-      final itemType = item.type;
-      final List<StoreEntity> stores = itemType is MultiRedemtionItemType
-          ? itemType.storesToRedeem
-          : itemType is StoreEntity
-              ? [itemType]
+      final itemType = item.paymentMethod;
+      final List<StoreEntity> stores = itemType.hasMultiStores
+          ? (itemType as MultiStoresPaymentMethodEntity).redeemableStores
+          : itemType is SingleStorePaymentMethodEntity
+              ? [(itemType as SingleStorePaymentMethodEntity).store]
               : [];
 
       for (var store in stores) {
-        if(store.categories.any((category) => category.childOf(categoryKey))) {
+        if (store.categories.any((category) => category.childOf(categoryKey))) {
           _addItemToStoreMap(item, store, storesMap);
         }
       }
@@ -302,8 +166,26 @@ class UserItemsData {
     return storesMap;
   }
 
-  Map<String, StoreSummaryEntity> getStoresByCategory(CategoryKey categoryKey) {
-    final items = getItemsByCategory(categoryKey);
-    return getStoresByItemsAndCategory(items, categoryKey);
+  void _addItemToStoreMap(PaymentItemEntity item, StoreEntity itemStore,
+      Map<String, StoreSummaryEntity> storesMap) {
+    if (!storesMap.containsKey(itemStore.id)) {
+      storesMap[itemStore.id] = StoreSummaryEntity(
+        store: itemStore,
+        itemsGroupsMap: {
+          PaymentMethodType.giftCard: [],
+          PaymentMethodType.reloadableCard: [],
+          PaymentMethodType.voucher: [],
+          PaymentMethodType.credit: [],
+        },
+      );
+    }
+    storesMap[itemStore.id]!.addItem(item);
   }
+  //#endregion
+
+  //#region Getters Methods
+  Map<String, StoreSummaryEntity> get userStores =>
+      _getStoresByItemsAndCategory(
+          allPaymentMethods.values.toList(), CategoryKey.all);
+  //#endregion
 }

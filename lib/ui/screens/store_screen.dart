@@ -1,7 +1,7 @@
-import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
-import 'package:cardy/entities/payments_methods/store_summary_entity.dart';
-import 'package:cardy/entities/user_items/item_entity.dart';
-import 'package:cardy/entities/user_items/items_group_enum.dart';
+import 'package:cardy/entities/payment_methods/multi_stores_payment_method_entity.dart';
+import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
+import 'package:cardy/entities/payment_methods/store_summary_entity.dart';
+import 'package:cardy/entities/payment_methods/payment_method_type.dart';
 import 'package:cardy/ui/screens/item_details_screen/item_details_screen.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
@@ -51,10 +51,10 @@ class StoreScreen extends StatelessWidget {
           .where((itemsGroupEntry) => itemsGroupEntry.value.isNotEmpty)
           .map((itemsGroupEntry) {
         final isMultiRedemtion =
-            itemsGroupEntry.value.first.type is MultiRedemtionItemType;
+            itemsGroupEntry.value.first.paymentMethod is MultiStoresPaymentMethodEntity;
 
-        final String label = itemsGroupEntry.key.groupDisplayName;
-        final List<ItemEntity> items = itemsGroupEntry.value;
+        final String label = itemsGroupEntry.key.pluralDisplayName;
+        final List<PaymentItemEntity> items = itemsGroupEntry.value;
 
         return isMultiRedemtion
             ? _imageItemsList(label, items, () {})
@@ -64,7 +64,7 @@ class StoreScreen extends StatelessWidget {
   }
 
   ShowAllItemsList _imageItemsList(
-      String label, List<ItemEntity> items, void Function() onAdd) {
+      String label, List<PaymentItemEntity> items, void Function() onAdd) {
     return ShowAllItemsList(
       label: label,
       gridScreenAppBar: BackAppBar(
@@ -74,7 +74,7 @@ class StoreScreen extends StatelessWidget {
   }
 
   CustomShowAllItemsListView _noImageitemsList(
-      String label, List<ItemEntity> items, void Function() onAdd) {
+      String label, List<PaymentItemEntity> items, void Function() onAdd) {
     return CustomShowAllItemsListView(
       label: label,
       gridScreenAppBar: BackAppBar(
@@ -83,15 +83,15 @@ class StoreScreen extends StatelessWidget {
       gridTiles: items
           .map((item) => ItemGridCustomTile(
                 tile: buildNoImageItemTile(item),
-                alias: item.type.aliases,
-                categories: item.type.categories,
+                alias: item.paymentMethod.aliases,
+                categories: item.paymentMethod.categories,
                 balance: item.balance,
               ))
           .toList(),
     );
   }
 
-  Widget buildNoImageItemTile(ItemEntity item) {
+  Widget buildNoImageItemTile(PaymentItemEntity item) {
     return Builder(builder: (context) {
       return GestureDetector(
         onTap: () => Navigator.push(

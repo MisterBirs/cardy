@@ -39,7 +39,7 @@ class CategoriesScreen extends StatelessWidget {
   List<CategoryEntity> filterOnlyUserCategories() {
     Set<CategoryEntity> userCategories = {};
     for (var item in UserItemsData.instance.allPaymentMethods.values) {
-      for (var category in item.type.categories) {
+      for (var category in item.paymentMethod.categories) {
         if (category.key != CategoryKey.all) {
           userCategories.addAll(category.primaryCategorirs);
         }

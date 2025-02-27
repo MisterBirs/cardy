@@ -1,12 +1,12 @@
-import 'package:cardy/entities/payments_methods/item_type_entity.dart';
+import 'package:cardy/entities/payment_methods/payment_method_entity.dart';
 import 'package:cardy/ui/widgets/item_tiles/grid_tiles/base_item_grid_tile.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
 import 'package:flutter/material.dart';
 
 class ItemTypeGridTile extends BaseItemGridTile {
-  final ItemTypeEntity _itemType;
+  final PaymentMethodEntity _itemType;
 
-  ItemTypeGridTile(ItemTypeEntity itemType, {super.key})
+  ItemTypeGridTile(PaymentMethodEntity itemType, {super.key})
       : _itemType = itemType,
         super(
           alias: itemType.aliases,
@@ -18,5 +18,5 @@ class ItemTypeGridTile extends BaseItemGridTile {
     return ItemTile.type(itemType);
   }
 
-  ItemTypeEntity get itemType => _itemType;
+  PaymentMethodEntity get itemType => _itemType;
 }

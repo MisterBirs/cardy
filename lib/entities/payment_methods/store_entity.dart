@@ -1,25 +1,32 @@
 import 'package:cardy/entities/categories/category_entity.dart';
-import 'package:cardy/entities/new_payment_methods/abstract_classes/payment_method.dart';
+import 'package:cardy/entities/payment_methods/payment_method_entity.dart';
+import 'package:cardy/entities/payment_methods/payment_method_type.dart';
 
-class Store extends PaymentMethod {
+class StoreEntity extends PaymentMethodEntity {
+
+  //#region Attributes
   final String _id;
   final String _name;
   final List<String> _aliases;
   final String _imagePath;
   final List<CategoryEntity> _categories;
+  //#endregion
 
-  Store({
+  //#region Constructor
+  StoreEntity({
     required String id,
     required String name,
-    required List<String> aliases,
+    List<String>? aliases,
     required String imagePath,
     required List<CategoryEntity> categories,
   })  : _id = id,
         _name = name,
-        _aliases = aliases,
+        _aliases = aliases != null ? [name, ...aliases] : [name],
         _imagePath = imagePath,
         _categories = categories;
+  //#endregion
 
+  //#region Getters
   @override
   String get id => _id;
 
@@ -51,8 +58,6 @@ class Store extends PaymentMethod {
   bool get isCard => false;
 
   @override
-  String get displaySingleName => 'חנות';
-
-  @override
-  String get displayPluralName => 'חנויות';
+  PaymentMethodType get type => PaymentMethodType.store;
+  //#endregion
 }

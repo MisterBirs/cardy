@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'package:cardy/entities/payments_methods/item_type_entity.dart';
+import 'package:cardy/entities/payment_methods/payment_method_entity.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
 import 'package:cardy/ui/widgets/text_fields/icon_text_field.dart';
 import 'package:flutter/material.dart';
 
-class ItemTypeAutoCompleteTextField<T extends ItemTypeEntity> extends StatefulWidget {
+class ItemTypeAutoCompleteTextField<T extends PaymentMethodEntity> extends StatefulWidget {
   final List<T> itemsTypes;
   final int maxOptionsCount;
   final ItemTypeFormController controller;
@@ -27,9 +27,9 @@ class _ItemTypeAutoCompleteTextFieldState
 
   @override
   Widget build(BuildContext context) {
-    return FormField<ItemTypeEntity>(
+    return FormField<PaymentMethodEntity>(
         builder: (state) {
-          return Autocomplete<ItemTypeEntity>(
+          return Autocomplete<PaymentMethodEntity>(
             fieldViewBuilder: buildFieldViewBuilder(state),
             optionsViewBuilder: optionsViewBuilder,
             optionsBuilder: optionsBuilder,
@@ -43,7 +43,7 @@ class _ItemTypeAutoCompleteTextFieldState
         validator: defaultValidator);
   }
 
-  String? defaultValidator(ItemTypeEntity? itemType) {
+  String? defaultValidator(PaymentMethodEntity? itemType) {
     if (itemType == null) {
       return 'שדה חובה';
     }
@@ -51,7 +51,7 @@ class _ItemTypeAutoCompleteTextFieldState
   }
 
   Widget Function(BuildContext, TextEditingController, FocusNode, VoidCallback)
-      buildFieldViewBuilder(FormFieldState<ItemTypeEntity> state) {
+      buildFieldViewBuilder(FormFieldState<PaymentMethodEntity> state) {
     return (
       BuildContext context,
       TextEditingController txtEditingCtrl,
@@ -114,14 +114,14 @@ class _ItemTypeAutoCompleteTextFieldState
                   return const Divider();
                 },
                 itemBuilder: (BuildContext context, int index) {
-                  ItemTypeEntity itemType = options.toList()[index];
+                  PaymentMethodEntity itemType = options.toList()[index];
                   return optionItem(onSelected, itemType);
                 },
               )),
         ));
   }
 
-  Widget optionItem(onSelected, ItemTypeEntity itemType) {
+  Widget optionItem(onSelected, PaymentMethodEntity itemType) {
     return Builder(builder: (context) {
       return GestureDetector(
         onTap: () {
@@ -144,7 +144,7 @@ class _ItemTypeAutoCompleteTextFieldState
     }
   }
 
-  Widget itemTypeImage(ItemTypeEntity itemType) {
+  Widget itemTypeImage(PaymentMethodEntity itemType) {
     final tileWidth = 40.0;
 
     return SizedBox(
@@ -157,7 +157,7 @@ class _ItemTypeAutoCompleteTextFieldState
     );
   }
 
-  FutureOr<Iterable<ItemTypeEntity>> optionsBuilder(
+  FutureOr<Iterable<PaymentMethodEntity>> optionsBuilder(
       TextEditingValue textEditingValue) {
     if (textEditingValue.text.isEmpty) {
       return widget.itemsTypes;
@@ -165,16 +165,16 @@ class _ItemTypeAutoCompleteTextFieldState
 
     final lowerCaseText = textEditingValue.text.toLowerCase();
     return widget.itemsTypes
-        .where((itemType) => itemType.isAliasContains(lowerCaseText))
+        .where((itemType) => itemType.hasAliasThatContains(lowerCaseText))
         .toList();
   }
 
   void _removeItemTypeImageIfNeeded(TextEditingController txtEditingCtrl,
-      FormFieldState<ItemTypeEntity> state) {
+      FormFieldState<PaymentMethodEntity> state) {
     final selectedItemType = widget.controller.value;
 
     if (selectedItemType != null &&
-        !selectedItemType.isMatchToAlias(txtEditingCtrl.text)) {
+        !selectedItemType.hasMatchingAlias(txtEditingCtrl.text)) {
       setState(() {
         widget.controller.value = null;
         state.didChange(null);
@@ -186,7 +186,7 @@ class _ItemTypeAutoCompleteTextFieldState
 class _ItemTypeTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
-  final ItemTypeEntity? itemTypeEntity;
+  final PaymentMethodEntity? itemTypeEntity;
   final void Function(String)? onChanged;
   final FocusNode? focusNode;
 
@@ -218,11 +218,11 @@ class _ItemTypeTextField extends StatelessWidget {
   }
 }
 
-class ItemTypeFormController extends ValueNotifier<ItemTypeEntity?> {
-   ItemTypeFormController({ItemTypeEntity? initialItemType})
+class ItemTypeFormController extends ValueNotifier<PaymentMethodEntity?> {
+   ItemTypeFormController({PaymentMethodEntity? initialItemType})
       : super(initialItemType);
 
-  void setItemType(ItemTypeEntity itemType) {
+  void setItemType(PaymentMethodEntity itemType) {
     value = itemType;
   }
 }

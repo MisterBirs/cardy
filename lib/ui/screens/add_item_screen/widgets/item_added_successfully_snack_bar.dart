@@ -1,10 +1,10 @@
-import 'package:cardy/entities/user_items/item_entity.dart';
-import 'package:cardy/entities/user_items/items_group_enum.dart';
+import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
+import 'package:cardy/entities/payment_methods/payment_method_type.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
 import 'package:flutter/material.dart';
 
 class ItemAddedSuccessfullySnackBar extends SnackBar {
-  ItemAddedSuccessfullySnackBar(ItemEntity item, {super.key})
+  ItemAddedSuccessfullySnackBar(PaymentItemEntity item, {super.key})
       : super(
           content: _buildSnackBarContent(item),
           elevation: 3,
@@ -13,13 +13,13 @@ class ItemAddedSuccessfullySnackBar extends SnackBar {
                   topLeft: Radius.circular(10), topRight: Radius.circular(10))),
         );
 
-  static Widget _buildSnackBarContent(ItemEntity item) {
+  static Widget _buildSnackBarContent(PaymentItemEntity item) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'ה${item.itemGroupType.singleDisplayName} נוסף בהצלחה',
+          'ה${item.paymentMethod.type.singleDisplayName} נוסף בהצלחה',
         ),
         ItemTile(
           item,

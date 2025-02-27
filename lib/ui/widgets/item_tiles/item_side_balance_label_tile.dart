@@ -1,4 +1,4 @@
-import 'package:cardy/entities/user_items/item_entity.dart';
+import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
 import 'package:cardy/ui/screens/item_details_screen/item_details_screen.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
@@ -9,10 +9,11 @@ class ItemSideBalanceLabelTile extends StatelessWidget {
   final unhiddenPartLabelWidth = 85.0;
   final imageRadius = 5.0;
   final labelRasius = 10.0;
-  final ItemEntity item;
+  final PaymentItemEntity item;
 
   double get tileWidth =>
-      unhiddenPartLabelWidth + (item.type.isCard ? squareSize*SQUARE_CARD_RATIO : squareSize);
+      unhiddenPartLabelWidth +
+      (item.paymentMethod.isCard ? squareSize * SQUARE_CARD_RATIO : squareSize);
 
   const ItemSideBalanceLabelTile({
     super.key,
@@ -75,12 +76,16 @@ class ItemSideBalanceLabelTile extends StatelessWidget {
   }
 
   Widget get unhiddenPartLabel {
+    final hasBalance = item.balance != null;
+    final balance =
+        hasBalance ? '₪${item.balance!.toInt().toString()}' : 'ללא יתרה';
+        
     return Builder(builder: (context) {
       return Container(
         width: unhiddenPartLabelWidth,
         alignment: Alignment.center,
         child: Text(
-          '₪${item.balance.toInt().toString()}',
+          balance,
           style: Theme.of(context).textTheme.titleMedium,
         ),
       );
@@ -89,7 +94,7 @@ class ItemSideBalanceLabelTile extends StatelessWidget {
 
   Widget get itemImage {
     return ItemTile(item,
-        size: squareSize ,
+        size: squareSize,
         borderRadius: BorderRadius.only(
             topRight: Radius.circular(imageRadius),
             bottomRight: Radius.circular(imageRadius),

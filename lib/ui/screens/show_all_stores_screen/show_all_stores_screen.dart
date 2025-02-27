@@ -1,4 +1,4 @@
-import 'package:cardy/entities/payments_methods/multi_redemtion_item_type.dart';
+import 'package:cardy/entities/payment_methods/multi_stores_payment_method_entity.dart';
 import 'package:cardy/ui/screens/items_grid_screen.dart';
 import 'package:cardy/ui/widgets/item_tiles/grid_tiles/item_grid_custom_tile.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
@@ -7,7 +7,7 @@ import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
 
 class ShowAllStoresScreen extends StatelessWidget {
-  final MultiRedemtionItemType itemType;
+  final MultiStoresPaymentMethodEntity itemType;
   const ShowAllStoresScreen(this.itemType, {super.key});
 
   @override
@@ -19,7 +19,7 @@ class ShowAllStoresScreen extends StatelessWidget {
         title: 'חנויות למימוש',
         subtitle: itemType.name.toUpperCase(),
       ),
-      items: itemType.storesToRedeem.map((store) {
+      items: itemType.redeemableStores.map((store) {
         return ItemGridCustomTile(
             alias: store.aliases,
             categories: store.categories,
