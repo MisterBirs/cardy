@@ -1,13 +1,13 @@
 // ignore_for_file: prefer_const_constructors_in_immutables
 
-import 'package:cardy/data/payments_methods_data.dart';
-import 'package:cardy/entities/payment_methods/payment_method_entity.dart';
+import 'package:cardy/data/brads_data.dart';
+import 'package:cardy/entities/payment_methods/brand_entity.dart';
 import 'package:cardy/ui/screens/add_item_screen/add_item_screen.dart';
 import 'package:cardy/ui/widgets/text_fields/amount_text_field.dart';
 import 'package:cardy/ui/widgets/text_fields/code_text_field.dart';
 import 'package:cardy/ui/widgets/text_fields/cvv_text_field.dart';
 import 'package:cardy/ui/widgets/text_fields/expiration_date_text_field.dart';
-import 'package:cardy/ui/widgets/text_fields/item_type_auto_complete_text_field.dart';
+import 'package:cardy/ui/widgets/text_fields/brand_auto_complete_text_field.dart';
 import 'package:flutter/material.dart';
 
 class AddGiftCardScreen extends AddItemScreen {
@@ -27,9 +27,9 @@ class AddGiftCardScreen extends AddItemScreen {
     _cvvController = TextEditingController();
     _amountController = DoubleFormController();
 
-    final itemTypeField = ItemTypeAutoCompleteTextField<PaymentMethodEntity>(
+    final itemTypeField = BrandsAutoCompleteTextField<BrandEntity>(
         controller: _itemTypeController,
-        itemsTypes: PaymentsMethodsData.instance.allPaymentMethodsMap.values.toList());
+        itemsTypes: BrandsData.instance.allBrandsMap.values.toList());
 
     final cardNumberField =
         CodeTextField(controller: _cardNumberController, label: 'מספר כרטיס');
@@ -56,7 +56,7 @@ class AddGiftCardScreen extends AddItemScreen {
     if (!formKey.currentState!.validate()) {
       return;
     }
-    final PaymentMethodEntity itemType = _itemTypeController.value!;
+    final BrandEntity itemType = _itemTypeController.value!;
     final String cardNumber = _cardNumberController.text;
     final expirationDate = _expirationDateController.value!;
     final String cvv = _cvvController.text;

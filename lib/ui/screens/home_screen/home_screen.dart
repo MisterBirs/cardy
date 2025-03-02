@@ -1,6 +1,6 @@
 import 'package:cardy/data/user_items_data.dart';
 import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
-import 'package:cardy/entities/payment_methods/payment_method_type.dart';
+import 'package:cardy/entities/payment_methods/payment_methods.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/ui/widgets/background.dart';
 import 'package:cardy/ui/widgets/show_all_items_list/show_all_items_list.dart';
@@ -36,7 +36,7 @@ class _Items extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map<PaymentMethodType, Map<String, PaymentItemEntity>> itemsGroups =
+    final Map<PaymentMethod, Map<String, PaymentItemEntity>> itemsGroups =
         UserItemsData.instance.itemsGroups;
     return Column(
       children: itemsGroups.entries

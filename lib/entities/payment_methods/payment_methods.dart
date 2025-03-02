@@ -1,5 +1,5 @@
 
-enum PaymentMethodType {
+enum PaymentMethod {
   giftCard,
   reloadableCard,
   voucher,
@@ -7,49 +7,49 @@ enum PaymentMethodType {
   store,
 }
 
-extension ItemsGroupDisplayNames on PaymentMethodType {
+extension PaymentMethodExtension on PaymentMethod {
 
   String get pluralDisplayName {
     switch (this) {
-      case PaymentMethodType.giftCard:
+      case PaymentMethod.giftCard:
         return 'גיפטקארדים';
-      case PaymentMethodType.reloadableCard:
+      case PaymentMethod.reloadableCard:
         return 'כרטיסים נטענים';
-      case PaymentMethodType.voucher:
+      case PaymentMethod.voucher:
         return 'שוברים';
-      case PaymentMethodType.credit:
+      case PaymentMethod.credit:
         return 'זיכויים';
-      case PaymentMethodType.store:
+      case PaymentMethod.store:
         return 'חנויות';
     }
   }
 
   String get singleDisplayName {
     switch (this) {
-      case PaymentMethodType.giftCard:
+      case PaymentMethod.giftCard:
         return 'גיפטקארד';
-      case PaymentMethodType.reloadableCard:
+      case PaymentMethod.reloadableCard:
         return 'כרטיס נטען';
-      case PaymentMethodType.voucher:
+      case PaymentMethod.voucher:
         return 'שובר';
-      case PaymentMethodType.credit:
+      case PaymentMethod.credit:
         return 'זיכוי';
-      case PaymentMethodType.store:
+      case PaymentMethod.store:
         return 'חנות';
     }
   }
 
     bool get isCard {
     switch (this) {
-      case PaymentMethodType.giftCard:
+      case PaymentMethod.giftCard:
         return true;
-      case PaymentMethodType.reloadableCard:
+      case PaymentMethod.reloadableCard:
         return true;
-      case PaymentMethodType.voucher:
+      case PaymentMethod.voucher:
         return false;
-      case PaymentMethodType.credit:
+      case PaymentMethod.credit:
         return false;
-      case PaymentMethodType.store:
+      case PaymentMethod.store:
         return false;
     }
   }

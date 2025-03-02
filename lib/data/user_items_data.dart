@@ -1,14 +1,14 @@
 import 'dart:math';
 
-import 'package:cardy/data/payments_methods_data.dart';
+import 'package:cardy/data/brads_data.dart';
 import 'package:cardy/entities/categories/category_key.dart';
 import 'package:cardy/entities/payment_methods/multi_stores_payment_method_entity.dart';
 import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
-import 'package:cardy/entities/payment_methods/payment_method_entity.dart';
+import 'package:cardy/entities/payment_methods/brand_entity.dart';
 import 'package:cardy/entities/payment_methods/single_store_payment_method_entity.dart';
 import 'package:cardy/entities/payment_methods/store_entity.dart';
 import 'package:cardy/entities/payment_methods/store_summary_entity.dart';
-import 'package:cardy/entities/payment_methods/payment_method_type.dart';
+import 'package:cardy/entities/payment_methods/payment_methods.dart';
 import 'package:uuid/uuid.dart';
 
 class UserItemsData {
@@ -17,16 +17,16 @@ class UserItemsData {
   //#endregion
 
   //#region Attributes
-  late PaymentsMethodsData _paymentsMethodsData;
+  late BrandsData _paymentsMethodsData;
   final Map<String, PaymentItemEntity> allPaymentMethods = {};
-  late Map<PaymentMethodType, Map<String, PaymentItemEntity>> itemsGroups = {};
+  late Map<PaymentMethod, Map<String, PaymentItemEntity>> itemsGroups = {};
   final Random random = Random();
   final Uuid uuid = Uuid();
   //#endregion
 
   //#region Private Constructor
   UserItemsData._() {
-    _paymentsMethodsData = PaymentsMethodsData.instance;
+    _paymentsMethodsData = BrandsData.instance;
     _initItems();
     _initAllPaymentMethods();
   }
@@ -34,9 +34,9 @@ class UserItemsData {
 
   //#region Initialization Methods
   void _initItems() {
-    List<PaymentMethodType> paymentMethodForGenerateItems = PaymentMethodType
+    List<PaymentMethod> paymentMethodForGenerateItems = PaymentMethod
         .values
-        .where((itemGroup) => itemGroup != PaymentMethodType.store)
+        .where((itemGroup) => itemGroup != PaymentMethod.store)
         .toList();
 
     paymentMethodForGenerateItems.forEach(
@@ -70,8 +70,8 @@ class UserItemsData {
     return random.nextInt(1000).toString().padLeft(3, '0');
   }
 
-  PaymentMethodEntity _getRandomPaymentMethod(
-      List<PaymentMethodEntity> paymentMethods) {
+  BrandEntity _getRandomPaymentMethod(
+      List<BrandEntity> paymentMethods) {
     return paymentMethods[random.nextInt(paymentMethods.length)];
   }
 
@@ -95,13 +95,13 @@ class UserItemsData {
 
   List<PaymentItemEntity> _generatePaymentItems({
     int count = 10,
-    required PaymentMethodType type,
+    required PaymentMethod type,
   }) {
     return List.generate(
       count,
       (_) {
         final typePaymentMethodList =
-            _paymentsMethodsData.paymentsMethodsMap[type]!.values.toList();
+            _paymentsMethodsData.brandsMap[type]!.values.toList();
         final randomPaymentMethod =
             _getRandomPaymentMethod(typePaymentMethodList);
         final initialBalance = _generateRandomMultipleOfTen(1000);
@@ -152,9 +152,9 @@ class UserItemsData {
     for (var item in items) {
       final itemType = item.paymentMethod;
       final List<StoreEntity> stores = itemType.hasMultiStores
-          ? (itemType as MultiStoresPaymentMethodEntity).redeemableStores
-          : itemType is SingleStorePaymentMethodEntity
-              ? [(itemType as SingleStorePaymentMethodEntity).store]
+          ? (itemType as MultiStoresBrandEntity).redeemableStores
+          : itemType is StoreEntity
+              ? [(itemType as StoreEntity)]
               : [];
 
       for (var store in stores) {
@@ -172,10 +172,10 @@ class UserItemsData {
       storesMap[itemStore.id] = StoreSummaryEntity(
         store: itemStore,
         itemsGroupsMap: {
-          PaymentMethodType.giftCard: [],
-          PaymentMethodType.reloadableCard: [],
-          PaymentMethodType.voucher: [],
-          PaymentMethodType.credit: [],
+          PaymentMethod.giftCard: [],
+          PaymentMethod.reloadableCard: [],
+          PaymentMethod.voucher: [],
+          PaymentMethod.credit: [],
         },
       );
     }

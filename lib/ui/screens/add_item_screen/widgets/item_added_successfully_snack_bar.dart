@@ -1,5 +1,5 @@
 import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
-import 'package:cardy/entities/payment_methods/payment_method_type.dart';
+import 'package:cardy/entities/payment_methods/payment_methods.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
 import 'package:flutter/material.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:core';
 
 import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
-import 'package:cardy/entities/payment_methods/payment_method_entity.dart';
+import 'package:cardy/entities/payment_methods/brand_entity.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/item_tiles/grid_tiles/item_type_grid_tile.dart';
 import 'package:cardy/ui/widgets/item_tiles/grid_tiles/item_grid_balance_tile.dart';
@@ -16,7 +16,7 @@ class ShowAllItemsList extends StatelessWidget {
   final PreferredSizeWidget gridScreenAppBar;
   final double listSpacing;
   final List<PaymentItemEntity>? items;
-  final List<PaymentMethodEntity>? itemsTypes;
+  final List<BrandEntity>? itemsTypes;
 
   const ShowAllItemsList({
     super.key,
@@ -51,7 +51,7 @@ class ShowAllItemsList extends StatelessWidget {
     return itemsTypes != null;
   }
 
-  PaymentMethodEntity get type {
+  BrandEntity get type {
     return isType ? itemsTypes!.first : items!.first.paymentMethod;
   }
 

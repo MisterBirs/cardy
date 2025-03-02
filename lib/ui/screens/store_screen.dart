@@ -1,7 +1,7 @@
 import 'package:cardy/entities/payment_methods/multi_stores_payment_method_entity.dart';
 import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
 import 'package:cardy/entities/payment_methods/store_summary_entity.dart';
-import 'package:cardy/entities/payment_methods/payment_method_type.dart';
+import 'package:cardy/entities/payment_methods/payment_methods.dart';
 import 'package:cardy/ui/screens/item_details_screen/item_details_screen.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
@@ -51,7 +51,7 @@ class StoreScreen extends StatelessWidget {
           .where((itemsGroupEntry) => itemsGroupEntry.value.isNotEmpty)
           .map((itemsGroupEntry) {
         final isMultiRedemtion =
-            itemsGroupEntry.value.first.paymentMethod is MultiStoresPaymentMethodEntity;
+            itemsGroupEntry.value.first.paymentMethod is MultiStoresBrandEntity;
 
         final String label = itemsGroupEntry.key.pluralDisplayName;
         final List<PaymentItemEntity> items = itemsGroupEntry.value;

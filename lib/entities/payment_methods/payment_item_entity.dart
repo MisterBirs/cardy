@@ -1,11 +1,11 @@
 import 'package:cardy/entities/payment_methods/history_record_entity.dart';
-import 'package:cardy/entities/payment_methods/payment_method_entity.dart';
+import 'package:cardy/entities/payment_methods/brand_entity.dart';
 
 class PaymentItemEntity {
 
   //#region Attributes
   final String _id;
-  final PaymentMethodEntity _paymentMethod;
+  final BrandEntity _paymentMethod;
   final String _code;
   final DateTime _expirationDate;
   final String? _notes;
@@ -19,7 +19,7 @@ class PaymentItemEntity {
   //#region Costructor
   PaymentItemEntity({
     required String id,
-    required PaymentMethodEntity paymentMethod,
+    required BrandEntity paymentMethod,
     required String code,
     required DateTime expirationDate,
     String? notes,
@@ -96,7 +96,7 @@ class PaymentItemEntity {
 
   //#region Getters
   String get id => _id;
-  PaymentMethodEntity get paymentMethod => _paymentMethod;
+  BrandEntity get paymentMethod => _paymentMethod;
   String get code => _code;
   DateTime get expirationDate => _expirationDate;
   String? get notes => _notes;

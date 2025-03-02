@@ -1,8 +1,8 @@
 import 'package:cardy/entities/categories/category_entity.dart';
-import 'package:cardy/entities/payment_methods/payment_method_entity.dart';
-import 'package:cardy/entities/payment_methods/payment_method_type.dart';
+import 'package:cardy/entities/payment_methods/brand_entity.dart';
+import 'package:cardy/entities/payment_methods/payment_methods.dart';
 
-class StoreEntity extends PaymentMethodEntity {
+class StoreEntity extends BrandEntity {
 
   //#region Attributes
   final String _id;
@@ -58,6 +58,6 @@ class StoreEntity extends PaymentMethodEntity {
   bool get isCard => false;
 
   @override
-  PaymentMethodType get type => PaymentMethodType.store;
+  PaymentMethod get type => PaymentMethod.store;
   //#endregion
 }

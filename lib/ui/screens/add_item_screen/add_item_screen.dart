@@ -2,7 +2,7 @@ import 'package:cardy/ui/widgets/gradient_button.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/ui/widgets/background.dart';
-import 'package:cardy/ui/widgets/text_fields/item_type_auto_complete_text_field.dart';
+import 'package:cardy/ui/widgets/text_fields/brand_auto_complete_text_field.dart';
 import 'package:flutter/material.dart';
 
 abstract class AddItemScreen extends StatefulWidget {
@@ -55,7 +55,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                       spacing: SPACING_S,
                       children: _formFields.map((field) {
                         return Padding(
-                          padding: field is ItemTypeAutoCompleteTextField
+                          padding: field is BrandsAutoCompleteTextField
                               ? EdgeInsets.all(0)
                               : padding,
                           child: field,

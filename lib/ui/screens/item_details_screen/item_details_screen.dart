@@ -95,8 +95,8 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
   }
 
   Widget get storesForReedem {
-    final MultiStoresPaymentMethodEntity itemType =
-        widget.item.paymentMethod as MultiStoresPaymentMethodEntity;
+    final MultiStoresBrandEntity itemType =
+        widget.item.paymentMethod as MultiStoresBrandEntity;
 
     return ShowAllItemsList.type(
       label: 'חנויות למימוש',

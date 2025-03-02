@@ -7,7 +7,7 @@ import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
 
 class ShowAllStoresScreen extends StatelessWidget {
-  final MultiStoresPaymentMethodEntity itemType;
+  final MultiStoresBrandEntity itemType;
   const ShowAllStoresScreen(this.itemType, {super.key});
 
   @override

@@ -1,9 +1,9 @@
 import 'package:cardy/entities/categories/category_entity.dart';
-import 'package:cardy/entities/payment_methods/payment_method_type.dart';
+import 'package:cardy/entities/payment_methods/payment_methods.dart';
 
-abstract class PaymentMethodEntity {
-  
-  const PaymentMethodEntity();
+abstract class BrandEntity {
+
+  const BrandEntity();
 
   //#region Getters
   String get id;
@@ -26,7 +26,7 @@ abstract class PaymentMethodEntity {
 
   bool get hasDescription;
 
-  PaymentMethodType get type;
+  PaymentMethod get type;
   //#endregion
 
   //#region Public methods

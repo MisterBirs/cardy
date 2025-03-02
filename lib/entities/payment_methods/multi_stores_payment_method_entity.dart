@@ -1,12 +1,12 @@
 import 'package:cardy/entities/categories/category_entity.dart';
-import 'package:cardy/entities/payment_methods/payment_method_entity.dart';
+import 'package:cardy/entities/payment_methods/brand_entity.dart';
 import 'package:cardy/entities/payment_methods/store_entity.dart';
-import 'package:cardy/entities/payment_methods/payment_method_type.dart';
+import 'package:cardy/entities/payment_methods/payment_methods.dart';
 
-class MultiStoresPaymentMethodEntity extends PaymentMethodEntity {
+class MultiStoresBrandEntity extends BrandEntity {
   //#region Attributes
   final String _id;
-  final PaymentMethodType _type;
+  final PaymentMethod _type;
   final String _name;
   final List<String> _aliases;
   final String _imagePath;
@@ -18,9 +18,9 @@ class MultiStoresPaymentMethodEntity extends PaymentMethodEntity {
   //#endregion
 
   //#region Constructor
-  MultiStoresPaymentMethodEntity({
+  MultiStoresBrandEntity({
     required String id,
-    required PaymentMethodType type,
+    required PaymentMethod type,
     required String name,
     required String imagePath,
     List<String>? aliases,
@@ -47,7 +47,7 @@ class MultiStoresPaymentMethodEntity extends PaymentMethodEntity {
   String get id => _id;
 
   @override
-  PaymentMethodType get type => _type;
+  PaymentMethod get type => _type;
 
   @override
   String get name => _name;
