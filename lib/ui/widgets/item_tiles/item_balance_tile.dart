@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class ItemBalanceTile extends StatelessWidget {
   final BrandEntity itemType;
-  final double balance;
+  final double? balance;
   final double width;
   final double height;
 
@@ -41,7 +41,8 @@ class ItemBalanceTile extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.fill,
               child: Text(
-                '₪${balance.toInt().toString()}',
+                balance != null ? '₪${balance!.toInt().toString()}' : 'שובר',
+             
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),

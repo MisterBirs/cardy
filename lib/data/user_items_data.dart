@@ -18,7 +18,8 @@ class UserItemsData {
   //#region Attributes
   late BrandsData _brandsData;
   final Map<String, PaymentItemEntity> allPaymentMethods = {};
-  late Map<PaymentMethodsEnum, Map<String, PaymentItemEntity>> itemsByPaymentsMethodsMap = {};
+  late Map<PaymentMethodsEnum, Map<String, PaymentItemEntity>>
+      itemsByPaymentsMethodsMap = {};
   final Random random = Random();
   final Uuid uuid = Uuid();
   //#endregion
@@ -33,13 +34,13 @@ class UserItemsData {
 
   //#region Initialization Methods
   void _initItems() {
-    for(var brandType in BrandTypesEnum.values) {
-      for(var paymentMethod in brandType.paymentMethods) {
-        final generatedItems  = _generatePaymentItems(
+    for (var brandType in BrandTypesEnum.values) {
+      for (var paymentMethod in brandType.paymentMethods) {
+        final generatedItems = _generatePaymentItems(
           brandType: brandType,
           paymentMethod: paymentMethod,
         ).asMap().map((key, item) => MapEntry(item.id, item));
-        if(itemsByPaymentsMethodsMap[paymentMethod] == null) {
+        if (itemsByPaymentsMethodsMap[paymentMethod] == null) {
           itemsByPaymentsMethodsMap[paymentMethod] = {};
         }
         itemsByPaymentsMethodsMap[paymentMethod]!.addAll(generatedItems);
@@ -68,8 +69,7 @@ class UserItemsData {
     return random.nextInt(1000).toString().padLeft(3, '0');
   }
 
-  BrandEntity _getRandomBrand(
-      List<BrandEntity> paymentMethods) {
+  BrandEntity _getRandomBrand(List<BrandEntity> paymentMethods) {
     return paymentMethods[random.nextInt(paymentMethods.length)];
   }
 
@@ -102,12 +102,17 @@ class UserItemsData {
         final typePaymentMethodList =
             _brandsData.brandsMap[brandType]!.values.toList();
 
-        final randomBrand =
-            _getRandomBrand(typePaymentMethodList);
+        final randomBrand = _getRandomBrand(typePaymentMethodList);
 
         final initialBalance = _generateRandomMultipleOfTen(1000);
 
         final balance = _generateRandomMultipleOfTen(initialBalance.toInt());
+
+        final bool hasBalance = paymentMethod == PaymentMethodsEnum.voucher
+            ? random.nextBool()
+            : true;
+
+        final bool hasDescription = hasBalance ? random.nextBool() : true;
 
         return PaymentItemEntity(
           id: uuid.v4(),
@@ -115,11 +120,10 @@ class UserItemsData {
           brand: randomBrand,
           paymentMethod: paymentMethod,
           expirationDate: _generateRandomExpirationDate(),
-          initialBalance: initialBalance, 
-          balance: balance,
+          initialBalance: hasBalance ? initialBalance : null,
+          balance: hasBalance ? balance : null,
           cvv: randomBrand.hasCvv ? _generateCVV() : null,
-          // description:
-          //  demyDescription ,
+          description: hasDescription ? demyDescription : null,
         );
       },
     );

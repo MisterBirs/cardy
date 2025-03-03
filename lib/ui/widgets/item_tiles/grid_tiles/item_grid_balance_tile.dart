@@ -27,7 +27,7 @@ class ItemGridBalanceTile extends BaseItemGridTile {
           ),
         );
       },
-      child: ItemBalanceTile(itemType: item.brand, balance: item.balance??0),
+      child: ItemBalanceTile(itemType: item.brand, balance: item.balance),
     );
   }
 

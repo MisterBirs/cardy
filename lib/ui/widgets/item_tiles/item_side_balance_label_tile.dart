@@ -79,7 +79,7 @@ class ItemSideBalanceLabelTile extends StatelessWidget {
   Widget get unhiddenPartLabel {
     final hasBalance = item.balance != null;
     final balance =
-        hasBalance ? '₪${item.balance!.toInt().toString()}' : 'ללא יתרה';
+        hasBalance ? '₪${item.balance!.toInt().toString()}' : 'שובר';
         
     return Builder(builder: (context) {
       return Container(
