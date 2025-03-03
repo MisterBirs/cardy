@@ -2,6 +2,7 @@ import 'package:cardy/entities/payment_methods/multi_stores_payment_method_entit
 import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
 import 'package:cardy/entities/payment_methods/enums.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
+import 'package:cardy/ui/widgets/cardy_toast.dart';
 import 'package:cardy/ui/widgets/gradient_button.dart';
 import 'package:cardy/ui/widgets/background.dart';
 import 'package:cardy/ui/widgets/gradient_color_mask.dart';
@@ -9,6 +10,8 @@ import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
 import 'package:cardy/ui/widgets/show_all_items_list/show_all_items_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 class ItemDetailsScreen extends StatefulWidget {
@@ -114,8 +117,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
   Widget buildDescriptionBox(String description) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(
-           horizontal: SCREEN_HORIZONTAL_PADDING),
+      margin: EdgeInsets.symmetric(horizontal: SCREEN_HORIZONTAL_PADDING),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(CONTAINER_HORIZONTAL_PADDING),
@@ -148,7 +150,7 @@ class ItemInfoBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric( horizontal: SCREEN_HORIZONTAL_PADDING),
+      margin: EdgeInsets.symmetric(horizontal: SCREEN_HORIZONTAL_PADDING),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(CONTAINER_HORIZONTAL_PADDING),
@@ -222,7 +224,12 @@ class ItemInfoBox extends StatelessWidget {
       children: [
         Expanded(
             child: GradientButton(
-                label: 'העתק קוד', onPressed: () {}, isColorReversed: true)),
+                label: 'העתק קוד',
+                onPressed: () {
+                  Clipboard.setData(ClipboardData(text: item.code));
+                 CardyToast.show('הקוד הועתק !');
+                },
+                isColorReversed: true)),
         Expanded(child: GradientButton(label: 'הצג קוד', onPressed: () {})),
       ],
     );

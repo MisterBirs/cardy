@@ -44,6 +44,7 @@ dependencies:
   mobile_scanner: ^6.0.6
   currency_text_input_formatter: ^2.2.8
   uuid: ^4.5.1
+  fluttertoast: ^8.2.12
 
 dev_dependencies:
   flutter_gen_runner: ^5.2.0
