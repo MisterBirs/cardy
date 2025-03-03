@@ -34,8 +34,11 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                 scrollDirection: Axis.vertical,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
+                  spacing: 15,
                   children: [
                     ItemInfoBox(item: widget.item),
+                    if (widget.item.description != null)
+                      buildDescriptionBox(widget.item.description!),
                     if (widget.item.paymentMethod.isCard) storesForReedem,
                     SizedBox(
                         height: 80), //Place holder for the UpdateReedemButton
@@ -101,10 +104,35 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
 
     return ShowAllItemsList.brand(
       label: 'חנויות למימוש',
-      gridScreenAppBar: BackAppBar(
-          title: 'חנויות למימוש', subtitle: widget.item.brand.name),
+      gridScreenAppBar:
+          BackAppBar(title: 'חנויות למימוש', subtitle: widget.item.brand.name),
       listSpacing: SPACING_S,
       itemsTypes: brand.redeemableStores,
+    );
+  }
+
+  Widget buildDescriptionBox(String description) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(
+           horizontal: SCREEN_HORIZONTAL_PADDING),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(CONTAINER_HORIZONTAL_PADDING),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 15,
+            children: [
+              Text('תיאור:'),
+              Text(description,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(color: TEXT_COLOR_2, fontSize: 18)),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -120,8 +148,7 @@ class ItemInfoBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(
-          vertical: SPACING_L, horizontal: SCREEN_HORIZONTAL_PADDING),
+      margin: EdgeInsets.symmetric( horizontal: SCREEN_HORIZONTAL_PADDING),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(CONTAINER_HORIZONTAL_PADDING),
