@@ -10,9 +10,9 @@ class ItemGridBalanceTile extends BaseItemGridTile {
   ItemGridBalanceTile(PaymentItemEntity item, {super.key})
       : _item = item,
         super(
-          alias: item.paymentMethod.aliases,
+          alias: item.brand.aliases,
           balance: item.balance,
-          categories: item.paymentMethod.categories,
+          categories: item.brand.categories,
         );
 
   @override
@@ -27,7 +27,7 @@ class ItemGridBalanceTile extends BaseItemGridTile {
           ),
         );
       },
-      child: ItemBalanceTile(itemType: item.paymentMethod, balance: item.balance!),
+      child: ItemBalanceTile(itemType: item.brand, balance: item.balance??0),
     );
   }
 

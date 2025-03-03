@@ -1,11 +1,13 @@
 import 'package:cardy/entities/payment_methods/history_record_entity.dart';
 import 'package:cardy/entities/payment_methods/brand_entity.dart';
+import 'package:cardy/entities/payment_methods/enums.dart';
 
 class PaymentItemEntity {
 
   //#region Attributes
   final String _id;
-  final BrandEntity _paymentMethod;
+  final PaymentMethodsEnum _paymentMethod;
+  final BrandEntity _brand;
   final String _code;
   final DateTime _expirationDate;
   final String? _notes;
@@ -19,7 +21,8 @@ class PaymentItemEntity {
   //#region Costructor
   PaymentItemEntity({
     required String id,
-    required BrandEntity paymentMethod,
+    required PaymentMethodsEnum paymentMethod,
+    required BrandEntity brand,
     required String code,
     required DateTime expirationDate,
     String? notes,
@@ -28,6 +31,7 @@ class PaymentItemEntity {
     double? initialBalance,
     String? description,
   })  : _id = id,
+        _brand = brand,
         _paymentMethod = paymentMethod,
         _code = code,
         _expirationDate = expirationDate,
@@ -51,23 +55,11 @@ class PaymentItemEntity {
   }
 
   void _verifyAttributesInitialization() {
-    if (paymentMethod.hasCvv && _cvv == null) {
+    if (brand.hasCvv && _cvv == null) {
       _throwDataMissingException('CVV');
     }
-    if (!paymentMethod.hasCvv && _cvv != null) {
+    if (!brand.hasCvv && _cvv != null) {
       _throwIllegalDataException('CVV');
-    }
-    if (paymentMethod.hasBalance && _balance == null) {
-      _throwDataMissingException('balance');
-    }
-    if (!paymentMethod.hasBalance && _balance != null) {
-      _throwIllegalDataException('balance');
-    }
-    if (paymentMethod.hasDescription && _description == null) {
-      _throwDataMissingException('description');
-    }
-    if (!paymentMethod.hasDescription && _description != null) {
-      _throwIllegalDataException('description');
     }
   }
 
@@ -96,7 +88,8 @@ class PaymentItemEntity {
 
   //#region Getters
   String get id => _id;
-  BrandEntity get paymentMethod => _paymentMethod;
+  BrandEntity get brand => _brand;
+  PaymentMethodsEnum get paymentMethod => _paymentMethod;
   String get code => _code;
   DateTime get expirationDate => _expirationDate;
   String? get notes => _notes;

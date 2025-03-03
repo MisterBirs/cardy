@@ -1,5 +1,6 @@
 import 'package:cardy/entities/payment_methods/multi_stores_payment_method_entity.dart';
 import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
+import 'package:cardy/entities/payment_methods/enums.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/ui/widgets/gradient_button.dart';
 import 'package:cardy/ui/widgets/background.dart';
@@ -95,15 +96,15 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
   }
 
   Widget get storesForReedem {
-    final MultiStoresBrandEntity itemType =
-        widget.item.paymentMethod as MultiStoresBrandEntity;
+    final MultiStoresBrandEntity brand =
+        widget.item.brand as MultiStoresBrandEntity;
 
-    return ShowAllItemsList.type(
+    return ShowAllItemsList.brand(
       label: 'חנויות למימוש',
       gridScreenAppBar: BackAppBar(
-          title: 'חנויות למימוש', subtitle: widget.item.paymentMethod.name),
+          title: 'חנויות למימוש', subtitle: widget.item.brand.name),
       listSpacing: SPACING_S,
-      itemsTypes: itemType.redeemableStores,
+      itemsTypes: brand.redeemableStores,
     );
   }
 }

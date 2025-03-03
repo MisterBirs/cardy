@@ -5,10 +5,9 @@ import 'package:cardy/entities/categories/category_key.dart';
 import 'package:cardy/entities/payment_methods/multi_stores_payment_method_entity.dart';
 import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
 import 'package:cardy/entities/payment_methods/brand_entity.dart';
-import 'package:cardy/entities/payment_methods/single_store_payment_method_entity.dart';
 import 'package:cardy/entities/payment_methods/store_entity.dart';
 import 'package:cardy/entities/payment_methods/store_summary_entity.dart';
-import 'package:cardy/entities/payment_methods/payment_methods.dart';
+import 'package:cardy/entities/payment_methods/enums.dart';
 import 'package:uuid/uuid.dart';
 
 class UserItemsData {
@@ -17,16 +16,16 @@ class UserItemsData {
   //#endregion
 
   //#region Attributes
-  late BrandsData _paymentsMethodsData;
+  late BrandsData _brandsData;
   final Map<String, PaymentItemEntity> allPaymentMethods = {};
-  late Map<PaymentMethod, Map<String, PaymentItemEntity>> itemsGroups = {};
+  late Map<PaymentMethodsEnum, Map<String, PaymentItemEntity>> itemsByPaymentsMethodsMap = {};
   final Random random = Random();
   final Uuid uuid = Uuid();
   //#endregion
 
   //#region Private Constructor
   UserItemsData._() {
-    _paymentsMethodsData = BrandsData.instance;
+    _brandsData = BrandsData.instance;
     _initItems();
     _initAllPaymentMethods();
   }
@@ -34,23 +33,22 @@ class UserItemsData {
 
   //#region Initialization Methods
   void _initItems() {
-    List<PaymentMethod> paymentMethodForGenerateItems = PaymentMethod
-        .values
-        .where((itemGroup) => itemGroup != PaymentMethod.store)
-        .toList();
-
-    paymentMethodForGenerateItems.forEach(
-      (itemsGroupEnum) {
-        itemsGroups[itemsGroupEnum] =
-            _generatePaymentItems(type: itemsGroupEnum)
-                .asMap()
-                .map((key, item) => MapEntry(item.id, item));
-      },
-    );
+    for(var brandType in BrandTypesEnum.values) {
+      for(var paymentMethod in brandType.paymentMethods) {
+        final generatedItems  = _generatePaymentItems(
+          brandType: brandType,
+          paymentMethod: paymentMethod,
+        ).asMap().map((key, item) => MapEntry(item.id, item));
+        if(itemsByPaymentsMethodsMap[paymentMethod] == null) {
+          itemsByPaymentsMethodsMap[paymentMethod] = {};
+        }
+        itemsByPaymentsMethodsMap[paymentMethod]!.addAll(generatedItems);
+      }
+    }
   }
 
   void _initAllPaymentMethods() {
-    final allItems = itemsGroups.values
+    final allItems = itemsByPaymentsMethodsMap.values
         .expand((itemGroup) => itemGroup.values)
         .toList()
         .asMap()
@@ -70,7 +68,7 @@ class UserItemsData {
     return random.nextInt(1000).toString().padLeft(3, '0');
   }
 
-  BrandEntity _getRandomPaymentMethod(
+  BrandEntity _getRandomBrand(
       List<BrandEntity> paymentMethods) {
     return paymentMethods[random.nextInt(paymentMethods.length)];
   }
@@ -95,29 +93,33 @@ class UserItemsData {
 
   List<PaymentItemEntity> _generatePaymentItems({
     int count = 10,
-    required PaymentMethod type,
+    required BrandTypesEnum brandType,
+    required PaymentMethodsEnum paymentMethod,
   }) {
     return List.generate(
       count,
       (_) {
         final typePaymentMethodList =
-            _paymentsMethodsData.brandsMap[type]!.values.toList();
-        final randomPaymentMethod =
-            _getRandomPaymentMethod(typePaymentMethodList);
+            _brandsData.brandsMap[brandType]!.values.toList();
+
+        final randomBrand =
+            _getRandomBrand(typePaymentMethodList);
+
         final initialBalance = _generateRandomMultipleOfTen(1000);
+
         final balance = _generateRandomMultipleOfTen(initialBalance.toInt());
 
         return PaymentItemEntity(
           id: uuid.v4(),
           code: _generateRandomCode(),
-          paymentMethod: randomPaymentMethod,
+          brand: randomBrand,
+          paymentMethod: paymentMethod,
           expirationDate: _generateRandomExpirationDate(),
-          initialBalance:
-              randomPaymentMethod.hasBalance ? initialBalance : null,
-          balance: randomPaymentMethod.hasBalance ? balance : null,
-          cvv: randomPaymentMethod.hasCvv ? _generateCVV() : null,
-          description:
-              randomPaymentMethod.hasDescription ? demyDescription : null,
+          initialBalance: initialBalance, 
+          balance: balance,
+          cvv: randomBrand.hasCvv ? _generateCVV() : null,
+          // description:
+          //  demyDescription ,
         );
       },
     );
@@ -133,7 +135,7 @@ class UserItemsData {
 
   List<PaymentItemEntity> getItemsByCategory(CategoryKey categoryKey) {
     return allPaymentMethods.values
-        .where((item) => item.paymentMethod.categories
+        .where((item) => item.brand.categories
             .any((category) => category.childOf(categoryKey)))
         .toList();
   }
@@ -150,7 +152,7 @@ class UserItemsData {
     final storesMap = <String, StoreSummaryEntity>{};
 
     for (var item in items) {
-      final itemType = item.paymentMethod;
+      final itemType = item.brand;
       final List<StoreEntity> stores = itemType.hasMultiStores
           ? (itemType as MultiStoresBrandEntity).redeemableStores
           : itemType is StoreEntity
@@ -172,10 +174,10 @@ class UserItemsData {
       storesMap[itemStore.id] = StoreSummaryEntity(
         store: itemStore,
         itemsGroupsMap: {
-          PaymentMethod.giftCard: [],
-          PaymentMethod.reloadableCard: [],
-          PaymentMethod.voucher: [],
-          PaymentMethod.credit: [],
+          PaymentMethodsEnum.giftCard: [],
+          PaymentMethodsEnum.reloadableCard: [],
+          PaymentMethodsEnum.voucher: [],
+          PaymentMethodsEnum.credit: [],
         },
       );
     }

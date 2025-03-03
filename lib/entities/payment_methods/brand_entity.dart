@@ -1,5 +1,5 @@
 import 'package:cardy/entities/categories/category_entity.dart';
-import 'package:cardy/entities/payment_methods/payment_methods.dart';
+import 'package:cardy/entities/payment_methods/enums.dart';
 
 abstract class BrandEntity {
 
@@ -14,19 +14,13 @@ abstract class BrandEntity {
 
   String get imagePath;
 
-  bool get isCard => type.isCard;
-
   List<CategoryEntity> get categories;
 
   bool get hasMultiStores;
 
-  bool get hasBalance;
-
   bool get hasCvv;
 
-  bool get hasDescription;
-
-  PaymentMethod get type;
+  BrandTypesEnum get type;
   //#endregion
 
   //#region Public methods

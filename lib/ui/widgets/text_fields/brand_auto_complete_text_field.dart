@@ -1,14 +1,16 @@
 import 'dart:async';
 import 'package:cardy/entities/payment_methods/brand_entity.dart';
+import 'package:cardy/entities/payment_methods/enums.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
 import 'package:cardy/ui/widgets/text_fields/icon_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 class BrandsAutoCompleteTextField<T extends BrandEntity> extends StatefulWidget {
   final List<T> itemsTypes;
   final int maxOptionsCount;
-  final ItemTypeFormController controller;
+  final BrandController controller;
 
   const BrandsAutoCompleteTextField(
       {super.key,
@@ -144,13 +146,13 @@ class _BrandsAutoCompleteTextFieldState
     }
   }
 
-  Widget itemTypeImage(BrandEntity itemType) {
+  Widget itemTypeImage(BrandEntity brand) {
     final tileWidth = 40.0;
 
     return SizedBox(
-      width: itemType.isCard ? tileWidth * SQUARE_CARD_RATIO : tileWidth,
+      width: brand.type.isCard ? tileWidth * SQUARE_CARD_RATIO : tileWidth,
       child: ItemTile.type(
-        itemType,
+        brand,
         borderRadius: BorderRadius.circular(3),
         size: tileWidth,
       ),
@@ -201,7 +203,7 @@ class _ItemTypeTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconTextField(
-      icon: Icons.card_giftcard,
+      icon: Icons.sell,
       label: 'חברה',
       controller: controller,
       validator: validator,
@@ -218,8 +220,8 @@ class _ItemTypeTextField extends StatelessWidget {
   }
 }
 
-class ItemTypeFormController extends ValueNotifier<BrandEntity?> {
-   ItemTypeFormController({BrandEntity? initialItemType})
+class BrandController extends ValueNotifier<BrandEntity?> {
+   BrandController({BrandEntity? initialItemType})
       : super(initialItemType);
 
   void setItemType(BrandEntity itemType) {

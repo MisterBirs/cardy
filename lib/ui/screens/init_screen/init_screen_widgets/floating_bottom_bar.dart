@@ -1,5 +1,5 @@
 import 'package:cardy/gen/assets.gen.dart';
-import 'package:cardy/ui/screens/add_item_screen/add_gift_card_screen.dart';
+import 'package:cardy/ui/screens/add_item_screen/add_item_screen.dart';
 import 'package:cardy/ui/widgets/gradient_color_mask.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
@@ -104,44 +104,9 @@ class CenteralCircleButton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         final textStyle = Theme.of(context).textTheme.bodyMedium;
-        showModalBottomSheet(
-            context: context,
-            builder: (context) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ListTile(
-                    title: Text('גיפטקארד', style: textStyle),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  AddGiftCardScreen()));
-                    },
-                  ),
-                  ListTile(
-                    title: Text('כרטיס נטען', style: textStyle),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    title: Text('שובר', style: textStyle),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                    title: Text('זיכוי', style: textStyle),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              );
-            });
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => AddItemScreen(),
+        ));
       },
       child: Container(
         width: 70,

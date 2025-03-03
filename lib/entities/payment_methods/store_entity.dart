@@ -1,6 +1,6 @@
 import 'package:cardy/entities/categories/category_entity.dart';
 import 'package:cardy/entities/payment_methods/brand_entity.dart';
-import 'package:cardy/entities/payment_methods/payment_methods.dart';
+import 'package:cardy/entities/payment_methods/enums.dart';
 
 class StoreEntity extends BrandEntity {
 
@@ -43,21 +43,12 @@ class StoreEntity extends BrandEntity {
   List<CategoryEntity> get categories => _categories;
 
   @override
-  bool get hasBalance => false;
-
-  @override
   bool get hasCvv => false;
-
-  @override
-  bool get hasDescription => false;
 
   @override
   bool get hasMultiStores => false;
 
   @override
-  bool get isCard => false;
-
-  @override
-  PaymentMethod get type => PaymentMethod.store;
+  BrandTypesEnum get type => BrandTypesEnum.store;
   //#endregion
 }

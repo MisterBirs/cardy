@@ -1,14 +1,11 @@
-import 'dart:math';
 
 import 'package:cardy/entities/categories/categories.dart';
 import 'package:cardy/entities/categories/category_key.dart';
 import 'package:cardy/entities/payment_methods/multi_stores_payment_method_entity.dart';
 import 'package:cardy/entities/payment_methods/brand_entity.dart';
-import 'package:cardy/entities/payment_methods/single_store_payment_method_entity.dart';
 import 'package:cardy/entities/payment_methods/store_entity.dart';
-import 'package:cardy/entities/payment_methods/payment_methods.dart';
+import 'package:cardy/entities/payment_methods/enums.dart';
 import 'package:cardy/gen/assets.gen.dart';
-import 'package:uuid/uuid.dart';
 
 class BrandsData {
   //#region Singleton
@@ -22,7 +19,7 @@ class BrandsData {
   final giftcardsImagesPath = Assets.images.items.giftcards;
   final reloadableImagesPath = Assets.images.items.reloadableCards;
 
-  final Map<PaymentMethod, Map<String, BrandEntity>> brandsMap = {};
+  final Map<BrandTypesEnum, Map<String, BrandEntity>> brandsMap = {};
 
   Map<String, BrandEntity> allBrandsMap = {};
   //#endregion
@@ -176,7 +173,7 @@ class BrandsData {
     final storesMap =
         Map.fromEntries(storesList.map((store) => MapEntry(store.id, store)));
 
-    brandsMap[PaymentMethod.store] = storesMap;
+    brandsMap[BrandTypesEnum.store] = storesMap;
   }
 
   void _initGiftcards() {
@@ -189,7 +186,7 @@ class BrandsData {
         categories: Categories.instance.getCategories([CategoryKey.all]),
         imagePath: giftcardsImagesPath.buymeallGiftcard.path,
         redeemableStores: storesMap.values.toList(),
-        type: PaymentMethod.giftCard,
+        brand: BrandTypesEnum.giftCard,
         hasBalance: true,
         hasCvv: false,
         hasDescription: false,
@@ -207,7 +204,7 @@ class BrandsData {
         ]),
         imagePath: giftcardsImagesPath.dreamcardGiftcard.path,
         redeemableStores: storesMap.values.toList(),
-        type: PaymentMethod.giftCard,
+        brand: BrandTypesEnum.giftCard,
         hasBalance: true,
         hasCvv: false,
         hasDescription: false,
@@ -219,7 +216,7 @@ class BrandsData {
         categories: Categories.instance.getCategories([CategoryKey.all]),
         imagePath: giftcardsImagesPath.gavekortGiftcard.path,
         redeemableStores: storesMap.values.toList(),
-        type: PaymentMethod.giftCard,
+        brand: BrandTypesEnum.giftCard,
         hasBalance: true,
         hasCvv: false,
         hasDescription: false,
@@ -231,7 +228,7 @@ class BrandsData {
         categories: Categories.instance.getCategories([CategoryKey.all]),
         imagePath: giftcardsImagesPath.giftzozeGiftcard.path,
         redeemableStores: storesMap.values.toList(),
-        type: PaymentMethod.giftCard,
+        brand: BrandTypesEnum.giftCard,
         hasBalance: true,
         hasCvv: false,
         hasDescription: false,
@@ -243,7 +240,7 @@ class BrandsData {
         categories: Categories.instance.getCategories([CategoryKey.all]),
         imagePath: giftcardsImagesPath.loveGiftcard.path,
         redeemableStores: storesMap.values.toList(),
-        type: PaymentMethod.giftCard,
+        brand: BrandTypesEnum.giftCard,
         hasBalance: true,
         hasCvv: false,
         hasDescription: false,
@@ -253,7 +250,7 @@ class BrandsData {
     Map<String, BrandEntity> giftcardsMap = Map.fromEntries(
         giftcardsList.map((giftcard) => MapEntry(giftcard.id, giftcard)));
 
-    brandsMap[PaymentMethod.giftCard] = giftcardsMap;
+    brandsMap[BrandTypesEnum.giftCard] = giftcardsMap;
   }
 
   void _initReloadableCards() {
@@ -266,7 +263,7 @@ class BrandsData {
         categories: Categories.instance.getCategories([CategoryKey.all]),
         imagePath: reloadableImagesPath.behatsdaaReloadableCard.path,
         redeemableStores: storesMap.values.toList(),
-        type: PaymentMethod.reloadableCard,
+        brand: BrandTypesEnum.reloadableCard,
         hasBalance: true,
         hasCvv: false,
         hasDescription: false,
@@ -277,7 +274,7 @@ class BrandsData {
         categories: Categories.instance.getCategories([CategoryKey.all]),
         imagePath: reloadableImagesPath.histReloadableCard.path,
         redeemableStores: storesMap.values.toList(),
-        type: PaymentMethod.reloadableCard,
+        brand: BrandTypesEnum.giftCard,
         hasBalance: true,
         hasCvv: false,
         hasDescription: false,
@@ -287,7 +284,7 @@ class BrandsData {
     final reloadableCardsMap = Map.fromEntries(reloadableCardsList
         .map((reloadableCard) => MapEntry(reloadableCard.id, reloadableCard)));
 
-    brandsMap[PaymentMethod.reloadableCard] = reloadableCardsMap;
+    brandsMap[BrandTypesEnum.reloadableCard] = reloadableCardsMap;
   }
 
   // void _initVouchers() {
@@ -337,6 +334,6 @@ class BrandsData {
 
   //#region Getters
   Map<String, StoreEntity> get storesMap =>
-      brandsMap[PaymentMethod.store]!.cast<String, StoreEntity>();
+      brandsMap[BrandTypesEnum.store]!.cast<String, StoreEntity>();
   //#endregion
 }

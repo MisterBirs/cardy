@@ -1,4 +1,5 @@
 import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
+import 'package:cardy/entities/payment_methods/enums.dart';
 import 'package:cardy/ui/screens/item_details_screen/item_details_screen.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
@@ -82,11 +83,15 @@ class ItemSideBalanceLabelTile extends StatelessWidget {
         
     return Builder(builder: (context) {
       return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         width: unhiddenPartLabelWidth,
+        height: squareSize*0.5,
         alignment: Alignment.center,
-        child: Text(
-          balance,
-          style: Theme.of(context).textTheme.titleMedium,
+        child: FittedBox(
+          child: Text(
+            balance,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
         ),
       );
     });

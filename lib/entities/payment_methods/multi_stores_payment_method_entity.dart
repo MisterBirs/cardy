@@ -1,12 +1,12 @@
 import 'package:cardy/entities/categories/category_entity.dart';
 import 'package:cardy/entities/payment_methods/brand_entity.dart';
 import 'package:cardy/entities/payment_methods/store_entity.dart';
-import 'package:cardy/entities/payment_methods/payment_methods.dart';
+import 'package:cardy/entities/payment_methods/enums.dart';
 
 class MultiStoresBrandEntity extends BrandEntity {
   //#region Attributes
   final String _id;
-  final PaymentMethod _type;
+  final BrandTypesEnum _brand;
   final String _name;
   final List<String> _aliases;
   final String _imagePath;
@@ -20,7 +20,7 @@ class MultiStoresBrandEntity extends BrandEntity {
   //#region Constructor
   MultiStoresBrandEntity({
     required String id,
-    required PaymentMethod type,
+    required BrandTypesEnum brand,
     required String name,
     required String imagePath,
     List<String>? aliases,
@@ -31,7 +31,7 @@ class MultiStoresBrandEntity extends BrandEntity {
     required bool hasDescription,
   })  : _id = id,
         _name = name,
-        _type = type,
+        _brand = brand,
         _aliases = aliases != null ? [name, ...aliases] : [name],
         _imagePath = imagePath,
         _categories = categories,
@@ -47,7 +47,7 @@ class MultiStoresBrandEntity extends BrandEntity {
   String get id => _id;
 
   @override
-  PaymentMethod get type => _type;
+  BrandTypesEnum get type => _brand;
 
   @override
   String get name => _name;
@@ -67,12 +67,7 @@ class MultiStoresBrandEntity extends BrandEntity {
   List<StoreEntity> get redeemableStores => _redeemableStores;
 
   @override
-  bool get hasBalance => _hasBalance;
-
-  @override
   bool get hasCvv => _hasCvv;
 
-  @override
-  bool get hasDescription => _hasDescription;
   //#endregion
 }
