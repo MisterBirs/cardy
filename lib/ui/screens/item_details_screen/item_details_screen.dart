@@ -2,6 +2,7 @@ import 'package:cardy/entities/payment_methods/multi_stores_payment_method_entit
 import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
 import 'package:cardy/entities/payment_methods/enums.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
+import 'package:cardy/ui/widgets/barcode_overlay.dart';
 import 'package:cardy/ui/widgets/cardy_toast.dart';
 import 'package:cardy/ui/widgets/gradient_button.dart';
 import 'package:cardy/ui/widgets/background.dart';
@@ -218,21 +219,29 @@ class ItemInfoBox extends StatelessWidget {
   }
 
   Widget get itemInfoButtons {
-    return Row(
-      spacing: 15,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-            child: GradientButton(
-                label: 'העתק קוד',
-                onPressed: () {
-                  Clipboard.setData(ClipboardData(text: item.code));
-                 CardyToast.show('הקוד הועתק !');
-                },
-                isColorReversed: true)),
-        Expanded(child: GradientButton(label: 'הצג קוד', onPressed: () {})),
-      ],
-    );
+    return Builder(builder: (context) {
+      return Row(
+        spacing: 15,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+              child: GradientButton(
+                  label: 'העתק קוד',
+                  onPressed: () {
+                    Clipboard.setData(ClipboardData(text: item.code));
+                    CardyToast.show('הקוד הועתק !');
+                  },
+                  isColorReversed: true)),
+          Expanded(
+              child: GradientButton(
+                  label: 'הצג קוד',
+                  onPressed: () {
+                    final barcodeOverlay = BarcodeOverlay.instance();
+                    barcodeOverlay.show(item.code, context);
+                  })),
+        ],
+      );
+    });
   }
 
   String get _formattedData {
