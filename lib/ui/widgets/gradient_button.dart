@@ -7,32 +7,32 @@ class GradientButton extends StatelessWidget {
   final bool isColorReversed;
   final double height;
   final double width;
-  final double borderRadius;
+  final BorderRadius borderRadius;
 
-  const GradientButton({
+
+  GradientButton({
     super.key,
     this.onPressed,
     required this.label,
     this.isColorReversed = false,
     this.height = 50,
     this.width = double.infinity,
-    this.borderRadius = 10,
-  });
+    BorderRadius? borderRadius,
+  }) : borderRadius = borderRadius ?? BorderRadius.circular(10);
 
   @override
   Widget build(BuildContext context) {
-    
     //The material is necessary to prevent widgets overlapping
     // the InkWell during scrolling from coloring it.
-    return Material( 
+    return Material(
       child: InkWell(
-        borderRadius: BorderRadius.circular(borderRadius),
+        borderRadius: borderRadius,
         onTap: onPressed,
         child: Ink(
           height: height,
           width: width,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(borderRadius),
+            borderRadius: borderRadius,
             gradient: isColorReversed ? GRADIENT_COLOR_REVERSE : GRADIENT_COLOR,
           ),
           child: Center(

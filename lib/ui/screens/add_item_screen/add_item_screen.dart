@@ -64,8 +64,8 @@ class _AddItemScreenState extends State<AddItemScreen> {
         backgroundColor: Colors.transparent,
         appBar: BackAppBar(title: 'הוספה'),
         body: Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 0, vertical: SPACING_L),
+          padding: const EdgeInsets.symmetric(
+              horizontal: SCREEN_HORIZONTAL_PADDING, vertical: SPACING_L),
           child: Form(
             key: _formKey,
             child: Column(
@@ -79,14 +79,14 @@ class _AddItemScreenState extends State<AddItemScreen> {
                       children: [
                         brandsAutoCompleteTextField,
                         if (shouldShowPaymentMethodField)
-                          paymentMethodTextFieldWarpper,
+                          paymentMethodTextField,
                         if (isBrandAndPaymentMethodSelected)
-                          codeTextFieldWarpper(),
+                          codeTextField,
                         if (isBrandAndPaymentMethodSelected)
-                          expirationDateTextFieldWarpper,
-                        if (shouldShowCvvField) cvvTextFieldWarpper,
+                          expirationDateTextField,
+                        if (shouldShowCvvField) cvvTextField,
                         if (isBrandAndPaymentMethodSelected)
-                          amountTextFieldWarpper,
+                          amountTextField,
                       ],
                     ),
                   ),
@@ -146,43 +146,27 @@ class _AddItemScreenState extends State<AddItemScreen> {
     );
   }
 
-  Widget get paymentMethodTextFieldWarpper {
-    return Padding(
-      padding:
-          const EdgeInsets.symmetric(horizontal: SCREEN_HORIZONTAL_PADDING),
-      child: CustomDropDown<PaymentMethodsEnum>(
+  Widget get paymentMethodTextField {
+    return CustomDropDown<PaymentMethodsEnum>(
         icon: Icons.payment,
-          items: brandController.value!.type.paymentMethods,
-          controller: paymentMethodController,
-          itemBuilder: (item) => item.singleDisplayName,
-          onChanged: (value) {}),
-    );
+        items: brandController.value!.type.paymentMethods,
+        controller: paymentMethodController,
+        itemBuilder: (item) => item.singleDisplayName,
+        onChanged: (value) {});
   }
 
-  Widget codeTextFieldWarpper() {
-    return Padding(
-        padding: EdgeInsets.symmetric(horizontal: SCREEN_HORIZONTAL_PADDING),
-        child: CodeTextField(label: 'קוד', controller: codeController));
+  Widget get codeTextField {
+    return CodeTextField(label: 'קוד', controller: codeController);
   }
 
-  Widget get expirationDateTextFieldWarpper => Padding(
-      padding: EdgeInsets.symmetric(horizontal: SCREEN_HORIZONTAL_PADDING),
-      child: ExpirationDateTextField(controller: expirationDateController));
+  Widget get expirationDateTextField => ExpirationDateTextField(controller: expirationDateController);
 
-  Widget get cvvTextFieldWarpper {
-    return Padding(
-      padding:
-          const EdgeInsets.symmetric(horizontal: SCREEN_HORIZONTAL_PADDING),
-      child: CvvTextField(cvvController: TextEditingController()),
-    );
+  Widget get cvvTextField {
+    return CvvTextField(cvvController: TextEditingController());
   }
 
-  Widget get amountTextFieldWarpper {
-    return Padding(
-      padding:
-          const EdgeInsets.symmetric(horizontal: SCREEN_HORIZONTAL_PADDING),
-      child: AmountTextField(amountController: DoubleFormController()),
-    );
+  Widget get amountTextField {
+    return AmountTextField(amountController: DoubleFormController());
   }
 
   //#endregion
@@ -193,7 +177,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
           const EdgeInsets.symmetric(horizontal: SCREEN_HORIZONTAL_PADDING),
       child: GradientButton(
           label: 'הוסף',
-          borderRadius: 30,
+          borderRadius: BorderRadius.circular(30),
           onPressed: () {
             if (_formKey.currentState!.validate()) {}
           }),
