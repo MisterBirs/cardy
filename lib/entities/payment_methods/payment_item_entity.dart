@@ -1,9 +1,9 @@
-import 'package:cardy/entities/payment_methods/history_record_entity.dart';
+import 'package:cardy/entities/item_history/add_history_record.dart';
+import 'package:cardy/entities/item_history/history_record_entity.dart';
 import 'package:cardy/entities/payment_methods/brand_entity.dart';
 import 'package:cardy/entities/payment_methods/enums.dart';
 
 class PaymentItemEntity {
-
   //#region Attributes
   final String _id;
   final PaymentMethodsEnum _paymentMethod;
@@ -47,9 +47,7 @@ class PaymentItemEntity {
 
   //#region Private methods
   void _initHistory() {
-    _history.add(HistoryRecordEntity(
-      date: DateTime.now(),
-      type: HistoryRecordType.add,
+    _history.add(AddHistoryRecord(
       item: this,
     ));
   }
@@ -99,5 +97,4 @@ class PaymentItemEntity {
   double? get initialBalance => _initialBalance;
   String? get description => _description;
   //#endregion
-
 }

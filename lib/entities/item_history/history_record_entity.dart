@@ -1,0 +1,99 @@
+import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
+import 'package:flutter/material.dart';
+
+abstract class HistoryRecordEntity {
+  //#region Attributes
+  final HistoryRecordType _type;
+  final PaymentItemEntity _item;
+  final DateTime _date;
+  final IconData _icon;
+  final Color _iconColor;
+  final String _dispalyLabel;
+  //#endregion
+
+  //#region Constructor
+  HistoryRecordEntity({
+    required HistoryRecordType type,
+    required PaymentItemEntity item,
+    required IconData icon,
+    required Color iconColor,
+    required String dispalyLabel,
+  })  : _dispalyLabel = dispalyLabel,
+        _iconColor = iconColor,
+        _icon = icon,
+        _item = item,
+        _type = type,
+        _date = DateTime.now();
+  //#endregion
+
+  @override
+  String toString() {
+    return message;
+  }
+
+  //#region Getters
+  HistoryRecordType get type => _type;
+  PaymentItemEntity get item => _item;
+  DateTime get date => _date;
+  IconData get icon => _icon;
+  Color get iconColor => _iconColor;
+  String get dispalyLabel => _dispalyLabel;
+  String get message;
+
+  //#endregion
+}
+
+enum HistoryRecordType { add, remove, updateBalance, edit, expired, usedUp }
+
+// extension HistoryRecordTypeExtension on HistoryRecordType {
+//   String get name {
+//     switch (this) {
+//       case HistoryRecordType.add:
+//         return 'הוספה';
+//       case HistoryRecordType.remove:
+//         return 'הסרה';
+//       case HistoryRecordType.updateBalance:
+//         return 'עדכון יתרה';
+//       case HistoryRecordType.edit:
+//         return 'עריכה';
+//       case HistoryRecordType.expired:
+//         return 'פג תוקף';
+//       case HistoryRecordType.usedUp:
+//         return 'נוצל במלואו';
+//     }
+//   }
+
+//   IconData get icon{
+//     switch (this) {
+//       case HistoryRecordType.add:
+//         return Icons.add;
+//       case HistoryRecordType.remove:
+//         return Icons.remove;
+//       case HistoryRecordType.updateBalance:
+//         return Icons.update;
+//       case HistoryRecordType.edit:
+//         return Icons.edit;
+//       case HistoryRecordType.expired:
+//         return Icons.event_busy;
+//       case HistoryRecordType.usedUp:
+//         return Icons.check_circle_outline;
+//     }
+//   }
+
+//     Color get iconColor{
+//     switch (this) {
+//       case HistoryRecordType.add:
+//         return Colors.green;
+//       case HistoryRecordType.remove:
+//         return Colors.red;
+//       case HistoryRecordType.updateBalance:
+//         return Colors.blue;
+//       case HistoryRecordType.edit:
+//         return Colors.orange;
+//       case HistoryRecordType.expired:
+//         return Colors.pink;
+//       case HistoryRecordType.usedUp:
+//         return Colors.deepPurple;
+//     }
+//   }
+//}
