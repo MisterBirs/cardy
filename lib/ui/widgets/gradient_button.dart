@@ -24,19 +24,22 @@ class GradientButton extends StatelessWidget {
   Widget build(BuildContext context) {
     //The material is necessary to prevent widgets overlapping
     // the InkWell during scrolling from coloring it.
-    return Material(
-      child: InkWell(
-        borderRadius: borderRadius,
-        onTap: onPressed,
-        child: Ink(
-          height: height,
-          width: width,
-          decoration: BoxDecoration(
-            borderRadius: borderRadius,
-            gradient: isColorReversed ? GRADIENT_COLOR_REVERSE : GRADIENT_COLOR,
-          ),
-          child: Center(
-            child: Text(label, style: Theme.of(context).textTheme.labelMedium),
+    return ClipRRect(
+      borderRadius: borderRadius,
+      child: Material(
+        child: InkWell(
+          borderRadius: borderRadius,
+          onTap: onPressed,
+          child: Ink(
+            height: height,
+            width: width,
+            decoration: BoxDecoration(
+              borderRadius: borderRadius,
+              gradient: isColorReversed ? GRADIENT_COLOR_REVERSE : GRADIENT_COLOR,
+            ),
+            child: Center(
+              child: Text(label, style: Theme.of(context).textTheme.labelMedium),
+            ),
           ),
         ),
       ),
