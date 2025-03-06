@@ -92,6 +92,7 @@ class StoreScreen extends StatelessWidget {
   }
 
   Widget buildNoImageItemTile(PaymentItemEntity item) {
+    final String tileTxt = item.balance?.toString() ?? 'שובר';
     return Builder(builder: (context) {
       return GestureDetector(
         onTap: () => Navigator.push(
@@ -101,7 +102,7 @@ class StoreScreen extends StatelessWidget {
                       item: item,
                     ))),
         child: BaseTile(
-          child: Text('₪${item.balance.toString()}'),
+          child: Text(tileTxt),
         ),
       );
     });
