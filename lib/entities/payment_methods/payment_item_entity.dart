@@ -1,5 +1,6 @@
 import 'package:cardy/entities/item_history/add_history_record.dart';
 import 'package:cardy/entities/item_history/history_record_entity.dart';
+import 'package:cardy/entities/item_history/used_up_history_record.dart';
 import 'package:cardy/entities/payment_methods/brand_entity.dart';
 import 'package:cardy/entities/payment_methods/enums.dart';
 
@@ -79,7 +80,16 @@ class PaymentItemEntity {
 
   void subtractFromBalance(double value) {
     if (_balance != null) {
-      _balance = _balance! - _initialBalance!;
+      final newBalance = balance! - _initialBalance!;
+      if (newBalance < 0) {
+        throw Exception('Cannot subtract more than the balance');
+      }
+      _balance = newBalance;
+      if (newBalance! == 0) {
+        _history.add(UsedUpHistoryRecord(
+          item: this,
+        ));
+      }
     }
   }
   //#endregion
