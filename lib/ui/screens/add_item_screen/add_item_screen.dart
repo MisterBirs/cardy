@@ -18,6 +18,8 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 class AddItemScreen extends StatefulWidget {
+  const AddItemScreen({super.key});
+
   @override
   State<AddItemScreen> createState() => _AddItemScreenState();
 }
@@ -196,6 +198,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
     final String cvv = cvvController.text;
     final double amount = amountController.value!;
 
+    // ignore: unused_local_variable
     final PaymentItemEntity newItem = PaymentItemEntity(
       brand: itemType,
       code: cardNumber,

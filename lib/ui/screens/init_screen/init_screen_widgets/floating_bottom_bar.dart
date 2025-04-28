@@ -103,7 +103,6 @@ class CenteralCircleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        final textStyle = Theme.of(context).textTheme.bodyMedium;
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => AddItemScreen(),
         ));

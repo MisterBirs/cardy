@@ -5,7 +5,6 @@ import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
 import 'package:cardy/ui/widgets/text_fields/icon_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:material_symbols_icons/symbols.dart';
 
 class BrandsAutoCompleteTextField<T extends BrandEntity> extends StatefulWidget {
   final List<T> itemsTypes;

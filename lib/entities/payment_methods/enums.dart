@@ -19,6 +19,17 @@ extension BrandTypesExtension on BrandTypesEnum {
     }
   }
 
+    bool get isReloadable {
+    switch (this) {
+      case BrandTypesEnum.giftCard:
+        return false;
+      case BrandTypesEnum.reloadableCard:
+        return true;
+      case BrandTypesEnum.store:
+        return false;
+    }
+  }
+
   List<PaymentMethodsEnum> get paymentMethods {
     switch (this) {
       case BrandTypesEnum.giftCard:

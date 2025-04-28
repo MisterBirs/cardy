@@ -23,8 +23,7 @@ class CustomDropDown<T> extends StatefulWidget {
 class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
   OverlayEntry? _overlayEntry;
   final LayerLink _layerLink = LayerLink();
-  T? _selectedItem;
-  TextEditingController _textFieldController = TextEditingController();
+  final TextEditingController _textFieldController = TextEditingController();
 
   @override
   void dispose() {

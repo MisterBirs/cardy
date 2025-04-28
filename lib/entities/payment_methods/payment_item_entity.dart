@@ -1,8 +1,12 @@
 import 'package:cardy/entities/item_history/add_history_record.dart';
+import 'package:cardy/entities/item_history/expired_history_record.dart';
 import 'package:cardy/entities/item_history/history_record_entity.dart';
+import 'package:cardy/entities/item_history/reload_history_record.dart';
+import 'package:cardy/entities/item_history/payment_history_record.dart';
 import 'package:cardy/entities/item_history/used_up_history_record.dart';
 import 'package:cardy/entities/payment_methods/brand_entity.dart';
 import 'package:cardy/entities/payment_methods/enums.dart';
+import 'package:cardy/entities/payment_methods/store_entity.dart';
 
 class PaymentItemEntity {
   //#region Attributes
@@ -17,6 +21,7 @@ class PaymentItemEntity {
   double? _balance;
   final double? _initialBalance;
   final String? _description;
+  bool _isUsedUp = false;
   //#endregion
 
   //#region Costructor
@@ -28,6 +33,7 @@ class PaymentItemEntity {
     required DateTime expirationDate,
     String? notes,
     String? cvv,
+    List<HistoryRecordEntity>? historyRecords,
     double? balance,
     double? initialBalance,
     String? description,
@@ -42,15 +48,18 @@ class PaymentItemEntity {
         _initialBalance = initialBalance,
         _description = description {
     _verifyAttributesInitialization();
-    _initHistory();
+    _initHistory(historyRecords);
   }
   //#endregion
 
   //#region Private methods
-  void _initHistory() {
+  void _initHistory(List<HistoryRecordEntity>? historyRecords) {
     _history.add(AddHistoryRecord(
       item: this,
     ));
+    if (historyRecords != null) {
+      _history.addAll(historyRecords);
+    }
   }
 
   void _verifyAttributesInitialization() {
@@ -74,24 +83,66 @@ class PaymentItemEntity {
   //#region Public methods
   void addToBalance(double value) {
     if (_balance != null) {
-      _balance = _balance! + _initialBalance!;
+      _balance = _balance! + value;
     }
+    _history.add(ReloadHistoryRecord(
+      item: this,
+      reloadedAmount: value,
+    ));
   }
 
-  void subtractFromBalance(double value) {
+  void subtractFromBalance(double value, StoreEntity redeemedAt) {
     if (_balance != null) {
-      final newBalance = balance! - _initialBalance!;
+      final newBalance = balance! - value;
       if (newBalance < 0) {
         throw Exception('Cannot subtract more than the balance');
       }
       _balance = newBalance;
-      if (newBalance! == 0) {
-        _history.add(UsedUpHistoryRecord(
-          item: this,
-        ));
+
+      _history.add(PaymentHistoryRecord(
+        item: this,
+        paymentAmount: value,
+        redeemedAt: redeemedAt,
+      ));
+
+      if (newBalance <= 0) {
+        setUsedUp();
       }
     }
   }
+
+  void setUsedUp() {
+    _isUsedUp = true;
+    if (_balance != null) {
+      _balance = 0;
+    }
+    _history.add(UsedUpHistoryRecord(
+      item: this,
+    ));
+  }
+
+  void addHistoryRecord(HistoryRecordEntity historyRecordEntity) {
+    _history.add(historyRecordEntity);
+  }
+
+  void addAllHistoryRecords(List<HistoryRecordEntity> historyRecords) {
+    _history.addAll(historyRecords);
+  }
+
+  bool isExpired() {
+    final isExpired = _expirationDate.isBefore(DateTime.now());
+
+    // Add expired history record only if it doesn't already exist
+    if (isExpired &&
+        !_history.any((record) => record is ExpiredHistoryRecord)) {
+      _history.add(ExpiredHistoryRecord(
+        expiredAt: _expirationDate,
+        item: this,
+      ));
+    }
+    return isExpired;
+  }
+
   //#endregion
 
   //#region Getters
@@ -106,5 +157,6 @@ class PaymentItemEntity {
   double? get balance => _balance;
   double? get initialBalance => _initialBalance;
   String? get description => _description;
+  bool get isUsedUp => _isUsedUp;
   //#endregion
 }

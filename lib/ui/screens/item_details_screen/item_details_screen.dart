@@ -1,8 +1,7 @@
 import 'package:cardy/entities/payment_methods/multi_stores_payment_method_entity.dart';
 import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
 import 'package:cardy/entities/payment_methods/enums.dart';
-import 'package:cardy/ui/cardy_icons.dart';
-import 'package:cardy/ui/screens/home_screen/home_screen_widgets/cardy_logo.dart';
+import 'package:cardy/ui/screens/item_details_screen/widgets/history_records_overlay.dart';
 import 'package:cardy/ui/screens/item_details_screen/widgets/update_balance_overlay.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/ui/widgets/barcode_overlay.dart';
@@ -12,12 +11,9 @@ import 'package:cardy/ui/widgets/background.dart';
 import 'package:cardy/ui/widgets/gradient_color_mask.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
-import 'package:cardy/ui/widgets/overlay_builder.dart';
 import 'package:cardy/ui/widgets/show_all_items_list/show_all_items_list.dart';
-import 'package:cardy/ui/widgets/text_fields/icon_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 class ItemDetailsScreen extends StatefulWidget {
@@ -89,7 +85,13 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
         IconButton(
           icon: Icon(Icons.history),
           iconSize: ICON_SIZE,
-          onPressed: () {},
+          onPressed: () {
+            final historyRecordsOverlay = HistoryRecordsOverlay.instance();
+            historyRecordsOverlay.show(
+              context: context,
+              historyRecordsList: widget.item.history,
+            );
+          },
         ),
         IconButton(
           iconSize: ICON_SIZE,
@@ -223,7 +225,7 @@ class ItemInfoBox extends StatelessWidget {
   ItemInfoRow get balanceRow {
     return ItemInfoRow(
       label: 'יתרה',
-      value: '₪${item.balance.toString()}',
+      value: '₪${item.balance!.toStringAsFixed(1)}',
       icon: Icons.payment,
     );
   }

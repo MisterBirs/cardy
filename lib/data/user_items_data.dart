@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cardy/data/brads_data.dart';
 import 'package:cardy/entities/categories/category_key.dart';
+import 'package:cardy/entities/item_history/edit_history_record.dart';
 import 'package:cardy/entities/payment_methods/multi_stores_payment_method_entity.dart';
 import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
 import 'package:cardy/entities/payment_methods/brand_entity.dart';
@@ -79,9 +80,21 @@ class UserItemsData {
     return random.nextInt(max ~/ 10) * 10;
   }
 
+  StoreEntity _getRandomStore(PaymentItemEntity item) {
+    if (item.brand is MultiStoresBrandEntity) {
+      final stores = (item.brand as MultiStoresBrandEntity).redeemableStores;
+      return stores[random.nextInt(stores.length)];
+    } else {
+      return item.brand as StoreEntity;
+    }
+  }
+
+
+  double _randomPayment(double remaining) => 
+      100 + Random().nextDouble() * 200;
+
   DateTime _generateRandomExpirationDate() {
-    return DateTime.now()
-        .add(Duration(days: random.nextInt(Random().nextInt(365 * 5))));
+    return DateTime.now().add(Duration(days: random.nextInt(365 * 5)));
   }
 
   String get demyDescription => 'קיבלת שובר מיוחד.\n\n'
@@ -106,7 +119,7 @@ class UserItemsData {
 
         final initialBalance = _generateRandomMultipleOfTen(1000);
 
-        final balance = _generateRandomMultipleOfTen(initialBalance.toInt());
+        //final balance = _generateRandomMultipleOfTen(initialBalance.toInt());
 
         final bool hasBalance = paymentMethod == PaymentMethodsEnum.voucher
             ? random.nextBool()
@@ -114,19 +127,89 @@ class UserItemsData {
 
         final bool hasDescription = hasBalance ? random.nextBool() : true;
 
-        return PaymentItemEntity(
+        final item = PaymentItemEntity(
           id: uuid.v4(),
           code: _generateRandomCode(),
           brand: randomBrand,
           paymentMethod: paymentMethod,
           expirationDate: _generateRandomExpirationDate(),
           initialBalance: hasBalance ? initialBalance : null,
-          balance: hasBalance ? balance : null,
+          balance: hasBalance ? initialBalance : null,
           cvv: randomBrand.hasCvv ? _generateCVV() : null,
           description: hasDescription ? demyDescription : null,
         );
+
+        _usingSimulation(item);
+
+        return item;
       },
     );
+  }
+
+  void _usingSimulation(PaymentItemEntity item) {
+    if (item.balance != null) {
+      _redeemSimulation(item);
+    }
+
+    final bool isEdited = random.nextBool();
+    if (isEdited) {
+      item.addHistoryRecord(EditHistoryRecord(item: item));
+    }
+
+    if (item.paymentMethod == PaymentMethodsEnum.reloadableCard &&
+        random.nextBool()) {
+      _loadedSimulation(item);
+    }
+
+    final isUsedUp = !item.brand.type.isReloadable && random.nextDouble() > 0.7;
+    if (isUsedUp) {
+      _usedUpSimulation(item);
+    }
+  }
+
+  void _loadedSimulation(PaymentItemEntity item) {
+    final loadedAmount = 100 + random.nextDouble() * 900;
+    item.addToBalance(loadedAmount);
+  }
+
+  void _usedUpSimulation(PaymentItemEntity item) {
+    if (item.isUsedUp) {
+      return;
+    }
+
+    if (item.balance != null && item.balance! > 0) {
+      final StoreEntity reedemAt = _getRandomStore(item);
+      item.subtractFromBalance(item.balance!, reedemAt);
+    }else{
+      item.setUsedUp();
+    }
+  }
+
+  void _redeemSimulation(PaymentItemEntity item) {
+    // Ensure item has a balance to redeem
+    if (item.balance == null || item.balance! <= 0) {
+      return;
+    }
+
+    // Generate random number of redemption transactions (1-5)
+    int maxRedemptions = random.nextInt(3) + 1;
+
+    for (int i = 0; i < maxRedemptions; i++) {
+      // Select a random store where the redemption happens
+      final redemptionStore = _getRandomStore(item);
+
+      // Calculate a random payment amount based on current balance
+      final currentBalance = item.balance!;
+      final redemptionAmount = _randomPayment(currentBalance);
+
+      // Stop if remaining balance would be too small
+      if (currentBalance < redemptionAmount) {
+        break;
+      }
+
+      // Record the redemption in item's history
+      item.subtractFromBalance(redemptionAmount, redemptionStore);
+    }
   }
   //#endregion
 
@@ -160,7 +243,7 @@ class UserItemsData {
       final List<StoreEntity> stores = itemType.hasMultiStores
           ? (itemType as MultiStoresBrandEntity).redeemableStores
           : itemType is StoreEntity
-              ? [(itemType as StoreEntity)]
+              ? [(itemType)]
               : [];
 
       for (var store in stores) {

@@ -3,8 +3,11 @@ import 'package:cardy/entities/payment_methods/enums.dart';
 import 'package:flutter/material.dart';
 
 class ExpiredHistoryRecord extends HistoryRecordEntity {
-  ExpiredHistoryRecord({required super.item})
-      : super(
+  final DateTime _expiredAt;
+
+  ExpiredHistoryRecord({required super.item, required DateTime expiredAt})
+      : _expiredAt = expiredAt,
+        super(
           type: HistoryRecordType.expired,
           icon: Icons.event_busy,
           iconColor: Colors.pink,
@@ -16,5 +19,7 @@ class ExpiredHistoryRecord extends HistoryRecordEntity {
     String itemName = item.paymentMethod.singleDisplayName;
     return 'פג תוקפו של ה$itemName';
   }
-  
+
+  @override
+  DateTime get date => _expiredAt;
 }

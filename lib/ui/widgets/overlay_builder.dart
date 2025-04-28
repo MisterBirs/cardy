@@ -35,7 +35,7 @@ class OverlayBuilder {
         ]);
       },
     );
-    Overlay.of(context)!.insert(_overlayEntry!);
+    Overlay.of(context).insert(_overlayEntry!);
   }
 
   ElevatedButton get _closeBtn {

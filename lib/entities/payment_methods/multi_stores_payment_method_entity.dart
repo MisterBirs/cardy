@@ -12,9 +12,7 @@ class MultiStoresBrandEntity extends BrandEntity {
   final String _imagePath;
   final List<CategoryEntity> _categories;
   final List<StoreEntity> _redeemableStores;
-  final bool _hasBalance;
   final bool _hasCvv;
-  final bool _hasDescription;
   //#endregion
 
   //#region Constructor
@@ -36,9 +34,7 @@ class MultiStoresBrandEntity extends BrandEntity {
         _imagePath = imagePath,
         _categories = categories,
         _redeemableStores = redeemableStores,
-        _hasBalance = hasBalance,
-        _hasCvv = hasCvv,
-        _hasDescription = hasDescription;
+        _hasCvv = hasCvv;
 
   //#endregion
 
