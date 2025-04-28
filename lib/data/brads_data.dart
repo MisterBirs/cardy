@@ -230,7 +230,7 @@ class BrandsData {
         redeemableStores: storesMap.values.toList(),
         brand: BrandTypesEnum.giftCard,
         hasBalance: true,
-        hasCvv: false,
+        hasCvv: true,
         hasDescription: false,
       ),
       MultiStoresBrandEntity(
@@ -265,7 +265,7 @@ class BrandsData {
         redeemableStores: storesMap.values.toList(),
         brand: BrandTypesEnum.reloadableCard,
         hasBalance: true,
-        hasCvv: false,
+        hasCvv: true,
         hasDescription: false,
       ),
       MultiStoresBrandEntity(
@@ -276,7 +276,7 @@ class BrandsData {
         redeemableStores: storesMap.values.toList(),
         brand: BrandTypesEnum.giftCard,
         hasBalance: true,
-        hasCvv: false,
+        hasCvv: true,
         hasDescription: false,
       ),
     ];

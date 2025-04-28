@@ -1,5 +1,5 @@
 import 'package:cardy/gen/assets.gen.dart';
-import 'package:cardy/ui/screens/add_item_screen/add_item_screen.dart';
+import 'package:cardy/ui/screens/add_item_screen/add_edit_item_screen.dart';
 import 'package:cardy/ui/widgets/gradient_color_mask.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
@@ -104,7 +104,7 @@ class CenteralCircleButton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => AddItemScreen(),
+          builder: (context) => AddItemScreen.add(),
         ));
       },
       child: Container(

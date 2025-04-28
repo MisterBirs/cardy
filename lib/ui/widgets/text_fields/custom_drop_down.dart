@@ -26,6 +26,15 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
   final TextEditingController _textFieldController = TextEditingController();
 
   @override
+  void initState() {
+    if (widget.controller.value != null) {
+      _textFieldController.text = widget.itemBuilder(widget.controller.value as T);
+    }
+    
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _removeDropdown();
     super.dispose();

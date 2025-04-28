@@ -19,7 +19,24 @@ class _AmountTextFieldState extends State<AmountTextField> {
   final TextEditingController txtContoller = TextEditingController();
 
   @override
+  void initState() {
+
+    //TODO: Should to enable value with decimal digits
+    if (widget.amountController.value != null) {
+      final formatter =
+          CurrencyTextInputFormatter.currency(symbol: '₪', decimalDigits: 0);
+
+        //TODO: Should to enable value with decimal digits
+        txtContoller.text = formatter.formatString(widget.amountController.value!.toStringAsFixed(0));
+
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+    //TODO: Should to enable value with decimal digits
     return IconTextField(
         icon: CardyIcons.shekel,
         keyboardType: TextInputType.number,
@@ -40,7 +57,7 @@ class _AmountTextFieldState extends State<AmountTextField> {
     if (amount == null || amount <= 0) {
       return 'סכום לא תקין';
     }
-    widget.amountController.setDate(amount);
+    widget.amountController.setValue(amount);
     return null;
   }
 }
@@ -48,8 +65,8 @@ class _AmountTextFieldState extends State<AmountTextField> {
 class DoubleFormController extends ValueNotifier<double?> {
   DoubleFormController({double? initialDate}) : super(initialDate);
 
-  void setDate(double date) {
-    value = date;
+  void setValue(double value) {
+    this.value = value;
   }
 
   void clear() {

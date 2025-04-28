@@ -1,5 +1,6 @@
 import 'package:cardy/ui/widgets/text_fields/icon_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
 class ExpirationDateTextField extends StatefulWidget {
@@ -15,6 +16,15 @@ class ExpirationDateTextField extends StatefulWidget {
 
 class _ExpirationDateTextFieldState extends State<ExpirationDateTextField> {
   final TextEditingController txtEditCtrl = TextEditingController();
+
+  @override
+  void initState() {
+    if (widget.controller.value != null) {
+      txtEditCtrl.text =
+          DateFormat('dd.MM.yyyy').format(widget.controller.value!);
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +47,8 @@ class _ExpirationDateTextFieldState extends State<ExpirationDateTextField> {
         child: AbsorbPointer(
             child: IconTextField(
                 controller: txtEditCtrl,
-                validator: (_){
-                  if(state.hasError){
+                validator: (_) {
+                  if (state.hasError) {
                     return state.errorText;
                   }
                   return null;

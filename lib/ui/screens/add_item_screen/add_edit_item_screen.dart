@@ -18,7 +18,10 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 class AddItemScreen extends StatefulWidget {
-  const AddItemScreen({super.key});
+  final PaymentItemEntity? item;
+  bool get isEditing => item != null;
+  const AddItemScreen.add({super.key}) : item = null;
+  const AddItemScreen.edit({super.key, required this.item});
 
   @override
   State<AddItemScreen> createState() => _AddItemScreenState();
@@ -59,12 +62,14 @@ class _AddItemScreenState extends State<AddItemScreen> {
     super.dispose();
   }
 
+  String get title => widget.isEditing ? 'עריכה' : 'הוספה';
+
   @override
   Widget build(BuildContext context) {
     return Background(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: BackAppBar(title: 'הוספה'),
+        appBar: BackAppBar(title: title),
         body: Padding(
           padding: const EdgeInsets.symmetric(
               horizontal: SCREEN_HORIZONTAL_PADDING, vertical: SPACING_L),
@@ -82,18 +87,16 @@ class _AddItemScreenState extends State<AddItemScreen> {
                         brandsAutoCompleteTextField,
                         if (shouldShowPaymentMethodField)
                           paymentMethodTextField,
-                        if (isBrandAndPaymentMethodSelected)
-                          codeTextField,
+                        if (isBrandAndPaymentMethodSelected) codeTextField,
                         if (isBrandAndPaymentMethodSelected)
                           expirationDateTextField,
                         if (shouldShowCvvField) cvvTextField,
-                        if (isBrandAndPaymentMethodSelected)
-                          amountTextField,
+                        if (isBrandAndPaymentMethodSelected) amountTextField,
                       ],
                     ),
                   ),
                 ),
-                addBtn,
+                btn,
               ],
             ),
           ),
@@ -142,6 +145,9 @@ class _AddItemScreenState extends State<AddItemScreen> {
   //#region Form Fields
 
   BrandsAutoCompleteTextField<BrandEntity> get brandsAutoCompleteTextField {
+    if (widget.isEditing) {
+      brandController.value = widget.item!.brand;
+    }
     return BrandsAutoCompleteTextField<BrandEntity>(
       itemsTypes: BrandsData.instance.allBrandsMap.values.toList(),
       controller: brandController,
@@ -149,6 +155,10 @@ class _AddItemScreenState extends State<AddItemScreen> {
   }
 
   Widget get paymentMethodTextField {
+    if (widget.isEditing) {
+      paymentMethodController.value = widget.item!.paymentMethod;
+    }
+
     return CustomDropDown<PaymentMethodsEnum>(
         icon: Icons.payment,
         items: brandController.value!.type.paymentMethods,
@@ -158,27 +168,42 @@ class _AddItemScreenState extends State<AddItemScreen> {
   }
 
   Widget get codeTextField {
+    if (widget.isEditing) {
+      codeController.text = widget.item!.code;
+    }
     return CodeTextField(label: 'קוד', controller: codeController);
   }
 
-  Widget get expirationDateTextField => ExpirationDateTextField(controller: expirationDateController);
+  Widget get expirationDateTextField {
+    if (widget.isEditing) {
+      expirationDateController.setDate(widget.item!.expirationDate);
+    }
+    return ExpirationDateTextField(controller: expirationDateController);
+  }
 
   Widget get cvvTextField {
-    return CvvTextField(cvvController: TextEditingController());
+    if (widget.isEditing && widget.item!.cvv != null) {
+      cvvController.text = widget.item!.cvv!;
+    }
+    return CvvTextField(cvvController: cvvController);
   }
 
   Widget get amountTextField {
-    return AmountTextField(amountController: DoubleFormController());
+
+    if (widget.isEditing && widget.item!.balance != null) {
+      amountController.setValue(widget.item!.balance!);
+    }
+    return AmountTextField(amountController: amountController);
   }
 
   //#endregion
 
-  Widget get addBtn {
+  Widget get btn {
     return Padding(
       padding:
           const EdgeInsets.symmetric(horizontal: SCREEN_HORIZONTAL_PADDING),
       child: GradientButton(
-          label: 'הוסף',
+          label: widget.isEditing? 'ערוך': 'הוסף',
           borderRadius: BorderRadius.circular(30),
           onPressed: () {
             if (_formKey.currentState!.validate()) {}

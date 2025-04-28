@@ -1,6 +1,7 @@
 import 'package:cardy/entities/payment_methods/multi_stores_payment_method_entity.dart';
 import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
 import 'package:cardy/entities/payment_methods/enums.dart';
+import 'package:cardy/ui/screens/add_item_screen/add_edit_item_screen.dart';
 import 'package:cardy/ui/screens/item_details_screen/widgets/history_records_overlay.dart';
 import 'package:cardy/ui/screens/item_details_screen/widgets/update_balance_overlay.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
@@ -70,12 +71,11 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
   }
 
   Widget get updateReedemButton => GradientButton(
-        label: 'עדכן יתרה',
-        borderRadius: BorderRadius.circular(50),
-        onPressed: () {
-          UpdateBalanceOverlay.instance().show(context);
-        }
-      );
+      label: 'עדכן יתרה',
+      borderRadius: BorderRadius.circular(50),
+      onPressed: () {
+        UpdateBalanceOverlay.instance().show(context);
+      });
 
   AppBar appbar(BuildContext context) {
     return AppBar(
@@ -101,7 +101,13 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
         IconButton(
           iconSize: ICON_SIZE,
           icon: Icon(Icons.edit),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddItemScreen.edit(item: widget.item),
+                ));
+          },
         ),
       ],
       leading: IconButton(
