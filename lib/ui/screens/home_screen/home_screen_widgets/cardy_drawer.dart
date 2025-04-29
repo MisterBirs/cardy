@@ -28,7 +28,6 @@ class CardyDrawer extends StatelessWidget {
             label: 'צור קשר',
             icon: Icons.message,
           ),
-          Spacer(),
           _CardyDrawerItem(
             label: 'התנתק מחשבון',
             icon: Icons.logout,
