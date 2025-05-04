@@ -37,7 +37,7 @@ class ShowAllItemsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomShowAllItemsListView(
+    return CustomShowAllItemsList(
       label: label,
       listTiles: listTiles,
       spacing: listSpacing,

@@ -73,9 +73,9 @@ class StoreScreen extends StatelessWidget {
     );
   }
 
-  CustomShowAllItemsListView _noImageitemsList(
+  CustomShowAllItemsList _noImageitemsList(
       String label, List<PaymentItemEntity> items, void Function() onAdd) {
-    return CustomShowAllItemsListView(
+    return CustomShowAllItemsList(
       label: label,
       gridScreenAppBar: BackAppBar(
           title: storeSummary.store.name, subtitle: label, onAdd: onAdd),
@@ -92,7 +92,7 @@ class StoreScreen extends StatelessWidget {
   }
 
   Widget buildNoImageItemTile(PaymentItemEntity item) {
-    final String tileTxt = item.balance?.toString() ?? 'שובר';
+    final String tileTxt = item.balance?.toStringAsFixed(1) ?? 'שובר';
     return Builder(builder: (context) {
       return GestureDetector(
         onTap: () => Navigator.push(

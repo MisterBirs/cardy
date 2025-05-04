@@ -4,7 +4,7 @@ import 'package:cardy/ui/ui_constants.dart';
 import 'package:cardy/ui/widgets/item_tiles/grid_tiles/base_item_grid_tile.dart';
 import 'package:flutter/material.dart';
 
-class CustomShowAllItemsListView extends StatelessWidget {
+class CustomShowAllItemsList extends StatelessWidget {
   final String label;
   final PreferredSizeWidget gridScreenAppBar;
   final double spacing;
@@ -15,7 +15,7 @@ class CustomShowAllItemsListView extends StatelessWidget {
   final double gridTileHeight;
   final void Function()? onTapShowAll;
 
-  const CustomShowAllItemsListView({
+  const CustomShowAllItemsList({
     super.key,
     required this.label,
     required this.gridScreenAppBar,

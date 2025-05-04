@@ -41,7 +41,7 @@ class ItemBalanceTile extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.fill,
               child: Text(
-                balance != null ? '₪${balance!.toInt().toString()}' : 'שובר',
+                balance != null ? '₪${balance!.toStringAsFixed(1)}' : 'שובר',//sdf
              
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
