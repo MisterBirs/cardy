@@ -129,20 +129,6 @@ class PaymentItemEntity {
     _history.addAll(historyRecords);
   }
 
-  bool isExpired() {
-    final isExpired = _expirationDate.isBefore(DateTime.now());
-
-    // Add expired history record only if it doesn't already exist
-    if (isExpired &&
-        !_history.any((record) => record is ExpiredHistoryRecord)) {
-      _history.add(ExpiredHistoryRecord(
-        expiredAt: _expirationDate,
-        item: this,
-      ));
-    }
-    return isExpired;
-  }
-
   //#endregion
 
   //#region Getters
@@ -158,5 +144,35 @@ class PaymentItemEntity {
   double? get initialBalance => _initialBalance;
   String? get description => _description;
   bool get isUsedUp => _isUsedUp;
+  bool get isExpired {
+    final isExpired = _expirationDate.isBefore(DateTime.now());
+
+    // Add expired history record only if it doesn't already exist
+    if (isExpired &&
+        !_history.any((record) => record is ExpiredHistoryRecord)) {
+      _history.add(ExpiredHistoryRecord(
+        expiredAt: _expirationDate,
+        item: this,
+      ));
+    }
+    return isExpired;
+  }
+  bool get isValid => !isUsedUp && !isExpired;
+
+  DateTime? get invalidDate {
+    if (isValid) {
+      return null;
+    }
+
+    final DateTime? usedUpDate = _history
+        .whereType<UsedUpHistoryRecord>().map((record)=>record.date).firstOrNull;
+
+    if (usedUpDate == null) {
+      return expirationDate;
+    }
+
+    return usedUpDate.isBefore(expirationDate) ? usedUpDate : expirationDate;
+  }
+  
   //#endregion
 }

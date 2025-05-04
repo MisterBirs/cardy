@@ -1,5 +1,6 @@
 import 'package:cardy/ui/cardy_icons.dart';
 import 'package:cardy/ui/screens/add_item_screen/add_edit_item_screen.dart';
+import 'package:cardy/ui/screens/unvalid_items_screen/unvalid_items_screen.dart';
 import 'package:cardy/ui/ui_constants.dart';
 import 'package:flutter/material.dart';
 
@@ -23,12 +24,12 @@ class CardyDrawer extends StatelessWidget {
           _CardyDrawerItem(
             label: 'ארכיון',
             icon: Icons.archive,
+            widgetBuilder: (context) => UnvalidatedItemsScreen(),
           ),
           _CardyDrawerItem(
             label: 'צור קשר',
             icon: Icons.message,
           ),
-          Spacer(),
           _CardyDrawerItem(
             label: 'התנתק מחשבון',
             icon: Icons.logout,

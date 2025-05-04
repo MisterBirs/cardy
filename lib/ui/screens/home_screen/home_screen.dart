@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              _TotalBalanceTitle(), 
+              _TotalBalanceTitle(),
               _Items(),
               if (bottomSpacing != null) SizedBox(height: bottomSpacing),
             ],
@@ -43,7 +43,7 @@ class _Items extends StatelessWidget {
     return Column(
       children: itemsGroups.entries
           .map((itemsGroup) => _buildItemList(itemsGroup.key.pluralDisplayName,
-              itemsGroup.value.values.toList()))
+              itemsGroup.value.values.where((item) => item.isValid).toList()))
           .toList(),
     );
   }
