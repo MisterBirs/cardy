@@ -8,6 +8,28 @@ enum PaymentMethodsEnum {
 }
 
 extension BrandTypesExtension on BrandTypesEnum {
+  String get singleDisplayName {
+    switch (this) {
+      case BrandTypesEnum.giftCard:
+        return 'גיפטקארד';
+      case BrandTypesEnum.reloadableCard:
+        return 'כרטיס נטען';
+      case BrandTypesEnum.store:
+        return 'חנות';
+    }
+  }
+
+    String get pluralDisplayName {
+    switch (this) {
+      case BrandTypesEnum.giftCard:
+        return '${BrandTypesEnum.giftCard.singleDisplayName}ים';
+      case BrandTypesEnum.reloadableCard:
+        return 'כרטיסים נטענים';
+      case BrandTypesEnum.store:
+        return 'חנויות';
+    }
+  }
+
   bool get isCard {
     switch (this) {
       case BrandTypesEnum.giftCard:

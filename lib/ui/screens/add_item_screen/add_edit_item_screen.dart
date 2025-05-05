@@ -13,7 +13,7 @@ import 'package:cardy/ui/widgets/text_fields/code_text_field.dart';
 import 'package:cardy/ui/widgets/text_fields/cvv_text_field.dart';
 import 'package:cardy/ui/widgets/text_fields/brand_auto_complete_text_field.dart';
 import 'package:cardy/ui/widgets/text_fields/expiration_date_text_field.dart';
-import 'package:cardy/ui/widgets/text_fields/custom_drop_down.dart';
+import 'package:cardy/ui/widgets/text_fields/payment_method_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
@@ -159,12 +159,9 @@ class _AddItemScreenState extends State<AddItemScreen> {
       paymentMethodController.value = widget.item!.paymentMethod;
     }
 
-    return CustomDropDown<PaymentMethodsEnum>(
-        icon: Icons.payment,
+    return PaymentMethodTextField(
         items: brandController.value!.type.paymentMethods,
-        controller: paymentMethodController,
-        itemBuilder: (item) => item.singleDisplayName,
-        onChanged: (value) {});
+        paymentMethodController: paymentMethodController);
   }
 
   Widget get codeTextField {
@@ -189,7 +186,6 @@ class _AddItemScreenState extends State<AddItemScreen> {
   }
 
   Widget get amountTextField {
-
     if (widget.isEditing && widget.item!.balance != null) {
       amountController.setValue(widget.item!.balance!);
     }
@@ -203,7 +199,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
       padding:
           const EdgeInsets.symmetric(horizontal: SCREEN_HORIZONTAL_PADDING),
       child: GradientButton(
-          label: widget.isEditing? 'ערוך': 'הוסף',
+          label: widget.isEditing ? 'ערוך' : 'הוסף',
           borderRadius: BorderRadius.circular(30),
           onPressed: () {
             if (_formKey.currentState!.validate()) {}

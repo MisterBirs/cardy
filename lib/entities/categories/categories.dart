@@ -22,11 +22,17 @@ class Categories {
     return _map[key];
   }
 
-  List<CategoryEntity> getCategories(List<CategoryKey> keys) {
+  List<CategoryEntity> getCategoriesByKeys(List<CategoryKey> keys) {
     return keys
         .map((key) => _map[key])
         .where((category) => category != null)
         .cast<CategoryEntity>()
+        .toList();
+  }
+
+  List<CategoryEntity> getAllCategories() {
+    return _map.values
+        .where((category) => category.key != CategoryKey.all)
         .toList();
   }
 // #endregion

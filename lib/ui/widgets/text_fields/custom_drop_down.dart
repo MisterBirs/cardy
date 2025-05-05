@@ -7,12 +7,14 @@ class CustomDropDown<T> extends StatefulWidget {
   final IconData icon;
   final ValueNotifier<T?> controller;
   final ValueChanged<T>? onChanged;
+  final String? Function(T?)? validator;
   final String Function(T) itemBuilder;
   const CustomDropDown(
       {super.key,
       required this.items,
       required this.icon,
       required this.controller,
+      this.validator,
       this.onChanged,
       required this.itemBuilder});
 
@@ -28,9 +30,10 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
   @override
   void initState() {
     if (widget.controller.value != null) {
-      _textFieldController.text = widget.itemBuilder(widget.controller.value as T);
+      _textFieldController.text =
+          widget.itemBuilder(widget.controller.value as T);
     }
-    
+
     super.initState();
   }
 
@@ -49,6 +52,7 @@ class _CustomDropDownState<T> extends State<CustomDropDown<T>> {
         child: AbsorbPointer(
           child: IconTextField(
             controller: _textFieldController,
+            validator:(input) => widget.validator?.call(widget.controller.value),
             readOnly: true,
             icon: widget.icon,
             label: 'סוג',

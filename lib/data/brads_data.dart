@@ -15,13 +15,13 @@ class BrandsData {
   //#region Attributes
 
   //Images paths
-  final storesImagesPath = Assets.images.items.stores;
-  final giftcardsImagesPath = Assets.images.items.giftcards;
-  final reloadableImagesPath = Assets.images.items.reloadableCards;
+  final _storesImagesPath = Assets.images.items.stores;
+  final _giftcardsImagesPath = Assets.images.items.giftcards;
+  final _reloadableImagesPath = Assets.images.items.reloadableCards;
 
-  final Map<BrandTypesEnum, Map<String, BrandEntity>> brandsMap = {};
+  final Map<BrandTypesEnum, Map<String, BrandEntity>> _brandsMap = {};
 
-  Map<String, BrandEntity> allBrandsMap = {};
+  Map<String, BrandEntity> _allBrandsMap = {};
   //#endregion
 
   //#region Private Constructor
@@ -44,136 +44,136 @@ class BrandsData {
           name: 'Nike',
           aliases: ['נייק', 'נייקי'],
           categories:
-              Categories.instance.getCategories([CategoryKey.fitnessClothing]),
-          imagePath: storesImagesPath.nikeLogo.path),
+              Categories.instance.getCategoriesByKeys([CategoryKey.fitnessClothing]),
+          imagePath: _storesImagesPath.nikeLogo.path),
       StoreEntity(
           id: 'store_Type_${index++}',
           name: 'Childrens Place',
           aliases: ['צילדרנס פלייס'],
           categories:
-              Categories.instance.getCategories([CategoryKey.kidsFashion]),
-          imagePath: storesImagesPath.childrensplaceLogo.path),
+              Categories.instance.getCategoriesByKeys([CategoryKey.kidsFashion]),
+          imagePath: _storesImagesPath.childrensplaceLogo.path),
       StoreEntity(
           id: 'store_Type_${index++}',
           name: 'Ruby Bay',
           aliases: ['רובי ביי'],
           categories:
-              Categories.instance.getCategories([CategoryKey.womensFashion]),
-          imagePath: storesImagesPath.rubyBayLogo.path),
+              Categories.instance.getCategoriesByKeys([CategoryKey.womensFashion]),
+          imagePath: _storesImagesPath.rubyBayLogo.path),
       StoreEntity(
           id: 'store_Type_${index++}',
           name: 'Yanga',
           aliases: ['ינגה'],
           categories:
-              Categories.instance.getCategories([CategoryKey.womensFashion]),
-          imagePath: storesImagesPath.yangaLogo.path),
+              Categories.instance.getCategoriesByKeys([CategoryKey.womensFashion]),
+          imagePath: _storesImagesPath.yangaLogo.path),
       StoreEntity(
           id: 'store_Type_${index++}',
           name: 'Quik Silver',
           aliases: ['קוויק סילבר'],
-          categories: Categories.instance.getCategories(
+          categories: Categories.instance.getCategoriesByKeys(
               [CategoryKey.mensFashion, CategoryKey.fitnessClothing]),
-          imagePath: storesImagesPath.quiksilverLogo.path),
+          imagePath: _storesImagesPath.quiksilverLogo.path),
       StoreEntity(
           id: 'store_Type_${index++}',
           name: "Sack's",
           aliases: ['סאקס'],
           categories:
-              Categories.instance.getCategories([CategoryKey.womensFashion]),
-          imagePath: storesImagesPath.sacksLogo.path),
+              Categories.instance.getCategoriesByKeys([CategoryKey.womensFashion]),
+          imagePath: _storesImagesPath.sacksLogo.path),
       StoreEntity(
           id: 'store_Type_${index++}',
           name: 'Flying Tiger',
           aliases: ['פליינג טייגר'],
-          categories: Categories.instance.getCategories([CategoryKey.home]),
-          imagePath: storesImagesPath.flyingTigerLogo.path),
+          categories: Categories.instance.getCategoriesByKeys([CategoryKey.home]),
+          imagePath: _storesImagesPath.flyingTigerLogo.path),
       StoreEntity(
           id: 'store_Type_${index++}',
           name: 'Fox',
           aliases: ['פוקס'],
-          categories: Categories.instance.getCategories([CategoryKey.fashion]),
-          imagePath: storesImagesPath.foxLogo.path),
+          categories: Categories.instance.getCategoriesByKeys([CategoryKey.fashion]),
+          imagePath: _storesImagesPath.foxLogo.path),
       StoreEntity(
           id: 'store_Type_${index++}',
           name: 'Aerie',
           aliases: ['ארי'],
-          categories: Categories.instance.getCategories(
+          categories: Categories.instance.getCategoriesByKeys(
               [CategoryKey.womensFashion, CategoryKey.fitnessClothing]),
-          imagePath: storesImagesPath.aerieLogo.path),
+          imagePath: _storesImagesPath.aerieLogo.path),
       StoreEntity(
           id: 'store_Type_${index++}',
           name: 'Board Riders',
           aliases: ['בורד ריידרס'],
-          categories: Categories.instance.getCategories([
+          categories: Categories.instance.getCategoriesByKeys([
             CategoryKey.mensFashion,
             CategoryKey.womensFashion,
             CategoryKey.fitnessClothing
           ]),
-          imagePath: storesImagesPath.boardridersLogo.path),
+          imagePath: _storesImagesPath.boardridersLogo.path),
       StoreEntity(
           id: 'store_Type_${index++}',
           name: 'Fox Home',
           aliases: ['פוקס הום'],
-          categories: Categories.instance.getCategories([CategoryKey.home]),
-          imagePath: storesImagesPath.foxHomeLogo.path),
+          categories: Categories.instance.getCategoriesByKeys([CategoryKey.home]),
+          imagePath: _storesImagesPath.foxHomeLogo.path),
       StoreEntity(
           id: 'store_Type_${index++}',
           name: 'שילב',
-          categories: Categories.instance.getCategories([CategoryKey.babies]),
-          imagePath: storesImagesPath.shilavLogo.path),
+          categories: Categories.instance.getCategoriesByKeys([CategoryKey.babies]),
+          imagePath: _storesImagesPath.shilavLogo.path),
       StoreEntity(
           id: 'store_Type_${index++}',
           name: 'MANGO',
           aliases: ['מנגו'],
-          categories: Categories.instance.getCategories([
+          categories: Categories.instance.getCategoriesByKeys([
             CategoryKey.mensFashion,
             CategoryKey.womensFashion,
           ]),
-          imagePath: storesImagesPath.mangoLogo.path),
+          imagePath: _storesImagesPath.mangoLogo.path),
       StoreEntity(
           id: 'store_Type_${index++}',
           name: 'Foot Locker',
           aliases: ['פוט לוקר'],
-          categories: Categories.instance.getCategories([CategoryKey.shoes]),
-          imagePath: storesImagesPath.footLockerLogo.path),
+          categories: Categories.instance.getCategoriesByKeys([CategoryKey.shoes]),
+          imagePath: _storesImagesPath.footLockerLogo.path),
       StoreEntity(
           id: 'store_Type_${index++}',
           name: 'Dream Sport',
           aliases: ['דרים ספורט'],
           categories:
-              Categories.instance.getCategories([CategoryKey.fitnessClothing]),
-          imagePath: storesImagesPath.dreamSportLogo.path),
+              Categories.instance.getCategoriesByKeys([CategoryKey.fitnessClothing]),
+          imagePath: _storesImagesPath.dreamSportLogo.path),
       StoreEntity(
           id: 'store_Type_${index++}',
           name: 'Laline',
           aliases: ['ללין'],
-          categories: Categories.instance.getCategories([CategoryKey.beauty]),
-          imagePath: storesImagesPath.lalineLogo.path),
+          categories: Categories.instance.getCategoriesByKeys([CategoryKey.beauty]),
+          imagePath: _storesImagesPath.lalineLogo.path),
       StoreEntity(
           id: 'store_Type_${index++}',
           name: 'BILABONG',
           aliases: ['בילבונג'],
-          categories: Categories.instance.getCategories([
+          categories: Categories.instance.getCategoriesByKeys([
             CategoryKey.mensFashion,
             CategoryKey.womensFashion,
             CategoryKey.fitnessClothing
           ]),
-          imagePath: storesImagesPath.bilabongLogo.path),
+          imagePath: _storesImagesPath.bilabongLogo.path),
       StoreEntity(
           id: 'store_Type_${index++}',
           name: 'American Eagle',
           aliases: ['אמריקן איגל'],
-          categories: Categories.instance.getCategories([
+          categories: Categories.instance.getCategoriesByKeys([
             CategoryKey.mensFashion,
             CategoryKey.womensFashion,
           ]),
-          imagePath: storesImagesPath.americanEagleLogo.path),
+          imagePath: _storesImagesPath.americanEagleLogo.path),
     ];
 
     final storesMap =
         Map.fromEntries(storesList.map((store) => MapEntry(store.id, store)));
 
-    brandsMap[BrandTypesEnum.store] = storesMap;
+    _brandsMap[BrandTypesEnum.store] = storesMap;
   }
 
   void _initGiftcards() {
@@ -183,8 +183,8 @@ class BrandsData {
         id: 'giftcard_Type_${index++}',
         name: 'BUYME all',
         aliases: ['ביימי אול'],
-        categories: Categories.instance.getCategories([CategoryKey.all]),
-        imagePath: giftcardsImagesPath.buymeallGiftcard.path,
+        categories: Categories.instance.getCategoriesByKeys([CategoryKey.all]),
+        imagePath: _giftcardsImagesPath.buymeallGiftcard.path,
         redeemableStores: storesMap.values.toList(),
         brand: BrandTypesEnum.giftCard,
         hasBalance: true,
@@ -195,14 +195,14 @@ class BrandsData {
         id: 'giftcard_Type_${index++}',
         name: 'DREAM CARD',
         aliases: ['דרים קארד'],
-        categories: Categories.instance.getCategories([
+        categories: Categories.instance.getCategoriesByKeys([
           CategoryKey.fashion,
           CategoryKey.home,
           CategoryKey.babies,
           CategoryKey.shoes,
           CategoryKey.beauty
         ]),
-        imagePath: giftcardsImagesPath.dreamcardGiftcard.path,
+        imagePath: _giftcardsImagesPath.dreamcardGiftcard.path,
         redeemableStores: storesMap.values.toList(),
         brand: BrandTypesEnum.giftCard,
         hasBalance: true,
@@ -213,8 +213,8 @@ class BrandsData {
         id: 'giftcard_Type_${index++}',
         name: 'GAVEKORT',
         aliases: ['גאבקורט'],
-        categories: Categories.instance.getCategories([CategoryKey.all]),
-        imagePath: giftcardsImagesPath.gavekortGiftcard.path,
+        categories: Categories.instance.getCategoriesByKeys([CategoryKey.all]),
+        imagePath: _giftcardsImagesPath.gavekortGiftcard.path,
         redeemableStores: storesMap.values.toList(),
         brand: BrandTypesEnum.giftCard,
         hasBalance: true,
@@ -225,8 +225,8 @@ class BrandsData {
         id: 'giftcard_Type_${index++}',
         name: 'GiftZone',
         aliases: ['גיפטזון'],
-        categories: Categories.instance.getCategories([CategoryKey.all]),
-        imagePath: giftcardsImagesPath.giftzozeGiftcard.path,
+        categories: Categories.instance.getCategoriesByKeys([CategoryKey.all]),
+        imagePath: _giftcardsImagesPath.giftzozeGiftcard.path,
         redeemableStores: storesMap.values.toList(),
         brand: BrandTypesEnum.giftCard,
         hasBalance: true,
@@ -237,8 +237,8 @@ class BrandsData {
         id: 'giftcard_Type_${index++}',
         name: 'Love',
         aliases: ['לאב'],
-        categories: Categories.instance.getCategories([CategoryKey.all]),
-        imagePath: giftcardsImagesPath.loveGiftcard.path,
+        categories: Categories.instance.getCategoriesByKeys([CategoryKey.all]),
+        imagePath: _giftcardsImagesPath.loveGiftcard.path,
         redeemableStores: storesMap.values.toList(),
         brand: BrandTypesEnum.giftCard,
         hasBalance: true,
@@ -250,7 +250,7 @@ class BrandsData {
     Map<String, BrandEntity> giftcardsMap = Map.fromEntries(
         giftcardsList.map((giftcard) => MapEntry(giftcard.id, giftcard)));
 
-    brandsMap[BrandTypesEnum.giftCard] = giftcardsMap;
+    _brandsMap[BrandTypesEnum.giftCard] = giftcardsMap;
   }
 
   void _initReloadableCards() {
@@ -260,8 +260,8 @@ class BrandsData {
       MultiStoresBrandEntity(
         id: 'reloadable_card_${index++}',
         name: 'בהצדעה',
-        categories: Categories.instance.getCategories([CategoryKey.all]),
-        imagePath: reloadableImagesPath.behatsdaaReloadableCard.path,
+        categories: Categories.instance.getCategoriesByKeys([CategoryKey.all]),
+        imagePath: _reloadableImagesPath.behatsdaaReloadableCard.path,
         redeemableStores: storesMap.values.toList(),
         brand: BrandTypesEnum.reloadableCard,
         hasBalance: true,
@@ -271,8 +271,8 @@ class BrandsData {
       MultiStoresBrandEntity(
         id: 'reloadable_card_${index++}',
         name: 'ביחד בשבילך',
-        categories: Categories.instance.getCategories([CategoryKey.all]),
-        imagePath: reloadableImagesPath.histReloadableCard.path,
+        categories: Categories.instance.getCategoriesByKeys([CategoryKey.all]),
+        imagePath: _reloadableImagesPath.histReloadableCard.path,
         redeemableStores: storesMap.values.toList(),
         brand: BrandTypesEnum.giftCard,
         hasBalance: true,
@@ -284,7 +284,7 @@ class BrandsData {
     final reloadableCardsMap = Map.fromEntries(reloadableCardsList
         .map((reloadableCard) => MapEntry(reloadableCard.id, reloadableCard)));
 
-    brandsMap[BrandTypesEnum.reloadableCard] = reloadableCardsMap;
+    _brandsMap[BrandTypesEnum.reloadableCard] = reloadableCardsMap;
   }
 
   // void _initVouchers() {
@@ -298,8 +298,8 @@ class BrandsData {
   // }
 
   void _initAllBrands() {
-    allBrandsMap = {
-      for (var item in brandsMap.values.expand((element) => element.values))
+    _allBrandsMap = {
+      for (var item in _brandsMap.values.expand((element) => element.values))
         (item).id: item
     };
   }
@@ -334,6 +334,14 @@ class BrandsData {
 
   //#region Getters
   Map<String, StoreEntity> get storesMap =>
-      brandsMap[BrandTypesEnum.store]!.cast<String, StoreEntity>();
+      _brandsMap[BrandTypesEnum.store]!.cast<String, StoreEntity>();
+
+  Map<BrandTypesEnum, Map<String, BrandEntity>> get brandsMap => _brandsMap;
+  Map<String, BrandEntity> get allBrandsMap => _allBrandsMap;
   //#endregion
+
+  void addBrand(BrandEntity brand) {
+    _brandsMap[brand.type]![brand.id] = brand;
+    _allBrandsMap[brand.id] = brand;
+  }
 }
