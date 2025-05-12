@@ -4,7 +4,7 @@ import 'package:cardy/entities/payment_methods/multi_stores_payment_method_entit
 import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
 import 'package:cardy/entities/payment_methods/enums.dart';
 import 'package:cardy/entities/payment_methods/store_entity.dart';
-import 'package:cardy/ui/ui_constants.dart';
+import 'package:cardy/core/ui_constants.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/ui/widgets/background.dart';
 import 'package:cardy/ui/widgets/gradient_button.dart';

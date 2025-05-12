@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "665860206246",
+    "project_id": "cardy-de018",
+    "storage_bucket": "cardy-de018.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665860206246:android:5962b0d0ba6bb749394e67",
+        "android_client_info": {
+          "package_name": "com.birsstudio.cardy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "665860206246-gibkmovltm6hfbtus6cn7eii1amnheti.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.birsstudio.cardy",
+            "certificate_hash": "55c0f770fbf6dc7db75b01a5bd5cf0dc10304124"
+          }
+        },
+        {
+          "client_id": "665860206246-512thmqb34ngmdf7ski7aosavam47e3g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAMTRr1gLRxoehLJVsUIaiYMAE1rs1DA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "665860206246-512thmqb34ngmdf7ski7aosavam47e3g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "665860206246-72njo7pb3qftdreoujr0q2sicp1mn88k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cardy"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665860206246:android:3ab26cc1da5d23e5394e67",
+        "android_client_info": {
+          "package_name": "com.example.cardy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "665860206246-h95sbm0jbm5bpe3kj143n1i81idl11pq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cardy",
+            "certificate_hash": "55c0f770fbf6dc7db75b01a5bd5cf0dc10304124"
+          }
+        },
+        {
+          "client_id": "665860206246-512thmqb34ngmdf7ski7aosavam47e3g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAMTRr1gLRxoehLJVsUIaiYMAE1rs1DA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "665860206246-512thmqb34ngmdf7ski7aosavam47e3g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "665860206246-72njo7pb3qftdreoujr0q2sicp1mn88k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cardy"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

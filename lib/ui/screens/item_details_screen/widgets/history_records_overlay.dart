@@ -1,5 +1,5 @@
 import 'package:cardy/entities/item_history/history_record_entity.dart';
-import 'package:cardy/ui/ui_constants.dart';
+import 'package:cardy/core/ui_constants.dart';
 import 'package:cardy/ui/widgets/gradient_button.dart';
 import 'package:cardy/ui/widgets/overlay_builder.dart';
 import 'package:flutter/material.dart';

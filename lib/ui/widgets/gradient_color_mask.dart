@@ -1,4 +1,4 @@
-import 'package:cardy/ui/ui_constants.dart';
+import 'package:cardy/core/ui_constants.dart';
 import 'package:flutter/material.dart';
 
 class GradientColorMask extends StatelessWidget {

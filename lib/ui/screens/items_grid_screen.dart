@@ -1,7 +1,7 @@
 import 'package:cardy/entities/categories/categories.dart';
 import 'package:cardy/entities/categories/category_entity.dart';
 import 'package:cardy/entities/categories/category_key.dart';
-import 'package:cardy/ui/ui_constants.dart';
+import 'package:cardy/core/ui_constants.dart';
 import 'package:cardy/ui/widgets/background.dart';
 import 'package:cardy/ui/widgets/filter_bar.dart';
 import 'package:cardy/ui/widgets/item_tiles/grid_tiles/base_item_grid_tile.dart';

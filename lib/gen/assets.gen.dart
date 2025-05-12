@@ -53,6 +53,10 @@ class $AssetsImagesGen {
   AssetGenImage get screenBackground =>
       const AssetGenImage('assets/images/screen-background.png');
 
+  /// Directory path: assets/images/third_party_sign_in_logos
+  $AssetsImagesThirdPartySignInLogosGen get thirdPartySignInLogos =>
+      const $AssetsImagesThirdPartySignInLogosGen();
+
   /// List of all assets
   List<AssetGenImage> get values => [screenBackground];
 }
@@ -145,6 +149,26 @@ class $AssetsImagesItemsGen {
 
   /// Directory path: assets/images/items/stores
   $AssetsImagesItemsStoresGen get stores => const $AssetsImagesItemsStoresGen();
+}
+
+class $AssetsImagesThirdPartySignInLogosGen {
+  const $AssetsImagesThirdPartySignInLogosGen();
+
+  /// File path: assets/images/third_party_sign_in_logos/appleid_button@4x.png
+  AssetGenImage get appleidButton4x => const AssetGenImage(
+      'assets/images/third_party_sign_in_logos/appleid_button@4x.png');
+
+  /// File path: assets/images/third_party_sign_in_logos/facebook_sign_in_logo.png
+  AssetGenImage get facebookSignInLogo => const AssetGenImage(
+      'assets/images/third_party_sign_in_logos/facebook_sign_in_logo.png');
+
+  /// File path: assets/images/third_party_sign_in_logos/google_sign_in_logo.png
+  AssetGenImage get googleSignInLogo => const AssetGenImage(
+      'assets/images/third_party_sign_in_logos/google_sign_in_logo.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values =>
+      [appleidButton4x, facebookSignInLogo, googleSignInLogo];
 }
 
 class $AssetsImagesItemsGiftcardsGen {

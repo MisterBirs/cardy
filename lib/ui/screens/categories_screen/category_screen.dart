@@ -4,7 +4,7 @@ import 'package:cardy/entities/payment_methods/store_summary_entity.dart';
 import 'package:cardy/ui/screens/items_grid_screen.dart';
 import 'package:cardy/ui/screens/store_screen.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_balance_tile.dart';
-import 'package:cardy/ui/ui_constants.dart';
+import 'package:cardy/core/ui_constants.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/ui/widgets/item_tiles/grid_tiles/item_grid_custom_tile.dart';
 import 'package:flutter/material.dart';

@@ -10,7 +10,7 @@ import 'package:cardy/ui/widgets/cardy_toast.dart';
 import 'package:cardy/ui/widgets/gradient_button.dart';
 import 'package:cardy/ui/widgets/background.dart';
 import 'package:cardy/ui/widgets/gradient_color_mask.dart';
-import 'package:cardy/ui/ui_constants.dart';
+import 'package:cardy/core/ui_constants.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';
 import 'package:cardy/ui/widgets/show_all_items_list/show_all_items_list.dart';
 import 'package:flutter/material.dart';

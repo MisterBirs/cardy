@@ -41,8 +41,10 @@ const BASE_CARD_WIDTH = BASE_ITEM_TILE_SIZE * SQUARE_CARD_RATIO;
 
 
 //Fonts
-const PRIMARY_FONT_FAMILY = 'Fredoka';
-const primaryFont = GoogleFonts.fredoka;
+ //const primaryFont = GoogleFonts.fredoka;
+const PRIMARY_FONT = GoogleFonts.fredoka;
+const PRIMARY_FONT_THEME = GoogleFonts.fredokaTextTheme;
+
 
 //Shadows
 const SHADOW = [

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cardy/ui/ui_constants.dart';
+import 'package:cardy/core/ui_constants.dart';
 
 class SearchBox extends StatefulWidget {
   final void Function(String) onSearch;

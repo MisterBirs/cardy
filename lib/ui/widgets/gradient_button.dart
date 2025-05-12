@@ -1,4 +1,4 @@
-import 'package:cardy/ui/ui_constants.dart';
+import 'package:cardy/core/ui_constants.dart';
 import 'package:flutter/material.dart';
 
 class GradientButton extends StatelessWidget {
@@ -18,7 +18,7 @@ class GradientButton extends StatelessWidget {
     this.height = 50,
     this.width = double.infinity,
     BorderRadius? borderRadius,
-  }) : borderRadius = borderRadius ?? BorderRadius.circular(10);
+  }) : borderRadius = borderRadius ?? BorderRadius.circular(30);
 
   @override
   Widget build(BuildContext context) {

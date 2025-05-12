@@ -1,6 +1,6 @@
 import 'package:cardy/entities/categories/categories.dart';
 import 'package:cardy/entities/categories/category_entity.dart';
-import 'package:cardy/ui/ui_constants.dart';
+import 'package:cardy/core/ui_constants.dart';
 import 'package:cardy/ui/widgets/text_fields/custom_filtered_dropdown.dart';
 import 'package:flutter/material.dart';
 

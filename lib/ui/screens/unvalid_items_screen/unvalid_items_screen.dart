@@ -2,7 +2,7 @@ import 'package:cardy/data/user_items_data.dart';
 import 'package:cardy/entities/payment_methods/enums.dart';
 import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
 import 'package:cardy/ui/screens/item_details_screen/item_details_screen.dart';
-import 'package:cardy/ui/ui_constants.dart';
+import 'package:cardy/core/ui_constants.dart';
 import 'package:cardy/ui/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/ui/widgets/background.dart';
 import 'package:cardy/ui/widgets/item_tiles/item_tile.dart';

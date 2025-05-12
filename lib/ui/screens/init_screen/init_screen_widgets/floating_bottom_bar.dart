@@ -1,7 +1,7 @@
 import 'package:cardy/gen/assets.gen.dart';
 import 'package:cardy/ui/screens/add_item_screen/add_edit_item_screen.dart';
 import 'package:cardy/ui/widgets/gradient_color_mask.dart';
-import 'package:cardy/ui/ui_constants.dart';
+import 'package:cardy/core/ui_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -167,7 +167,7 @@ class BottomBarOption extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(label,
-            style: primaryFont(
+            style: PRIMARY_FONT(
               fontSize: getScaleSize(context, 17),
               fontWeight: FontWeight.w500,
               color: isSelected ? _selectedColor : _unselectedColor,

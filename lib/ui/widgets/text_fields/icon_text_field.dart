@@ -1,4 +1,4 @@
-import 'package:cardy/ui/ui_constants.dart';
+import 'package:cardy/core/ui_constants.dart';
 import 'package:cardy/ui/widgets/gradient_color_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,6 +20,7 @@ class IconTextField extends StatefulWidget {
   final String? Function(String?)? validator; 
   final String? initText;
   final Widget? tail;
+  final bool obscureText;
 
 
   const IconTextField(
@@ -38,6 +39,7 @@ class IconTextField extends StatefulWidget {
       this.maxLength,
       this.validator,
       this.tail,
+      this.obscureText = false,
       this.color = const Color.fromARGB(241, 255, 255, 255),
       this.padding});
 
@@ -75,7 +77,9 @@ class IconTextField extends StatefulWidget {
     return Builder(builder: (context) {
       return TextFormField(
         validator: validator,
+        
         readOnly: readOnly,
+        obscureText: obscureText,
         keyboardType: keyboardType,
         maxLength: maxLength,
         enableInteractiveSelection: !readOnly,
@@ -88,6 +92,9 @@ class IconTextField extends StatefulWidget {
         inputFormatters: inputFormatters,
         decoration: InputDecoration(
           border: InputBorder.none,
+          errorStyle: TextStyle(
+            fontSize: 14,
+          ),
           label: Padding(
               padding: const EdgeInsets.only(right: 15),
               child: Text(label,

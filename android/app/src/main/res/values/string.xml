@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cardy</string>
+    <string name="facebook_app_id">693891806919374</string>
+    <string name="fb_login_protocol_scheme">fb693891806919374</string>
+    <string name="facebook_client_token">ed86e5cf2a7933dc78fa4aedde8b7263</string>
+</resources>
+
+
