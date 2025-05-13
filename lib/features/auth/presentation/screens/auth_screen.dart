@@ -3,7 +3,7 @@ import 'package:cardy/features/auth/application/auth_state.dart';
 import 'package:cardy/features/auth/presentation/widgets/email_password_form.dart';
 import 'package:cardy/features/auth/presentation/widgets/loading_overlay.dart';
 import 'package:cardy/features/auth/presentation/widgets/third_party_sign_in_buttons.dart';
-import 'package:cardy/ui/widgets/background.dart';
+import 'package:cardy/features/wallet/presentation/widgets/background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -3,7 +3,7 @@ import 'package:cardy/features/auth/application/auth_event.dart';
 import 'package:cardy/features/auth/application/auth_state.dart';
 import 'package:cardy/features/auth/presentation/widgets/email_text_field.dart';
 import 'package:cardy/features/auth/presentation/widgets/password_text_field.dart';
-import 'package:cardy/ui/widgets/gradient_button.dart';
+import 'package:cardy/features/wallet/presentation/widgets/gradient_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

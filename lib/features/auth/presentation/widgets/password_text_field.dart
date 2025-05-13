@@ -1,5 +1,5 @@
-import 'package:cardy/ui/widgets/gradient_color_mask.dart';
-import 'package:cardy/ui/widgets/text_fields/icon_text_field.dart';
+import 'package:cardy/features/wallet/presentation/widgets/gradient_color_mask.dart';
+import 'package:cardy/features/wallet/presentation/widgets/text_fields/icon_text_field.dart';
 import 'package:flutter/material.dart';
 
 class PasswordTextField extends StatefulWidget {

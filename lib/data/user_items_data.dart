@@ -1,14 +1,14 @@
 import 'dart:math';
 
 import 'package:cardy/data/brads_data.dart';
-import 'package:cardy/entities/categories/category_key.dart';
-import 'package:cardy/entities/item_history/edit_history_record.dart';
-import 'package:cardy/entities/payment_methods/multi_stores_payment_method_entity.dart';
-import 'package:cardy/entities/payment_methods/payment_item_entity.dart';
-import 'package:cardy/entities/payment_methods/brand_entity.dart';
-import 'package:cardy/entities/payment_methods/store_entity.dart';
-import 'package:cardy/entities/payment_methods/store_summary_entity.dart';
-import 'package:cardy/entities/payment_methods/enums.dart';
+import 'package:cardy/features/wallet/domain/entities/categories/category_key.dart';
+import 'package:cardy/features/wallet/domain/entities/item_history/edit_history_record.dart';
+import 'package:cardy/features/wallet/domain/entities/payment_methods/brand_entity.dart';
+import 'package:cardy/features/wallet/domain/entities/payment_methods/enums.dart';
+import 'package:cardy/features/wallet/domain/entities/payment_methods/multi_stores_payment_method_entity.dart';
+import 'package:cardy/features/wallet/domain/entities/payment_methods/payment_item_entity.dart';
+import 'package:cardy/features/wallet/domain/entities/payment_methods/store_entity.dart';
+import 'package:cardy/features/wallet/domain/entities/payment_methods/store_summary_entity.dart';
 import 'package:uuid/uuid.dart';
 
 class UserItemsData {
@@ -243,7 +243,7 @@ class UserItemsData {
       final List<StoreEntity> stores = itemType.hasMultiStores
           ? (itemType as MultiStoresBrandEntity).redeemableStores
           : itemType is StoreEntity
-              ? [(itemType)]
+              ? [(itemType as StoreEntity)]
               : [];
 
       for (var store in stores) {

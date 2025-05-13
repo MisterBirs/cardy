@@ -2,7 +2,7 @@ import 'package:cardy/features/auth/application/auth_bloc.dart';
 import 'package:cardy/features/auth/application/auth_event.dart';
 import 'package:cardy/features/auth/application/auth_state.dart';
 import 'package:cardy/features/auth/presentation/screens/auth_screen.dart';
-import 'package:cardy/ui/screens/init_screen/init_screen.dart';
+import 'package:cardy/features/wallet/presentation/screens/init_screen/init_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
