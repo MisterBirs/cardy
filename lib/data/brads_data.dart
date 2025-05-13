@@ -304,33 +304,6 @@ class BrandsData {
   }
   //#endregion
 
-  //#region Generate Methods
-  // Map<String, BrandEntity> generateSingleStorePaymentMethods(
-  //     {required PaymentMethodType type,
-  //     int count = 10,
-  //     bool hasBalance = true,
-  //     bool hasCvv = false,
-  //     bool hasDescription = false}) {
-  //   final uuid = Uuid();
-  //   final random = Random();
-  //   Map<String, BrandEntity> paymentsMethods = {};
-  //   for (int i = 0; i < count; i++) {
-  //     String id = uuid.v4();
-  //     final storeIndex = random.nextInt(storesMap.values.toList().length);
-  //     paymentsMethods[id] = SingleStoreBrandEntity(
-  //       id: id,
-  //       store: storesMap.values.toList()[storeIndex],
-  //       type: type,
-  //       hasBalance: hasBalance,
-  //       hasCvv: hasCvv,
-  //       hasDescription: hasDescription,
-  //     );
-  //   }
-
-  //   return paymentsMethods;
-  // }
-  //#endregion
-
   //#region Getters
   Map<String, StoreEntity> get storesMap =>
       _brandsMap[BrandTypesEnum.store]!.cast<String, StoreEntity>();
