@@ -6,9 +6,9 @@ import 'package:cardy/features/wallet/domain/entities/categories/category_key.da
 import 'package:cardy/features/wallet/domain/entities/payment_methods/enums.dart';
 import 'package:cardy/gen/assets.gen.dart';
 
-class BrandsSimulationDaraSource implements BrandsDataSource {
-  static final BrandsSimulationDaraSource instance =
-      BrandsSimulationDaraSource._();
+class BrandsSimulationDataSource implements BrandsDataSource {
+  static final BrandsSimulationDataSource instance =
+      BrandsSimulationDataSource._();
 
   //#region Attributes
 
@@ -23,7 +23,7 @@ class BrandsSimulationDaraSource implements BrandsDataSource {
   //#endregion
 
   //#region Private Constructor
-  BrandsSimulationDaraSource._() {
+  BrandsSimulationDataSource._() {
     _initStores();
     _initGiftcards();
     _initReloadableCards();
