@@ -1,6 +1,6 @@
 import 'package:cardy/data/brads_data.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/brand_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/enums.dart';
+import 'package:cardy/features/brands/domain/entities/brand_entity.dart';
+import 'package:cardy/features/brands/domain/entities/enums.dart';
 import 'package:cardy/features/wallet/presentation/widgets/gradient_button.dart';
 import 'package:cardy/features/wallet/presentation/widgets/overlay_builder.dart';
 import 'package:cardy/features/wallet/presentation/widgets/text_fields/amount_text_field.dart';

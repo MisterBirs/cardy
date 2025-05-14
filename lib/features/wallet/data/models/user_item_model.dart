@@ -1,5 +1,5 @@
 import 'package:cardy/features/wallet/data/models/history_record_model.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/enums.dart';
+import 'package:cardy/features/brands/domain/entities/enums.dart';
 
 class UserItemModel {
   final String _id;

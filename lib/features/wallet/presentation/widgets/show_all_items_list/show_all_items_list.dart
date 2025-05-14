@@ -1,8 +1,8 @@
 import 'dart:core';
 import 'package:cardy/core/ui_constants.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/brand_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/enums.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/payment_item_entity.dart';
+import 'package:cardy/features/brands/domain/entities/brand_entity.dart';
+import 'package:cardy/features/brands/domain/entities/enums.dart';
+import 'package:cardy/features/brands/domain/entities/payment_item_entity.dart';
 import 'package:cardy/features/wallet/presentation/widgets/item_tiles/grid_tiles/item_type_grid_tile.dart';
 import 'package:cardy/features/wallet/presentation/widgets/item_tiles/grid_tiles/item_grid_balance_tile.dart';
 import 'package:cardy/features/wallet/presentation/widgets/item_tiles/grid_tiles/base_item_grid_tile.dart';

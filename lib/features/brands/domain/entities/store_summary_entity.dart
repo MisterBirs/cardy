@@ -1,8 +1,8 @@
 
 
-import 'package:cardy/features/wallet/domain/entities/payment_methods/enums.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/payment_item_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/store_entity.dart';
+import 'package:cardy/features/brands/domain/entities/enums.dart';
+import 'package:cardy/features/brands/domain/entities/payment_item_entity.dart';
+import 'package:cardy/features/brands/domain/entities/store_entity.dart';
 
 class StoreSummaryEntity {
 

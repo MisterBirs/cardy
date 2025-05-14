@@ -1,5 +1,5 @@
 import 'package:cardy/features/wallet/domain/entities/item_history/history_record_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/enums.dart';
+import 'package:cardy/features/brands/domain/entities/enums.dart';
 import 'package:flutter/material.dart';
 
 class AddHistoryRecord extends HistoryRecordEntity {

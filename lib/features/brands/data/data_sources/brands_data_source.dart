@@ -1,4 +1,4 @@
-import 'package:cardy/features/wallet/data/models/brand_model.dart';
+import 'package:cardy/features/brands/data/models/brand_model.dart';
 
 abstract class BrandsDataSource {
   Future<List<BrandModel>> fetchBrandsByIds(List<String> ids);
@@ -7,5 +7,5 @@ abstract class BrandsDataSource {
 
   Future<void> updateBrand(BrandModel item);
 
-  Future<void> deleteBrand(BrandModel itemId);
+  Future<void> deleteBrand(String itemId);
 }

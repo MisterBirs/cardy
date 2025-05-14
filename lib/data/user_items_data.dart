@@ -3,12 +3,12 @@ import 'dart:math';
 import 'package:cardy/data/brads_data.dart';
 import 'package:cardy/features/wallet/domain/entities/categories/category_key.dart';
 import 'package:cardy/features/wallet/domain/entities/item_history/edit_history_record.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/brand_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/enums.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/multi_stores_payment_method_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/payment_item_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/store_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/store_summary_entity.dart';
+import 'package:cardy/features/brands/domain/entities/brand_entity.dart';
+import 'package:cardy/features/brands/domain/entities/enums.dart';
+import 'package:cardy/features/brands/domain/entities/multi_stores_payment_method_entity.dart';
+import 'package:cardy/features/brands/domain/entities/payment_item_entity.dart';
+import 'package:cardy/features/brands/domain/entities/store_entity.dart';
+import 'package:cardy/features/brands/domain/entities/store_summary_entity.dart';
 import 'package:uuid/uuid.dart';
 
 class UserItemsData {
@@ -88,7 +88,6 @@ class UserItemsData {
       return item.brand as StoreEntity;
     }
   }
-
 
   double _randomPayment(double remaining) => 
       100 + Random().nextDouble() * 200;

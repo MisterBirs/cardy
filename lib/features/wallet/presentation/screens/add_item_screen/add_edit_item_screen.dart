@@ -1,10 +1,10 @@
 import 'package:cardy/data/brads_data.dart';
 import 'package:cardy/core/ui_constants.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/brand_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/enums.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/multi_stores_payment_method_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/payment_item_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/store_entity.dart';
+import 'package:cardy/features/brands/domain/entities/brand_entity.dart';
+import 'package:cardy/features/brands/domain/entities/enums.dart';
+import 'package:cardy/features/brands/domain/entities/multi_stores_payment_method_entity.dart';
+import 'package:cardy/features/brands/domain/entities/payment_item_entity.dart';
+import 'package:cardy/features/brands/domain/entities/store_entity.dart';
 import 'package:cardy/features/wallet/presentation/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/features/wallet/presentation/widgets/background.dart';
 import 'package:cardy/features/wallet/presentation/widgets/gradient_button.dart';

@@ -1,5 +1,8 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
 enum BrandTypesEnum { giftCard, reloadableCard, store }
 
+@JsonEnum(fieldRename: FieldRename.snake)
 enum PaymentMethodsEnum {
   giftCard,
   reloadableCard,

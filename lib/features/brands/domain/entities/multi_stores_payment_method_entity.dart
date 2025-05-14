@@ -1,26 +1,27 @@
-import 'package:cardy/features/wallet/data/models/brand_model.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/enums.dart';
+import 'package:cardy/features/brands/domain/entities/brand_entity.dart';
+import 'package:cardy/features/brands/domain/entities/enums.dart';
+import 'package:cardy/features/wallet/domain/entities/categories/category_key.dart';
 
-class MultiStoresBrandModel implements BrandModel{
+class MultiStoresBrandEntity extends BrandEntity {
   //#region Attributes
   final String _id;
+  final BrandTypesEnum _type;
   final String _name;
-  final BrandTypesEnum  _type;
   final List<String> _aliases;
   final String _imagePath;
-  final List<String> _categoriesIds;
+  final List<CategoryKey> _categoriesKeys;
   final List<String> _redeemableStoresIds;
   final bool _hasCvv;
   //#endregion
 
   //#region Constructor
-  MultiStoresBrandModel({
+  MultiStoresBrandEntity({
     required String id,
-    required String name,
     required BrandTypesEnum type,
-    List<String>? aliases,
+    required String name,
     required String imagePath,
-    required List<String> categoriesIds,
+    List<String>? aliases,
+    required List<CategoryKey> categoriesKeys,
     required List<String> redeemableStoresIds,
     required bool hasCvv,
   })  : _id = id,
@@ -28,14 +29,18 @@ class MultiStoresBrandModel implements BrandModel{
         _type = type,
         _aliases = aliases != null ? [name, ...aliases] : [name],
         _imagePath = imagePath,
-        _categoriesIds = categoriesIds,
+        _categoriesKeys = categoriesKeys,
         _redeemableStoresIds = redeemableStoresIds,
         _hasCvv = hasCvv;
+
   //#endregion
 
   //#region Getters
   @override
   String get id => _id;
+
+  @override
+  BrandTypesEnum get type => _type;
 
   @override
   String get name => _name;
@@ -47,14 +52,15 @@ class MultiStoresBrandModel implements BrandModel{
   String get imagePath => _imagePath;
 
   @override
-  List<String> get categoriesIds => _categoriesIds;
-
-  @override
-  bool get hasCvv => false;
+  List<CategoryKey> get categoriesKeys => _categoriesKeys;
 
   @override
   bool get hasMultiStores => true;
 
+  List<String> get redeemableStoresIds => _redeemableStoresIds;
+
   @override
-  BrandTypesEnum get type => type;
+  bool get hasCvv => _hasCvv;
+
+  //#endregion
 }

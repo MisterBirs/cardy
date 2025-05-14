@@ -87,11 +87,13 @@ class $AssetsImagesCategoriesGen {
 
   /// File path: assets/images/categories/entertainment-category-image.png
   AssetGenImage get entertainmentCategoryImage => const AssetGenImage(
-      'assets/images/categories/entertainment-category-image.png');
+    'assets/images/categories/entertainment-category-image.png',
+  );
 
   /// File path: assets/images/categories/fashion-category-image.png
   AssetGenImage get fashionCategoryImage => const AssetGenImage(
-      'assets/images/categories/fashion-category-image.png');
+    'assets/images/categories/fashion-category-image.png',
+  );
 
   /// File path: assets/images/categories/food-category-image.png
   AssetGenImage get foodCategoryImage =>
@@ -111,29 +113,32 @@ class $AssetsImagesCategoriesGen {
 
   /// File path: assets/images/categories/super-market-category-image.png
   AssetGenImage get superMarketCategoryImage => const AssetGenImage(
-      'assets/images/categories/super-market-category-image.png');
+    'assets/images/categories/super-market-category-image.png',
+  );
 
   /// File path: assets/images/categories/technology-category-image.png
   AssetGenImage get technologyCategoryImage => const AssetGenImage(
-      'assets/images/categories/technology-category-image.png');
+    'assets/images/categories/technology-category-image.png',
+  );
 
   /// File path: assets/images/categories/vacation-category-image.png
   AssetGenImage get vacationCategoryImage => const AssetGenImage(
-      'assets/images/categories/vacation-category-image.png');
+    'assets/images/categories/vacation-category-image.png',
+  );
 
   /// List of all assets
   List<AssetGenImage> get values => [
-        babyCategoryImage,
-        entertainmentCategoryImage,
-        fashionCategoryImage,
-        foodCategoryImage,
-        homeCategoryImage,
-        makeupCategoryImage,
-        sportCategoryImage,
-        superMarketCategoryImage,
-        technologyCategoryImage,
-        vacationCategoryImage
-      ];
+    babyCategoryImage,
+    entertainmentCategoryImage,
+    fashionCategoryImage,
+    foodCategoryImage,
+    homeCategoryImage,
+    makeupCategoryImage,
+    sportCategoryImage,
+    superMarketCategoryImage,
+    technologyCategoryImage,
+    vacationCategoryImage,
+  ];
 }
 
 class $AssetsImagesItemsGen {
@@ -156,19 +161,25 @@ class $AssetsImagesThirdPartySignInLogosGen {
 
   /// File path: assets/images/third_party_sign_in_logos/appleid_button@4x.png
   AssetGenImage get appleidButton4x => const AssetGenImage(
-      'assets/images/third_party_sign_in_logos/appleid_button@4x.png');
+    'assets/images/third_party_sign_in_logos/appleid_button@4x.png',
+  );
 
   /// File path: assets/images/third_party_sign_in_logos/facebook_sign_in_logo.png
   AssetGenImage get facebookSignInLogo => const AssetGenImage(
-      'assets/images/third_party_sign_in_logos/facebook_sign_in_logo.png');
+    'assets/images/third_party_sign_in_logos/facebook_sign_in_logo.png',
+  );
 
   /// File path: assets/images/third_party_sign_in_logos/google_sign_in_logo.png
   AssetGenImage get googleSignInLogo => const AssetGenImage(
-      'assets/images/third_party_sign_in_logos/google_sign_in_logo.png');
+    'assets/images/third_party_sign_in_logos/google_sign_in_logo.png',
+  );
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [appleidButton4x, facebookSignInLogo, googleSignInLogo];
+  List<AssetGenImage> get values => [
+    appleidButton4x,
+    facebookSignInLogo,
+    googleSignInLogo,
+  ];
 }
 
 class $AssetsImagesItemsGiftcardsGen {
@@ -176,19 +187,23 @@ class $AssetsImagesItemsGiftcardsGen {
 
   /// File path: assets/images/items/giftcards/buymeall-giftcard.png
   AssetGenImage get buymeallGiftcard => const AssetGenImage(
-      'assets/images/items/giftcards/buymeall-giftcard.png');
+    'assets/images/items/giftcards/buymeall-giftcard.png',
+  );
 
   /// File path: assets/images/items/giftcards/dreamcard-giftcard.png
   AssetGenImage get dreamcardGiftcard => const AssetGenImage(
-      'assets/images/items/giftcards/dreamcard-giftcard.png');
+    'assets/images/items/giftcards/dreamcard-giftcard.png',
+  );
 
   /// File path: assets/images/items/giftcards/gavekort-giftcard.png
   AssetGenImage get gavekortGiftcard => const AssetGenImage(
-      'assets/images/items/giftcards/gavekort-giftcard.png');
+    'assets/images/items/giftcards/gavekort-giftcard.png',
+  );
 
   /// File path: assets/images/items/giftcards/giftzoze-giftcard.png
   AssetGenImage get giftzozeGiftcard => const AssetGenImage(
-      'assets/images/items/giftcards/giftzoze-giftcard.png');
+    'assets/images/items/giftcards/giftzoze-giftcard.png',
+  );
 
   /// File path: assets/images/items/giftcards/love-giftcard.png
   AssetGenImage get loveGiftcard =>
@@ -196,12 +211,12 @@ class $AssetsImagesItemsGiftcardsGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-        buymeallGiftcard,
-        dreamcardGiftcard,
-        gavekortGiftcard,
-        giftzozeGiftcard,
-        loveGiftcard
-      ];
+    buymeallGiftcard,
+    dreamcardGiftcard,
+    gavekortGiftcard,
+    giftzozeGiftcard,
+    loveGiftcard,
+  ];
 }
 
 class $AssetsImagesItemsReloadableCardsGen {
@@ -209,15 +224,19 @@ class $AssetsImagesItemsReloadableCardsGen {
 
   /// File path: assets/images/items/reloadable-cards/behatsdaa-reloadable-card.png
   AssetGenImage get behatsdaaReloadableCard => const AssetGenImage(
-      'assets/images/items/reloadable-cards/behatsdaa-reloadable-card.png');
+    'assets/images/items/reloadable-cards/behatsdaa-reloadable-card.png',
+  );
 
   /// File path: assets/images/items/reloadable-cards/hist-reloadable-card.png
   AssetGenImage get histReloadableCard => const AssetGenImage(
-      'assets/images/items/reloadable-cards/hist-reloadable-card.png');
+    'assets/images/items/reloadable-cards/hist-reloadable-card.png',
+  );
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [behatsdaaReloadableCard, histReloadableCard];
+  List<AssetGenImage> get values => [
+    behatsdaaReloadableCard,
+    histReloadableCard,
+  ];
 }
 
 class $AssetsImagesItemsStoresGen {
@@ -297,29 +316,29 @@ class $AssetsImagesItemsStoresGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-        aerieLogo,
-        americanEagleLogo,
-        bilabongLogo,
-        boardridersLogo,
-        childrensplaceLogo,
-        dreamSportLogo,
-        flyingTigerLogo,
-        footLockerLogo,
-        foxHomeLogo,
-        foxLogo,
-        lalineLogo,
-        mangoLogo,
-        nikeLogo,
-        quiksilverLogo,
-        rubyBayLogo,
-        sacksLogo,
-        shilavLogo,
-        yangaLogo
-      ];
+    aerieLogo,
+    americanEagleLogo,
+    bilabongLogo,
+    boardridersLogo,
+    childrensplaceLogo,
+    dreamSportLogo,
+    flyingTigerLogo,
+    footLockerLogo,
+    foxHomeLogo,
+    foxLogo,
+    lalineLogo,
+    mangoLogo,
+    nikeLogo,
+    quiksilverLogo,
+    rubyBayLogo,
+    sacksLogo,
+    shilavLogo,
+    yangaLogo,
+  ];
 }
 
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
@@ -327,11 +346,7 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  });
+  const AssetGenImage(this._assetName, {this.size, this.flavors = const {}});
 
   final String _assetName;
 
@@ -359,7 +374,7 @@ class AssetGenImage {
     bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
-    FilterQuality filterQuality = FilterQuality.low,
+    FilterQuality filterQuality = FilterQuality.medium,
     int? cacheWidth,
     int? cacheHeight,
   }) {
@@ -391,15 +406,8 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;

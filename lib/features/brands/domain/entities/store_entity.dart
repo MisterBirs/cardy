@@ -1,27 +1,29 @@
-import 'package:cardy/features/wallet/data/models/brand_model.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/enums.dart';
+import 'package:cardy/features/brands/domain/entities/brand_entity.dart';
+import 'package:cardy/features/brands/domain/entities/enums.dart';
+import 'package:cardy/features/wallet/domain/entities/categories/category_key.dart';
 
-class StoreModel implements BrandModel {
+class StoreEntity extends BrandEntity {
+
   //#region Attributes
   final String _id;
   final String _name;
   final List<String> _aliases;
   final String _imagePath;
-  final List<String> _categoriesIds;
+  final List<CategoryKey> _categoriesKeys;
   //#endregion
 
   //#region Constructor
-  StoreModel({
+  StoreEntity({
     required String id,
     required String name,
     List<String>? aliases,
     required String imagePath,
-    required List<String> categoriesIds,
+    required List<CategoryKey> categoriesKeys,
   })  : _id = id,
         _name = name,
         _aliases = aliases != null ? [name, ...aliases] : [name],
         _imagePath = imagePath,
-        _categoriesIds = categoriesIds;
+        _categoriesKeys = categoriesKeys;
   //#endregion
 
   //#region Getters
@@ -38,7 +40,7 @@ class StoreModel implements BrandModel {
   String get imagePath => _imagePath;
 
   @override
-  List<String> get categoriesIds => _categoriesIds;
+  List<CategoryKey> get categoriesKeys => _categoriesKeys;
 
   @override
   bool get hasCvv => false;
@@ -48,4 +50,5 @@ class StoreModel implements BrandModel {
 
   @override
   BrandTypesEnum get type => BrandTypesEnum.store;
+  //#endregion
 }

@@ -1,7 +1,7 @@
 import 'package:cardy/core/ui_constants.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/brand_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/payment_item_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/store_entity.dart';
+import 'package:cardy/features/brands/domain/entities/brand_entity.dart';
+import 'package:cardy/features/brands/domain/entities/payment_item_entity.dart';
+import 'package:cardy/features/brands/domain/entities/store_entity.dart';
 import 'package:cardy/features/wallet/presentation/widgets/item_tiles/base_tile.dart';
 import 'package:flutter/material.dart';
 

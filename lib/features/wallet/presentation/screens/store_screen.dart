@@ -1,7 +1,7 @@
-import 'package:cardy/features/wallet/domain/entities/payment_methods/enums.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/multi_stores_payment_method_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/payment_item_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/store_summary_entity.dart';
+import 'package:cardy/features/brands/domain/entities/enums.dart';
+import 'package:cardy/features/brands/domain/entities/multi_stores_payment_method_entity.dart';
+import 'package:cardy/features/brands/domain/entities/payment_item_entity.dart';
+import 'package:cardy/features/brands/domain/entities/store_summary_entity.dart';
 import 'package:cardy/features/wallet/presentation/screens/item_details_screen/item_details_screen.dart';
 import 'package:cardy/core/ui_constants.dart';
 import 'package:cardy/features/wallet/presentation/widgets/app_bars/back_app_bar.dart';

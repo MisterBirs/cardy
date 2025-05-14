@@ -1,6 +1,6 @@
 import 'package:cardy/features/wallet/domain/entities/categories/categories.dart';
 import 'package:cardy/features/wallet/domain/entities/categories/category_key.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/store_entity.dart';
+import 'package:cardy/features/brands/domain/entities/store_entity.dart';
 import 'package:flutter/material.dart';
 
 

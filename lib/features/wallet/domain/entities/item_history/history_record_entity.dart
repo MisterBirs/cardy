@@ -1,4 +1,4 @@
-import 'package:cardy/features/wallet/domain/entities/payment_methods/payment_item_entity.dart';
+import 'package:cardy/features/brands/domain/entities/payment_item_entity.dart';
 import 'package:flutter/material.dart';
 
 abstract class HistoryRecordEntity {

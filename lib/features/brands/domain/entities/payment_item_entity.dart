@@ -4,9 +4,9 @@ import 'package:cardy/features/wallet/domain/entities/item_history/history_recor
 import 'package:cardy/features/wallet/domain/entities/item_history/payment_history_record.dart';
 import 'package:cardy/features/wallet/domain/entities/item_history/reload_history_record.dart';
 import 'package:cardy/features/wallet/domain/entities/item_history/used_up_history_record.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/brand_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/enums.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/store_entity.dart';
+import 'package:cardy/features/brands/domain/entities/brand_entity.dart';
+import 'package:cardy/features/brands/domain/entities/enums.dart';
+import 'package:cardy/features/brands/domain/entities/store_entity.dart';
 
 class PaymentItemEntity {
   //#region Attributes

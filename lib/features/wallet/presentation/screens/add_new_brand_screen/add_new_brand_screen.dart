@@ -1,7 +1,7 @@
 import 'package:cardy/data/brads_data.dart';
 import 'package:cardy/features/wallet/domain/entities/categories/category_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/enums.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/multi_stores_payment_method_entity.dart';
+import 'package:cardy/features/brands/domain/entities/enums.dart';
+import 'package:cardy/features/brands/domain/entities/multi_stores_payment_method_entity.dart';
 import 'package:cardy/features/wallet/presentation/screens/add_new_brand_screen/widgets/add_categories_text_field.dart';
 import 'package:cardy/core/ui_constants.dart';
 import 'package:cardy/features/wallet/presentation/widgets/app_bars/back_app_bar.dart';
@@ -156,7 +156,7 @@ void _onSubmit() {
     }
 
     final newBrand = MultiStoresBrandEntity(
-      brand: brandTypeController.value!,
+      type: brandTypeController.value!,
       hasCvv: hasCvv,
       hasDescription: false,
       hasBalance: false,

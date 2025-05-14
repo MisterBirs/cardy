@@ -1,4 +1,4 @@
-import 'package:cardy/features/wallet/domain/entities/payment_methods/multi_stores_payment_method_entity.dart';
+import 'package:cardy/features/brands/domain/entities/multi_stores_payment_method_entity.dart';
 import 'package:cardy/features/wallet/presentation/screens/items_grid_screen.dart';
 import 'package:cardy/features/wallet/presentation/widgets/item_tiles/grid_tiles/item_grid_custom_tile.dart';
 import 'package:cardy/features/wallet/presentation/widgets/item_tiles/item_tile.dart';

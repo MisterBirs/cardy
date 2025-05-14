@@ -1,10 +1,7 @@
-
-
-import 'package:cardy/features/wallet/domain/entities/categories/category_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/enums.dart';
+import 'package:cardy/features/brands/domain/entities/enums.dart';
+import 'package:cardy/features/wallet/domain/entities/categories/category_key.dart';
 
 abstract class BrandEntity {
-
   const BrandEntity();
 
   //#region Getters
@@ -16,7 +13,7 @@ abstract class BrandEntity {
 
   String get imagePath;
 
-  List<CategoryEntity> get categories;
+  List<CategoryKey> get categoriesKeys;
 
   bool get hasMultiStores;
 

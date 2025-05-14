@@ -1,14 +1,14 @@
-import 'package:cardy/features/wallet/data/interfaces/brands_data_source.dart';
-import 'package:cardy/features/wallet/data/models/brand_model.dart';
-import 'package:cardy/features/wallet/data/models/multi_stores_brand_model.dart';
-import 'package:cardy/features/wallet/data/models/store_model.dart';
+import 'package:cardy/features/brands/data/data_sources/brands_data_source.dart';
+import 'package:cardy/features/brands/data/models/brand_model.dart';
+import 'package:cardy/features/brands/data/models/multi_stores_brand_model.dart';
+import 'package:cardy/features/brands/data/models/store_model.dart';
 import 'package:cardy/features/wallet/domain/entities/categories/category_key.dart';
-import 'package:cardy/features/wallet/domain/entities/payment_methods/enums.dart';
+import 'package:cardy/features/brands/domain/entities/enums.dart';
 import 'package:cardy/gen/assets.gen.dart';
 
-class BrandsSimulationDataSource implements BrandsDataSource {
-  static final BrandsSimulationDataSource instance =
-      BrandsSimulationDataSource._();
+class BrandsSimulationDaraSource implements BrandsDataSource {
+  static final BrandsSimulationDaraSource instance =
+      BrandsSimulationDaraSource._();
 
   //#region Attributes
 
@@ -23,7 +23,7 @@ class BrandsSimulationDataSource implements BrandsDataSource {
   //#endregion
 
   //#region Private Constructor
-  BrandsSimulationDataSource._() {
+  BrandsSimulationDaraSource._() {
     _initStores();
     _initGiftcards();
     _initReloadableCards();

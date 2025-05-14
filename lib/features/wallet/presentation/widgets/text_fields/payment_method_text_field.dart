@@ -1,4 +1,4 @@
-import 'package:cardy/features/wallet/domain/entities/payment_methods/enums.dart';
+import 'package:cardy/features/brands/domain/entities/enums.dart';
 import 'package:cardy/features/wallet/presentation/widgets/text_fields/custom_drop_down.dart';
 import 'package:flutter/material.dart';
 
