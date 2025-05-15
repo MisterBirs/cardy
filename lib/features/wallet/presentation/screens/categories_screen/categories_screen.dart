@@ -2,9 +2,9 @@ import 'package:cardy/data/user_items_data.dart';
 import 'package:cardy/features/wallet/domain/entities/categories/category_entity.dart';
 import 'package:cardy/features/wallet/domain/entities/categories/category_key.dart';
 import 'package:cardy/features/wallet/presentation/screens/categories_screen/category_screen.dart';
-import 'package:cardy/core/ui_constants.dart';
-import 'package:cardy/features/wallet/presentation/widgets/app_bars/back_app_bar.dart';
-import 'package:cardy/features/wallet/presentation/widgets/background.dart';
+import 'package:cardy/core/presentation/ui_constants.dart';
+import 'package:cardy/core/presentation/widgets/app_bars/back_app_bar.dart';
+import 'package:cardy/core/presentation/widgets/background.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesScreen extends StatelessWidget {

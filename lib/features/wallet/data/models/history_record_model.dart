@@ -1,5 +1,5 @@
 import 'package:cardy/features/wallet/data/models/user_item_model.dart';
-import 'package:cardy/features/wallet/domain/entities/item_history/history_record_entity.dart';
+import 'package:cardy/features/history_records/domain/entities/history_record_entity.dart';
 
 class HistoryRecordModel {
   final HistoryRecordType _type;

@@ -7,8 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:cardy/core/injection.dart';
-import 'package:cardy/core/ui_constants.dart';
+import 'package:cardy/core/injection/injection.dart';
+import 'package:cardy/core/presentation/ui_constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

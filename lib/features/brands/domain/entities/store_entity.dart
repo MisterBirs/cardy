@@ -1,5 +1,5 @@
 import 'package:cardy/features/brands/domain/entities/brand_entity.dart';
-import 'package:cardy/features/brands/domain/entities/enums.dart';
+import 'package:cardy/features/brands/domain/entities/brand_types_enum.dart';
 import 'package:cardy/features/wallet/domain/entities/categories/category_key.dart';
 
 class StoreEntity extends BrandEntity {

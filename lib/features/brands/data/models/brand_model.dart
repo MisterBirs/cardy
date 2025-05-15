@@ -1,7 +1,7 @@
 import 'package:cardy/features/brands/domain/entities/multi_stores_payment_method_entity.dart';
 import 'package:cardy/features/wallet/domain/entities/categories/category_key.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:cardy/features/brands/domain/entities/enums.dart';
+import 'package:cardy/features/brands/domain/entities/brand_types_enum.dart';
 import 'package:cardy/features/brands/domain/entities/brand_entity.dart';
 import 'package:cardy/features/brands/domain/entities/store_entity.dart';
 
@@ -35,7 +35,7 @@ sealed class BrandModel with _$BrandModel {
       _$BrandModelFromJson(json);
 
   factory BrandModel.fromEntity(BrandEntity entity) {
-    if (entity is StoreEntity) {
+    if (entity is String) {
       return BrandModel.store(
         id: entity.id,
         name: entity.name,

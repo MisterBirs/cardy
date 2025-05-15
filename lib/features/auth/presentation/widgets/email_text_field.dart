@@ -1,4 +1,4 @@
-import 'package:cardy/features/wallet/presentation/widgets/text_fields/icon_text_field.dart';
+import 'package:cardy/features/user_items/presentation/widgets/text_fields/icon_text_field.dart';
 import 'package:flutter/material.dart';
 
 class EmailTextField extends StatelessWidget {

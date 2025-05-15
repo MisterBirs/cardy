@@ -2,11 +2,11 @@ import 'dart:math';
 
 import 'package:cardy/data/brads_data.dart';
 import 'package:cardy/features/wallet/domain/entities/categories/category_key.dart';
-import 'package:cardy/features/wallet/domain/entities/item_history/edit_history_record.dart';
+import 'package:cardy/features/history_records/domain/entities/edit_history_record.dart';
 import 'package:cardy/features/brands/domain/entities/brand_entity.dart';
-import 'package:cardy/features/brands/domain/entities/enums.dart';
+import 'package:cardy/features/brands/domain/entities/brand_types_enum.dart';
 import 'package:cardy/features/brands/domain/entities/multi_stores_payment_method_entity.dart';
-import 'package:cardy/features/brands/domain/entities/payment_item_entity.dart';
+import 'package:cardy/features/user_items/domain/entites/user_item_entity.dart';
 import 'package:cardy/features/brands/domain/entities/store_entity.dart';
 import 'package:cardy/features/brands/domain/entities/store_summary_entity.dart';
 import 'package:uuid/uuid.dart';
@@ -18,8 +18,8 @@ class UserItemsData {
 
   //#region Attributes
   late BrandsData _brandsData;
-  final Map<String, PaymentItemEntity> allPaymentMethods = {};
-  late Map<PaymentMethodsEnum, Map<String, PaymentItemEntity>>
+  final Map<String, UserItemEntity> allPaymentMethods = {};
+  late Map<PaymentMethodsEnum, Map<String, UserItemEntity>>
       itemsByPaymentsMethodsMap = {};
   final Random random = Random();
   final Uuid uuid = Uuid();
@@ -80,12 +80,12 @@ class UserItemsData {
     return random.nextInt(max ~/ 10) * 10;
   }
 
-  StoreEntity _getRandomStore(PaymentItemEntity item) {
+  String _getRandomStore(UserItemEntity item) {
     if (item.brand is MultiStoresBrandEntity) {
       final stores = (item.brand as MultiStoresBrandEntity).redeemableStores;
       return stores[random.nextInt(stores.length)];
     } else {
-      return item.brand as StoreEntity;
+      return item.brand as String;
     }
   }
 
@@ -103,7 +103,7 @@ class UserItemsData {
       'תקף לזמן מוגבל, אז אל תפספס.\n'
       'לפרטים נוספים ולמימוש, יש לעיין בתנאים המצורפים.';
 
-  List<PaymentItemEntity> _generatePaymentItems({
+  List<UserItemEntity> _generatePaymentItems({
     int count = 10,
     required BrandTypesEnum brandType,
     required PaymentMethodsEnum paymentMethod,
@@ -126,7 +126,7 @@ class UserItemsData {
 
         final bool hasDescription = hasBalance ? random.nextBool() : true;
 
-        final item = PaymentItemEntity(
+        final item = UserItemEntity(
           id: uuid.v4(),
           code: _generateRandomCode(),
           brand: randomBrand,
@@ -145,7 +145,7 @@ class UserItemsData {
     );
   }
 
-  void _usingSimulation(PaymentItemEntity item) {
+  void _usingSimulation(UserItemEntity item) {
     if (item.balance != null) {
       _redeemSimulation(item);
     }
@@ -166,25 +166,25 @@ class UserItemsData {
     }
   }
 
-  void _loadedSimulation(PaymentItemEntity item) {
+  void _loadedSimulation(UserItemEntity item) {
     final loadedAmount = 100 + random.nextDouble() * 900;
     item.addToBalance(loadedAmount);
   }
 
-  void _usedUpSimulation(PaymentItemEntity item) {
+  void _usedUpSimulation(UserItemEntity item) {
     if (item.isUsedUp) {
       return;
     }
 
     if (item.balance != null && item.balance! > 0) {
-      final StoreEntity reedemAt = _getRandomStore(item);
+      final String reedemAt = _getRandomStore(item);
       item.subtractFromBalance(item.balance!, reedemAt);
     }else{
       item.setUsedUp();
     }
   }
 
-  void _redeemSimulation(PaymentItemEntity item) {
+  void _redeemSimulation(UserItemEntity item) {
     // Ensure item has a balance to redeem
     if (item.balance == null || item.balance! <= 0) {
       return;
@@ -219,7 +219,7 @@ class UserItemsData {
         .reduce((value, element) => value + element);
   }
 
-  List<PaymentItemEntity> getItemsByCategory(CategoryKey categoryKey) {
+  List<UserItemEntity> getItemsByCategory(CategoryKey categoryKey) {
     return allPaymentMethods.values
         .where((item) => item.brand.categories
             .any((category) => category.childOf(categoryKey)))
@@ -234,15 +234,15 @@ class UserItemsData {
 
   //#region Private Methods
   Map<String, StoreSummaryEntity> _getStoresByItemsAndCategory(
-      List<PaymentItemEntity> items, CategoryKey categoryKey) {
+      List<UserItemEntity> items, CategoryKey categoryKey) {
     final storesMap = <String, StoreSummaryEntity>{};
 
     for (var item in items) {
       final itemType = item.brand;
-      final List<StoreEntity> stores = itemType.hasMultiStores
+      final List<String> stores = itemType.hasMultiStores
           ? (itemType as MultiStoresBrandEntity).redeemableStores
-          : itemType is StoreEntity
-              ? [(itemType as StoreEntity)]
+          : itemType is String
+              ? [(itemType as String)]
               : [];
 
       for (var store in stores) {
@@ -254,7 +254,7 @@ class UserItemsData {
     return storesMap;
   }
 
-  void _addItemToStoreMap(PaymentItemEntity item, StoreEntity itemStore,
+  void _addItemToStoreMap(UserItemEntity item, String itemStore,
       Map<String, StoreSummaryEntity> storesMap) {
     if (!storesMap.containsKey(itemStore.id)) {
       storesMap[itemStore.id] = StoreSummaryEntity(

@@ -116,9 +116,9 @@ class CategoryEntity {
     return categories.where((category) => category.isPrimary).toSet().toList();
   }
 
-  static List<StoreEntity> filterStoresByKey(
-      List<StoreEntity> stores, CategoryKey key, String searchValue) {
-    List<StoreEntity> filteredStores = stores;
+  static List<String> filterStoresByKey(
+      List<String> stores, CategoryKey key, String searchValue) {
+    List<String> filteredStores = stores;
 
     if (key != CategoryKey.all) {
       filteredStores = stores

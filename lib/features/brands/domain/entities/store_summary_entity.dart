@@ -1,32 +1,32 @@
 
 
-import 'package:cardy/features/brands/domain/entities/enums.dart';
-import 'package:cardy/features/brands/domain/entities/payment_item_entity.dart';
+import 'package:cardy/features/user_items/domain/entites/user_item_entity.dart';
 import 'package:cardy/features/brands/domain/entities/store_entity.dart';
+import 'package:cardy/features/user_items/domain/entites/payment_methods_enum.dart';
 
 class StoreSummaryEntity {
 
-  final StoreEntity _store;
-  final Map<PaymentMethodsEnum, List<PaymentItemEntity>> _itemsGroupsMap;
+  final String _store;
+  final Map<PaymentMethodsEnum, List<UserItemEntity>> _itemsGroupsMap;
   double _totalBalance = 0;
 
   StoreSummaryEntity({
-    required StoreEntity store,
-    required Map<PaymentMethodsEnum, List<PaymentItemEntity>> itemsGroupsMap,
+    required String store,
+    required Map<PaymentMethodsEnum, List<UserItemEntity>> itemsGroupsMap,
   })  : _store = store,
         _itemsGroupsMap = itemsGroupsMap {
     _initTotalBalance(itemsGroupsMap);
   }
 
   void _initTotalBalance(
-      Map<PaymentMethodsEnum, List<PaymentItemEntity>> itemsGroupsMap) {
+      Map<PaymentMethodsEnum, List<UserItemEntity>> itemsGroupsMap) {
     final allItems =
         itemsGroupsMap.values.expand((groupItems) => groupItems).toList();
     _totalBalance = allItems.fold(
         0.0, (sumOfBalances, item) => sumOfBalances + (item.balance ?? 0.0));
   }
 
-  void addItem(PaymentItemEntity item) {
+  void addItem(UserItemEntity item) {
     final itemGroupType = item.paymentMethod;
     final itemsGroup = _itemsGroupsMap[itemGroupType];
     if (itemsGroup != null) {
@@ -39,9 +39,9 @@ class StoreSummaryEntity {
     }
   }
 
-  StoreEntity get store => _store;
+  String get store => _store;
 
-  Map<PaymentMethodsEnum, List<PaymentItemEntity>> get itemsGroupsMap =>
+  Map<PaymentMethodsEnum, List<UserItemEntity>> get itemsGroupsMap =>
       _itemsGroupsMap;
 
   double get totalBalance => _totalBalance;

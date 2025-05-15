@@ -3,7 +3,7 @@ import 'package:cardy/features/brands/data/models/brand_model.dart';
 import 'package:cardy/features/brands/data/models/multi_stores_brand_model.dart';
 import 'package:cardy/features/brands/data/models/store_model.dart';
 import 'package:cardy/features/wallet/domain/entities/categories/category_key.dart';
-import 'package:cardy/features/brands/domain/entities/enums.dart';
+import 'package:cardy/features/brands/domain/entities/brand_types_enum.dart';
 import 'package:cardy/gen/assets.gen.dart';
 
 class BrandsSimulationDaraSource implements BrandsDataSource {

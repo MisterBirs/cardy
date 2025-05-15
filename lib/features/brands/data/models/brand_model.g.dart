@@ -103,7 +103,7 @@ Map<String, dynamic> _$MultiStoresBrandModelToJson(
     };
 
 const _$BrandTypesEnumEnumMap = {
-  BrandTypesEnum.giftCard: 'giftCard',
-  BrandTypesEnum.reloadableCard: 'reloadableCard',
+  BrandTypesEnum.giftCard: 'gift_card',
+  BrandTypesEnum.reloadableCard: 'reloadable_card',
   BrandTypesEnum.store: 'store',
 };

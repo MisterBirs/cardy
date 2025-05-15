@@ -6,8 +6,8 @@ import 'package:cardy/features/brands/data/models/multi_stores_brand_model.dart'
 import 'package:cardy/features/brands/data/models/store_model.dart';
 import 'package:cardy/features/wallet/data/models/user_item_model.dart';
 import 'package:cardy/features/brands/domain/entities/brand_entity.dart';
-import 'package:cardy/features/brands/domain/entities/enums.dart';
-import 'package:cardy/features/brands/domain/entities/payment_item_entity.dart';
+import 'package:cardy/features/brands/domain/entities/brand_types_enum.dart';
+import 'package:cardy/features/user_items/domain/entites/user_item_entity.dart';
 import 'package:uuid/uuid.dart';
 
 class UserItemsDataGenerator {
@@ -96,7 +96,7 @@ class UserItemsDataGenerator {
 
         final bool hasDescription = hasBalance ? _random.nextBool() : true;
 
-        final item = PaymentItemEntity(
+        final item = UserItemEntity(
           id: _uuid.v4(),
           code: _generateRandomCode(),
           brand: BrandEntity,

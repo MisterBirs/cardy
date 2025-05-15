@@ -4,9 +4,9 @@ import 'package:cardy/features/auth/application/auth_state.dart';
 import 'package:cardy/features/auth/presentation/widgets/email_text_field.dart';
 import 'package:cardy/features/auth/presentation/widgets/loading_overlay.dart';
 import 'package:cardy/features/auth/presentation/widgets/password_text_field.dart';
-import 'package:cardy/features/wallet/presentation/widgets/background.dart';
-import 'package:cardy/features/wallet/presentation/widgets/gradient_button.dart';
-import 'package:cardy/features/wallet/presentation/widgets/text_fields/icon_text_field.dart';
+import 'package:cardy/core/presentation/widgets/background.dart';
+import 'package:cardy/core/presentation/widgets/gradient_button.dart';
+import 'package:cardy/features/user_items/presentation/widgets/text_fields/icon_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
