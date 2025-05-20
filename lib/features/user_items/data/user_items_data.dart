@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:cardy/data/brads_data.dart';
-import 'package:cardy/features/wallet/domain/entities/categories/category_key.dart';
+import 'package:cardy/features/categories/domain/category_key.dart';
 import 'package:cardy/features/history_records/domain/entities/edit_history_record.dart';
 import 'package:cardy/features/brands/domain/entities/brand_entity.dart';
 import 'package:cardy/features/brands/domain/entities/brand_types_enum.dart';

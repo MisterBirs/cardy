@@ -1,4 +1,6 @@
 import 'package:cardy/features/brands/domain/entities/brand_entity.dart';
+import 'package:cardy/features/brands/domain/entities/brand_types_enum.dart';
+import 'package:cardy/features/categories/domain/category_key.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class BrandsEvent extends Equatable {
@@ -42,4 +44,23 @@ class DeleteBrand extends BrandsEvent {
 
   @override
   List<Object?> get props => [brandId];
+}
+
+class FilterBrands extends BrandsEvent {
+  final String? queryFilter;
+  final CategoryKey? categoryKeyFilter;
+  final BrandTypesEnum? brandTypeFilter;
+
+  const FilterBrands({
+    this.queryFilter,
+    this.categoryKeyFilter,
+    this.brandTypeFilter,
+  });
+
+  @override
+  List<Object> get props => [
+        queryFilter ?? '',
+        categoryKeyFilter ?? CategoryKey.all,
+        brandTypeFilter ?? '',
+      ];
 }

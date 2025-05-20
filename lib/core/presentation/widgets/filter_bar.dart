@@ -1,6 +1,6 @@
 import 'package:cardy/core/presentation/ui_constants.dart';
-import 'package:cardy/features/wallet/domain/entities/categories/category_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/categories/category_key.dart';
+import 'package:cardy/features/categories/domain/entites/category_entity.dart';
+import 'package:cardy/features/categories/domain/category_key.dart';
 import 'package:flutter/material.dart';
 
 class FilterBar extends StatefulWidget {

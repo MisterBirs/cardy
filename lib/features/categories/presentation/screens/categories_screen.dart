@@ -1,7 +1,8 @@
-import 'package:cardy/data/user_items_data.dart';
-import 'package:cardy/features/wallet/domain/entities/categories/category_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/categories/category_key.dart';
-import 'package:cardy/features/wallet/presentation/screens/categories_screen/category_screen.dart';
+import 'package:cardy/features/categories/presentation/view_models/category_view_model.dart';
+import 'package:cardy/features/user_items/data/user_items_data.dart';
+import 'package:cardy/features/categories/domain/entites/category_entity.dart';
+import 'package:cardy/features/categories/domain/category_key.dart';
+import 'package:cardy/features/categories/presentation/screens/category_screen.dart';
 import 'package:cardy/core/presentation/ui_constants.dart';
 import 'package:cardy/core/presentation/widgets/app_bars/back_app_bar.dart';
 import 'package:cardy/core/presentation/widgets/background.dart';
@@ -72,6 +73,7 @@ class _CategoryTile extends StatelessWidget {
   }
 
   Widget get _image {
+    final categoryViewModel = CategoryViewModel.fromEntity(category);
     return Container(
       decoration: BoxDecoration(
         color: CONTAINER_COLOR,
@@ -86,7 +88,7 @@ class _CategoryTile extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(radius),
-        child: category.image ?? Center(child: Text(category.name)),
+        child: categoryViewModel.image ?? Center(child: Text(category.name)),
       ),
     );
   }

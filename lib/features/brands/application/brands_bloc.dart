@@ -1,7 +1,9 @@
 import 'package:cardy/features/brands/application/brands_event.dart';
 import 'package:cardy/features/brands/application/brands_state.dart';
+import 'package:cardy/features/brands/domain/entities/brand_entity.dart';
 import 'package:cardy/features/brands/domain/use_cases/add_brand_use_case.dart';
 import 'package:cardy/features/brands/domain/use_cases/delete_brand_use_case.dart';
+import 'package:cardy/features/brands/domain/use_cases/fiters_usecase/filter_brands_use_case.dart';
 import 'package:cardy/features/brands/domain/use_cases/get_brands_use_case.dart';
 import 'package:cardy/features/brands/domain/use_cases/update_brand_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,17 +15,20 @@ class BrandBloc extends Bloc<BrandsEvent, BrandsState> {
   final DeleteBrandUseCase deleteBrandUseCase;
   final GetBrandsUseCase getBrandsUseCase;
   final UpdateBrandUseCase updateBrandUseCase;
+  final FilterBrandsUseCase filterBrandsUseCase;
 
   BrandBloc({
     required this.addBrandUseCase,
     required this.deleteBrandUseCase,
     required this.getBrandsUseCase,
     required this.updateBrandUseCase,
+    required this.filterBrandsUseCase,
   }) : super(BrandsInitial()) {
     on<LoadBrands>(_onLoadBrands);
     on<AddBrand>(_onAddBrand);
     on<UpdateBrand>(_onUpdateBrand);
     on<DeleteBrand>(_onDeleteBrand);
+    on<FilterBrands>(_onFilterBrands); // הוספת ה-Event החדש
   }
 
   Future<void> _onLoadBrands(
@@ -66,6 +71,30 @@ class BrandBloc extends Bloc<BrandsEvent, BrandsState> {
       add(LoadBrands([]));
     } catch (e) {
       emit(BrandsError(e.toString()));
+    }
+  }
+
+  Future<void> _onFilterBrands(
+      FilterBrands event, Emitter<BrandsState> emit) async {
+    final currentState = state;
+    if (currentState is BrandsLoaded) {
+      try {
+        List<BrandEntity> filteredBrands = await filterBrandsUseCase.call(
+          brands: currentState.brands.values.toList(),
+          queryFilter: event.queryFilter,
+          brandTypeFilter: event.brandTypeFilter,
+          categoryKeyFilter: event.categoryKeyFilter,
+        );
+
+        emit(BrandsLoaded(
+          currentState.brands,
+          filteredBrands: {for (var brand in filteredBrands) brand.id: brand},
+          filterQuery: event.queryFilter,
+          filterCategory: event.categoryKeyFilter,
+        ));
+      } catch (e) {
+        emit(BrandsError(e.toString()));
+      }
     }
   }
 }

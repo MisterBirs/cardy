@@ -1,6 +1,6 @@
 import 'dart:core';
 
-import 'package:cardy/features/wallet/domain/entities/categories/category_entity.dart';
+import 'package:cardy/features/categories/domain/entites/category_entity.dart';
 import 'package:flutter/material.dart';
 
 abstract class BaseItemGridTile extends StatelessWidget {

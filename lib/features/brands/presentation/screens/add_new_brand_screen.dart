@@ -1,4 +1,4 @@
-import 'package:cardy/features/wallet/domain/entities/categories/category_entity.dart';
+import 'package:cardy/features/categories/domain/entites/category_entity.dart';
 import 'package:cardy/features/brands/domain/entities/brand_types_enum.dart';
 import 'package:cardy/features/brands/domain/entities/multi_stores_payment_method_entity.dart';
 import 'package:cardy/features/brands/presentation/widgets/add_categories_text_field.dart';

@@ -1,7 +1,7 @@
 import 'package:cardy/features/brands/domain/entities/brand_entity.dart';
 
 abstract class BrandsRepository {
-  Future<List<BrandEntity>>getBrandByIds(List<String> id);
+  Future<Map<String,BrandEntity>>getBrandByIds(List<String> id);
 
   Future<void> addBrand(BrandEntity brand);
 

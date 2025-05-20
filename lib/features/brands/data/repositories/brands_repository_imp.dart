@@ -24,9 +24,9 @@ class BrandsRepositoryImp implements BrandsRepository {
   }
 
   @override
-  Future<List<BrandEntity>> getBrandByIds(List<String> id) async {
+  Future<Map<String,BrandEntity>> getBrandByIds(List<String> id) async {
     final models = await _ds.fetchBrandsByIds(id);
-    return models.map((model) => model.toEntity()).toList();
+    return { for (var model in models) model.id: model.toEntity() };
   }
 
   @override

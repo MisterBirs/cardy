@@ -1,7 +1,7 @@
 import 'package:cardy/core/presentation/ui_constants.dart';
-import 'package:cardy/features/wallet/domain/entities/categories/categories.dart';
-import 'package:cardy/features/wallet/domain/entities/categories/category_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/categories/category_key.dart';
+import 'package:cardy/features/categories/data/categories.dart';
+import 'package:cardy/features/categories/domain/entites/category_entity.dart';
+import 'package:cardy/features/categories/domain/category_key.dart';
 import 'package:cardy/core/presentation/widgets/background.dart';
 import 'package:cardy/core/presentation/widgets/filter_bar.dart';
 import 'package:cardy/features/user_items/presentation/widgets/item_tiles/grid_tiles/base_item_grid_tile.dart';
@@ -112,7 +112,7 @@ class _ItemsGridScreenState extends State<ItemsGridScreen> {
 
     if (widget.category != null) {
       result.removeWhere((category) =>
-          !category.childOf(widget.category!) ||
+          !category.isDescendantOf(widget.category!) ||
           category.key == widget.category);
     }
 
@@ -124,7 +124,7 @@ class _ItemsGridScreenState extends State<ItemsGridScreen> {
     final filterBarCategories = widget.category != null
         ? categories
             .map((category) =>
-                category.convertDataByParentRelation(widget.category!))
+                category.convertToRelationName(widget.category!))
             .toSet()
             .toList()
         : categories;
@@ -159,7 +159,7 @@ class _ItemsGridScreenState extends State<ItemsGridScreen> {
 
     return widget.items
         .where((item) => item.categories
-            .any((category) => category.childOf(_selectedCategoryKey)))
+            .any((category) => category.isDescendantOf(_selectedCategoryKey)))
         .toList();
   }
 

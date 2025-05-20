@@ -2,7 +2,7 @@ import 'package:cardy/features/user_items/domain/entites/payment_methods_enum.da
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 @JsonEnum(fieldRename: FieldRename.snake)
-enum BrandTypesEnum { giftCard, reloadableCard, store }
+enum BrandTypesEnum { giftCard, reloadableCard, store, }
 
 
 

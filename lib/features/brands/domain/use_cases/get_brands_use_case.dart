@@ -8,7 +8,7 @@ class GetBrandsUseCase {
 
   GetBrandsUseCase(this._repo);
 
-  Future<List<BrandEntity>> call(List<String> ids) async {
+  Future<Map<String,BrandEntity>> call(List<String> ids) async {
     return await _repo.getBrandByIds(ids);
   }
   

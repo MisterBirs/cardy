@@ -1,5 +1,5 @@
 import 'package:cardy/features/brands/domain/entities/multi_stores_payment_method_entity.dart';
-import 'package:cardy/features/wallet/domain/entities/categories/category_key.dart';
+import 'package:cardy/features/categories/domain/category_key.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:cardy/features/brands/domain/entities/brand_types_enum.dart';
 import 'package:cardy/features/brands/domain/entities/brand_entity.dart';

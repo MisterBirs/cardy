@@ -1,5 +1,5 @@
-import 'package:cardy/data/user_items_data.dart';
-import 'package:cardy/features/wallet/presentation/screens/categories_screen/categories_screen.dart';
+import 'package:cardy/features/user_items/data/user_items_data.dart';
+import 'package:cardy/features/categories/presentation/screens/categories_screen.dart';
 import 'package:cardy/features/user_items/presentation/screens/home_screen/home_screen.dart';
 import 'package:cardy/features/user_items/presentation/screens/init_screen/init_screen_widgets/floating_bottom_bar.dart';
 import 'package:cardy/features/user_items/presentation/screens/stores_screen/stores_screen.dart';
