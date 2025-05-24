@@ -1,4 +1,4 @@
-import 'package:cardy/features/user_items/data/user_items_data.dart';
+import 'package:cardy/features/user_items/data/data_sources/user_items_data.dart';
 import 'package:cardy/features/brands/domain/entities/brand_types_enum.dart';
 import 'package:cardy/features/user_items/domain/entites/user_item_entity.dart';
 import 'package:cardy/features/user_items/presentation/screens/home_screen/home_screen_widgets/cardy_drawer.dart';
@@ -55,12 +55,12 @@ class _Items extends StatelessWidget {
 }
 
 class _TotalBalanceTitle extends StatelessWidget {
-  const _TotalBalanceTitle();
+  final double _totalBalance;
+  const _TotalBalanceTitle(this._totalBalance);  
 
   @override
   Widget build(BuildContext context) {
-    final balance = UserItemsData.instance.getTotalBalance().toInt();
-
+ 
     return Center(
       child: Column(
         children: [
@@ -69,7 +69,7 @@ class _TotalBalanceTitle extends StatelessWidget {
             style: Theme.of(context).textTheme.displayLarge,
           ),
           Text(
-            '₪$balance',
+            '₪${_totalBalance.toStringAsFixed(2)}',
             style: Theme.of(context).textTheme.displayMedium,
           ),
         ],

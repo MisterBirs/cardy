@@ -1,62 +1,59 @@
+
 import 'package:cardy/features/brands/domain/entities/store_entity.dart';
-import 'package:cardy/features/user_items/domain/entites/user_item_entity.dart';
 
 sealed class HistoryRecordEntity {
-  final UserItemEntity item;
   final DateTime date;
 
-  HistoryRecordEntity({
-    required this.item,
-  }) : date = DateTime.now();
+  HistoryRecordEntity() : date = DateTime.now();
 }
 
-class AddHistoryRecord extends HistoryRecordEntity {
-  AddHistoryRecord({required super.item});
+class AddHistoryRecordEntity extends HistoryRecordEntity {
+  AddHistoryRecordEntity();
 }
 
-class EditHistoryRecord extends HistoryRecordEntity {
-  EditHistoryRecord({required super.item});
+class EditHistoryRecordEntity extends HistoryRecordEntity {
+  EditHistoryRecordEntity();
 }
 
-class ExpiredHistoryRecord extends HistoryRecordEntity {
+class ExpiredHistoryRecordEntity extends HistoryRecordEntity {
   final DateTime _expiredAt;
-  ExpiredHistoryRecord({required super.item, required DateTime expiredAt})
+  ExpiredHistoryRecordEntity({required DateTime expiredAt})
       : _expiredAt = expiredAt;
 
   DateTime get expiredAt => _expiredAt;
 }
 
-class PaymentHistoryRecord extends HistoryRecordEntity {
+class PaymentHistoryRecordEntity extends HistoryRecordEntity {
   final double _paymentAmount;
   final StoreEntity _redeemedAt;
 
-  PaymentHistoryRecord(
-      {required super.item,
+  PaymentHistoryRecordEntity(
+      {
       required double paymentAmount,
       required StoreEntity redeemedAt})
       : _paymentAmount = paymentAmount,
         _redeemedAt = redeemedAt;
 
   double get paymentAmount => _paymentAmount;
-  StoreEntity get redeemedAt => _redeemedAt;
+  StoreEntity get redeemedAtId => _redeemedAt;
 }
 
-class ReloadHistoryRecord extends HistoryRecordEntity {
+class ReloadHistoryRecordEntity extends HistoryRecordEntity {
   final double _reloadedAmount;
 
-  ReloadHistoryRecord(
-      {required super.item, required double reloadedAmount})
+  ReloadHistoryRecordEntity(
+      {required double reloadedAmount})
       : _reloadedAmount = reloadedAmount;
 
   double get reloadedAmount => _reloadedAmount;
 }
 
-class RemoveHistoryRecord extends HistoryRecordEntity {
-  RemoveHistoryRecord({required super.item});
+class RemoveHistoryRecordEntity extends HistoryRecordEntity {
+  RemoveHistoryRecordEntity();
 }
 
-class UsedUpHistoryRecord extends HistoryRecordEntity {
-  UsedUpHistoryRecord({required super.item});
+class UsedUpHistoryRecordEntity extends HistoryRecordEntity {
+  UsedUpHistoryRecordEntity();
 }
 
 

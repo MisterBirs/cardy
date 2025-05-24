@@ -6,7 +6,7 @@ class FetchUserItemsUseCase {
 
   FetchUserItemsUseCase(this._repo);
 
-  Future<List<UserItemEntity>> call() async {
+  Future<Map<String,UserItemEntity>> call() async {
     return await _repo.fetchUserItems();
   }
   

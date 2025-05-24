@@ -1,9 +1,13 @@
-import 'package:cardy/features/user_items/data/user_items_data.dart';
+import 'package:cardy/features/user_items/application/user_items_bloc.dart';
+import 'package:cardy/features/user_items/application/user_items_event.dart';
+import 'package:cardy/features/user_items/application/user_items_state.dart';
+import 'package:cardy/features/user_items/data/data_sources/user_items_data.dart';
 import 'package:cardy/features/categories/presentation/screens/categories_screen.dart';
 import 'package:cardy/features/user_items/presentation/screens/home_screen/home_screen.dart';
 import 'package:cardy/features/user_items/presentation/screens/init_screen/init_screen_widgets/floating_bottom_bar.dart';
 import 'package:cardy/features/user_items/presentation/screens/stores_screen/stores_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class InitScreen extends StatefulWidget {
   const InitScreen({super.key});
@@ -27,12 +31,42 @@ class _InitScreenState extends State<InitScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          pages[_selectedIndex],
+          BlocBuilder<UserItemsBloc, UserItemsState>(builder: (context, state) {
+            if (state is UserItemsInitial) {
+              context.read<UserItemsBloc>().add(UserItemsLoadRequested());
+            }
+            if (state is UserItemsLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is UserItemsLoaded) {
+              return pages[_selectedIndex];
+            } else if (state is UserItemsError) {
+              return Center(child: Text(state.message));
+            }
+            return const SizedBox();
+          }),
           Positioned(bottom: 0, left: 0, right: 0, child: floatingBottomBar)
         ],
       ),
     );
   }
+
+  Widget _buildPage(int index, UserItemsLoaded state) {
+    switch (index) {
+      case 0:
+        return HomeScreen(bottomSpacing: FloatingBottomBar.height - 20);
+      case 1:
+        return CategoriesScreen(bottomSpacing: FloatingBottomBar.height);
+      case 2:
+        return StoresScreen(UserItemsData.instance.userStores,
+            bottomSpacing: FloatingBottomBar.height);
+      case 3:
+        return Container(color: Colors.yellow, child: Center(child: Text('הגדרות')));
+      default:
+        return const SizedBox();
+    }
+  }
+
+  
 
   Widget get floatingBottomBar {
     return FloatingBottomBar(

@@ -1,4 +1,4 @@
-import 'package:cardy/features/user_items/data/user_items_data.dart';
+import 'package:cardy/features/user_items/data/data_sources/user_items_data.dart';
 import 'package:cardy/features/brands/domain/entities/brand_types_enum.dart';
 import 'package:cardy/features/user_items/domain/entites/user_item_entity.dart';
 import 'package:cardy/features/user_items/presentation/screens/item_details_screen/item_details_screen.dart';

@@ -122,10 +122,7 @@ class BrandsSimulationDataSource implements BrandsDataSource {
           id: 'store_Type_${index++}',
           name: 'MANGO',
           aliases: ['מנגו'],
-          categoriesKeys: [
-            CategoryKey.mensFashion,
-            CategoryKey.womensFashion
-          ],
+          categoriesKeys: [CategoryKey.mensFashion, CategoryKey.womensFashion],
           imagePath: _storesImagesPath.mangoLogo.path),
       StoreModel(
           id: 'store_Type_${index++}',
@@ -159,10 +156,7 @@ class BrandsSimulationDataSource implements BrandsDataSource {
           id: 'store_Type_${index++}',
           name: 'American Eagle',
           aliases: ['אמריקן איגל'],
-          categoriesKeys: [
-            CategoryKey.mensFashion,
-            CategoryKey.womensFashion
-          ],
+          categoriesKeys: [CategoryKey.mensFashion, CategoryKey.womensFashion],
           imagePath: _storesImagesPath.americanEagleLogo.path),
     ];
 
@@ -319,12 +313,12 @@ class BrandsSimulationDataSource implements BrandsDataSource {
   }
 
   @override
-  Future<List<BrandModel>> fetchBrandsByIds(List<String> ids) async {
+  Future<Map<String, BrandModel>> fetchBrandsByIds(List<String> ids) async {
     Future.delayed(Duration(seconds: _delayAtSeconds));
 
-    return _allBrandsMap.values
-        .where((brand) => ids.contains(brand.id))
-        .toList();
+    return Map.fromEntries(_allBrandsMap.entries
+        .where((entry) => ids.contains(entry.value.id))
+        .map((entry) => MapEntry(entry.key, entry.value)));
   }
 
   @override
@@ -344,7 +338,6 @@ class BrandsSimulationDataSource implements BrandsDataSource {
   BrandModel getBrandById(String id) {
     return _allBrandsMap[id]!;
   }
-
 
   List<BrandModel> getBrandsByIds(List<String> ids) {
     return ids.map((id) => getBrandById(id)).toList();

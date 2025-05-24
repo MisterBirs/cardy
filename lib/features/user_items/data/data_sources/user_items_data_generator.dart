@@ -2,19 +2,20 @@ import 'dart:math';
 
 import 'package:cardy/features/brands/data/data_sources/brands_simulation_data_source.dart';
 import 'package:cardy/features/brands/data/models/brand_model.dart';
-import 'package:cardy/features/brands/data/models/multi_stores_brand_model.dart';
-import 'package:cardy/features/brands/data/models/store_model.dart';
-import 'package:cardy/features/wallet/data/models/user_item_model.dart';
-import 'package:cardy/features/brands/domain/entities/brand_entity.dart';
 import 'package:cardy/features/brands/domain/entities/brand_types_enum.dart';
-import 'package:cardy/features/user_items/domain/entites/user_item_entity.dart';
+import 'package:cardy/features/history_records/data/models/history_record_model.dart';
+import 'package:cardy/features/user_items/data/models/user_item_model.dart';
+import 'package:cardy/features/user_items/domain/entites/payment_methods_enum.dart';
 import 'package:uuid/uuid.dart';
 
 class UserItemsDataGenerator {
+
+  //#region Attributes
   final _random = Random();
   final Uuid _uuid = Uuid();
   final BrandsSimulationDataSource _brandsData =
       BrandsSimulationDataSource.instance;
+  //#endregion
 
   //#region Singleton
   UserItemsDataGenerator._privateConstructor();
@@ -27,8 +28,69 @@ class UserItemsDataGenerator {
   }
   //#endregion
 
-  //#region Generation Methods
+  //#region Public Methods
+  List<UserItemModel> generateUserItems(){
+    final List<UserItemModel> userItems = [];
 
+    for (var brandType in BrandTypesEnum.values) {
+      for (var paymentMethod in PaymentMethodsEnum.values) {
+        final items = _generateUserItems(
+          count: 10,
+          brandType: brandType,
+          paymentMethod: paymentMethod,
+        );
+        userItems.addAll(items);
+      }
+    }
+
+    return userItems;
+  }
+  //#endregion
+
+  //#region Private Methods
+  List<UserItemModel> _generateUserItems({
+    int count = 10,
+    required BrandTypesEnum brandType,
+    required PaymentMethodsEnum paymentMethod,
+  }) {
+    return List.generate(
+      count,
+      (_) {
+        final typePaymentMethodList =
+            _brandsData.brandsMap[brandType]!.values.toList();
+
+        final randomBrand = _getRandomBrand(typePaymentMethodList);
+
+        final initialBalance = _generateRandomMultipleOfTen(1000);
+
+        final bool hasBalance = paymentMethod == PaymentMethodsEnum.voucher
+            ? _random.nextBool()
+            : true;
+
+        final bool hasDescription = hasBalance ? _random.nextBool() : true;
+
+        bool hasCvv =
+            randomBrand is MultiStoresBrandModel ? randomBrand.hasCvv : false;
+
+        final item = UserItemModel(
+          id: _uuid.v4(),
+          code: _generateRandomCode(),
+          brandId: randomBrand.id,
+          paymentMethod: paymentMethod,
+          expirationDate: _generateRandomExpirationDate(),
+          initialBalance: hasBalance ? initialBalance : null,
+          balance: hasBalance ? initialBalance : null,
+          cvv: hasCvv ? _generateCVV() : null,
+          description: hasDescription ? _demyDescription : null,
+        );
+
+        _usingSimulation(item, brandType);
+
+        return item;
+      },
+    );
+  }
+  
   String _generateRandomCode({int length = 16}) {
     return List.generate(length, (_) => _random.nextInt(10).toString()).join();
   }
@@ -66,63 +128,25 @@ class UserItemsDataGenerator {
     return DateTime.now().add(Duration(days: _random.nextInt(365 * 5)));
   }
 
-  String get demyDescription => 'קיבלת שובר מיוחד.\n\n'
+  String get _demyDescription => 'קיבלת שובר מיוחד.\n\n'
       'נצל את ההטבה הבלעדית שלך ותהנה מחוויה משתלמת במיוחד.\n'
       'השובר מעניק לך אפשרות ליהנות מהנחה או מוצר מתנה בהתאם לתנאי ההטבה.\n'
       'השימוש קל ופשוט – הצג את השובר בקופה או השתמש בקוד ההטבה אונליין.\n'
       'תקף לזמן מוגבל, אז אל תפספס.\n'
       'לפרטים נוספים ולמימוש, יש לעיין בתנאים המצורפים.';
 
-  List<UserItemModel> _generateUserItems({
-    int count = 10,
-    required BrandTypesEnum brandType,
-    required PaymentMethodsEnum paymentMethod,
-  }) {
-    return List.generate(
-      count,
-      (_) {
-        final typePaymentMethodList =
-            _brandsData.brandsMap[brandType]!.values.toList();
-
-        final randomBrand = _getRandomBrand(typePaymentMethodList);
-
-        final initialBalance = _generateRandomMultipleOfTen(1000);
-
-        //final balance = _generateRandomMultipleOfTen(initialBalance.toInt());
-
-        final bool hasBalance = paymentMethod == PaymentMethodsEnum.voucher
-            ? _random.nextBool()
-            : true;
-
-        final bool hasDescription = hasBalance ? _random.nextBool() : true;
-
-        final item = UserItemEntity(
-          id: _uuid.v4(),
-          code: _generateRandomCode(),
-          brand: BrandEntity,
-          paymentMethod: paymentMethod,
-          expirationDate: _generateRandomExpirationDate(),
-          initialBalance: hasBalance ? initialBalance : null,
-          balance: hasBalance ? initialBalance : null,
-          cvv: randomBrand.hasCvv ? _generateCVV() : null,
-          description: hasDescription ? demyDescription : null,
-        );
-
-        _usingSimulation(item);
-
-        return item;
-      },
-    );
-  }
-
-  void _usingSimulation(UserItemModel item) {
+  void _usingSimulation(UserItemModel item, BrandTypesEnum brandType) {
     if (item.balance != null) {
       _redeemSimulation(item);
     }
 
     final bool isEdited = _random.nextBool();
     if (isEdited) {
-      item.addHistoryRecord(EditHistoryRecord(item: item));
+      final historyRecords = item.history;
+      item = item.copyWith(history: [
+        ...historyRecords,
+        EditHistoryRecordModel(date: DateTime.now())
+      ]);
     }
 
     if (item.paymentMethod == PaymentMethodsEnum.reloadableCard &&
@@ -130,28 +154,46 @@ class UserItemsDataGenerator {
       _loadedSimulation(item);
     }
 
-    final isUsedUp =
-        !item.brand.type.isReloadable && _random.nextDouble() > 0.7;
+    final isUsedUp = !brandType.isReloadable && _random.nextDouble() > 0.7;
     if (isUsedUp) {
       _usedUpSimulation(item);
     }
   }
 
   void _loadedSimulation(UserItemModel item) {
-    final loadedAmount = 100 + _random.nextDouble() * 900;
-    item.addToBalance(loadedAmount);
+    final double currentBalance = item.balance ?? 0;
+    final history = item.history;
+    final reloadedAmount = 100 + _random.nextDouble() * 900;
+    item = item.copyWith(
+      balance: currentBalance + reloadedAmount,
+      history: [
+        ...history,
+        ReloadHistoryRecordModel(
+            date: DateTime.now(), reloadedAmount: reloadedAmount)
+      ],
+    );
   }
 
   void _usedUpSimulation(UserItemModel item) {
-    if (item.isUsedUp) {
-      return;
-    }
-
     if (item.balance != null && item.balance! > 0) {
       final StoreModel reedemAt = _getRandomStore(item);
-      item.subtractFromBalance(item.balance!, reedemAt);
-    } else {
-      item.setUsedUp();
+      item = item.copyWith(
+        balance: 0,
+        history: [
+          ...item.history,
+          PaymentHistoryRecordModel(
+              date: DateTime.now(),
+              paymentAmount: item.balance!,
+              redeemedAtId: reedemAt.id)
+        ],
+      );
+
+      item = item.copyWith(
+        history: [
+          ...item.history,
+          UsedUpHistoryRecordModel(date: DateTime.now())
+        ],
+      );
     }
   }
 
@@ -166,7 +208,7 @@ class UserItemsDataGenerator {
 
     for (int i = 0; i < maxRedemptions; i++) {
       // Select a random store where the redemption happens
-      final redemptionStore = _getRandomStore(item);
+      final redeemAt = _getRandomStore(item);
 
       // Calculate a random payment amount based on current balance
       final currentBalance = item.balance!;
@@ -178,8 +220,18 @@ class UserItemsDataGenerator {
       }
 
       // Record the redemption in item's history
-      item.subtractFromBalance(redemptionAmount, redemptionStore);
+      item = item.copyWith(
+        balance: currentBalance - redemptionAmount,
+        history: [
+          ...item.history,
+          PaymentHistoryRecordModel(
+              date: DateTime.now(),
+              paymentAmount: redemptionAmount,
+              redeemedAtId: redeemAt.id)
+        ],
+      );
     }
   }
   //#endregion
+
 }

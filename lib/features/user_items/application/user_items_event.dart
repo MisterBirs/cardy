@@ -8,30 +8,52 @@ abstract class UserItemsEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class LoadUserItems extends UserItemsEvent {}
+class UserItemsLoadRequested extends UserItemsEvent {}
 
-class AddUserItem extends UserItemsEvent {
+class AddUserItemRequested extends UserItemsEvent {
   final UserItemEntity item;
 
-  const AddUserItem(this.item);
+  const AddUserItemRequested(this.item);
 
   @override
   List<Object?> get props => [item];
 }
 
-class UpdateUserItem extends UserItemsEvent {
+class ReloadItemRequested extends UserItemsEvent {
+  final String itemId;
+  final double amount;
+
+  const ReloadItemRequested(this.itemId, this.amount);
+
+  @override
+  List<Object?> get props => [itemId, amount];
+}
+
+class PaymentRequested extends UserItemsEvent {
+  final String itemId;
+  final String reedemAtId;
+  final double amount;
+
+
+  const PaymentRequested(this.itemId, this.reedemAtId , this.amount);
+
+  @override
+  List<Object?> get props => [itemId, reedemAtId,  amount];
+}
+
+class UpdateUserItemRequested extends UserItemsEvent {
   final UserItemEntity item;
 
-  const UpdateUserItem(this.item);
+  const UpdateUserItemRequested(this.item);
 
   @override
   List<Object?> get props => [item];
 }
 
-class DeleteUserItem extends UserItemsEvent {
+class DeleteUserItemRequested extends UserItemsEvent {
   final String itemId;
 
-  const DeleteUserItem(this.itemId);
+  const DeleteUserItemRequested(this.itemId);
 
   @override
   List<Object?> get props => [itemId];

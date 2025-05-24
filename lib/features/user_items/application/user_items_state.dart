@@ -13,12 +13,13 @@ class UserItemsInitial extends UserItemsState {}
 class UserItemsLoading extends UserItemsState {}
 
 class UserItemsLoaded extends UserItemsState {
-  final List<UserItemEntity> items;
+  final double totalBalance;
+  final Map<String,UserItemEntity> items;
 
-  const UserItemsLoaded(this.items);
+  const UserItemsLoaded(this.items, this.totalBalance);
 
   @override
-  List<Object?> get props => [items];
+  List<Object?> get props => [totalBalance, items];
 }
 
 class UserItemsError extends UserItemsState {

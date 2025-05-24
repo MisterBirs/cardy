@@ -42,34 +42,35 @@ sealed class HistoryRecordModel with _$HistoryRecordModel {
 
   factory HistoryRecordModel.fromEntity(HistoryRecordEntity entity) {
     return switch (entity) {
-      AddHistoryRecord() => HistoryRecordModel.add(
+      AddHistoryRecordEntity() => HistoryRecordModel.add(
           date: entity.date,
         ),
-      EditHistoryRecord() => HistoryRecordModel.edit(
+      EditHistoryRecordEntity() => HistoryRecordModel.edit(
           date: entity.date,
         ),
-      ExpiredHistoryRecord() => HistoryRecordModel.expired(
+      ExpiredHistoryRecordEntity() => HistoryRecordModel.expired(
           date: entity.date,
           expiredAt: entity.expiredAt,
         ),
-      PaymentHistoryRecord() => HistoryRecordModel.payment(
+      PaymentHistoryRecordEntity() => HistoryRecordModel.payment(
           date: entity.date,
           paymentAmount: entity.paymentAmount,
-          redeemedAtId: entity.redeemedAt.id,
+          redeemedAtId: entity.redeemedAtId.id,
         ),
-      ReloadHistoryRecord() => HistoryRecordModel.reload(
+      ReloadHistoryRecordEntity() => HistoryRecordModel.reload(
           date: entity.date,
           reloadedAmount: entity.reloadedAmount,
         ),
-      RemoveHistoryRecord() => HistoryRecordModel.remove(
+      RemoveHistoryRecordEntity() => HistoryRecordModel.remove(
           date: entity.date,
         ),
-      UsedUpHistoryRecord() => HistoryRecordModel.usedUp(
+      UsedUpHistoryRecordEntity() => HistoryRecordModel.usedUp(
           date: entity.date,
         ),
     };
   }
 
+  
   factory HistoryRecordModel.fromJson(Map<String, dynamic> json) =>
       _$HistoryRecordModelFromJson(json);
 }

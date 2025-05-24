@@ -10,14 +10,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class BrandBloc extends Bloc<BrandsEvent, BrandsState> {
+class BrandsBloc extends Bloc<BrandsEvent, BrandsState> {
   final AddBrandUseCase addBrandUseCase;
   final DeleteBrandUseCase deleteBrandUseCase;
   final GetBrandsUseCase getBrandsUseCase;
   final UpdateBrandUseCase updateBrandUseCase;
   final FilterBrandsUseCase filterBrandsUseCase;
 
-  BrandBloc({
+  BrandsBloc({
     required this.addBrandUseCase,
     required this.deleteBrandUseCase,
     required this.getBrandsUseCase,

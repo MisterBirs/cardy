@@ -18,13 +18,13 @@ class HistoryRecordViewModel {
 
   factory HistoryRecordViewModel.fromEntity(HistoryRecordEntity entity) {
     final (icon, iconColor, displayLabel) = switch (entity) {
-      AddHistoryRecord() => (Icons.add_card_outlined, Colors.green, 'הוספה'),
-      EditHistoryRecord() => (Icons.edit, Colors.orange, 'עריכה'),
-      ExpiredHistoryRecord() => (Icons.event_busy, Colors.red, 'פג תוקף'),
-      PaymentHistoryRecord() => (Icons.remove, Colors.blue, 'תשלום'),
-      ReloadHistoryRecord() => (Icons.add, Colors.greenAccent, 'טעינה'),
-      RemoveHistoryRecord() => (Icons.remove, Colors.red, 'הסרה'),
-      UsedUpHistoryRecord() => (
+      AddHistoryRecordEntity() => (Icons.add_card_outlined, Colors.green, 'הוספה'),
+      EditHistoryRecordEntity() => (Icons.edit, Colors.orange, 'עריכה'),
+      ExpiredHistoryRecordEntity() => (Icons.event_busy, Colors.red, 'פג תוקף'),
+      PaymentHistoryRecordEntity() => (Icons.remove, Colors.blue, 'תשלום'),
+      ReloadHistoryRecordEntity() => (Icons.add, Colors.greenAccent, 'טעינה'),
+      RemoveHistoryRecordEntity() => (Icons.remove, Colors.red, 'הסרה'),
+      UsedUpHistoryRecordEntity() => (
           Icons.check_circle,
           Colors.purple,
           'נוצל במלואו'
@@ -41,40 +41,40 @@ class HistoryRecordViewModel {
   }
 
   String get message => switch (entity) {
-        AddHistoryRecord() => addMsg,
-        EditHistoryRecord() => _editMsg,
-        ExpiredHistoryRecord() => _expiredMsg,
-        PaymentHistoryRecord() => () {
-            PaymentHistoryRecord record = entity as PaymentHistoryRecord;
+        AddHistoryRecordEntity() => addMsg,
+        EditHistoryRecordEntity() => _editMsg,
+        ExpiredHistoryRecordEntity() => _expiredMsg,
+        PaymentHistoryRecordEntity() => () {
+            PaymentHistoryRecordEntity record = entity as PaymentHistoryRecordEntity;
             return _getPaymentMsg(
               record.paymentAmount,
-              record.redeemedAt,
+              record.redeemedAtId,
             );
           }(),
-        ReloadHistoryRecord() => () {
-            ReloadHistoryRecord record = entity as ReloadHistoryRecord;
+        ReloadHistoryRecordEntity() => () {
+            ReloadHistoryRecordEntity record = entity as ReloadHistoryRecordEntity;
             return _getReloadMsg(
               record.reloadedAmount,
             );
           }(),
-        RemoveHistoryRecord() => 'הסרת פריט',
-        UsedUpHistoryRecord() => 'נוצל במלואו',
+        RemoveHistoryRecordEntity() => 'הסרת פריט',
+        UsedUpHistoryRecordEntity() => 'נוצל במלואו',
       };
 
   String get addMsg {
-    String itemName = entity.item.paymentMethod.singleDisplayName;
-    return entity.item.initialBalance != null
-        ? 'נוסף $itemName עם יתרה של ₪${entity.item.initialBalance!.floorToDouble()}'
+    String itemName = entity.userItemId.paymentMethod.singleDisplayName;
+    return entity.userItemId.initialBalance != null
+        ? 'נוסף $itemName עם יתרה של ₪${entity.userItemId.initialBalance!.floorToDouble()}'
         : 'נוסף $itemName';
   }
 
   String get _editMsg {
-    String itemName = entity.item.paymentMethod.singleDisplayName;
+    String itemName = entity.userItemId.paymentMethod.singleDisplayName;
     return 'נערכו פרטי ה$itemName';
   }
 
   String get _expiredMsg {
-    String itemName = entity.item.paymentMethod.singleDisplayName;
+    String itemName = entity.userItemId.paymentMethod.singleDisplayName;
     return 'פג תוקפו של ה$itemName';
   }
 
@@ -83,7 +83,7 @@ class HistoryRecordViewModel {
   }
 
   String _getReloadMsg(double reloadedAmount) {
-    final itemName = entity.item.paymentMethod.singleDisplayName;
+    final itemName = entity.userItemId.paymentMethod.singleDisplayName;
     final formattedAmount = reloadedAmount.toStringAsFixed(1);
     return 'ה$itemName הוטען ב־₪$formattedAmount';
   }

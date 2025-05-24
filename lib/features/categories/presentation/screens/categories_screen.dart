@@ -1,5 +1,5 @@
 import 'package:cardy/features/categories/presentation/view_models/category_view_model.dart';
-import 'package:cardy/features/user_items/data/user_items_data.dart';
+import 'package:cardy/features/user_items/data/data_sources/user_items_data.dart';
 import 'package:cardy/features/categories/domain/entites/category_entity.dart';
 import 'package:cardy/features/categories/domain/category_key.dart';
 import 'package:cardy/features/categories/presentation/screens/category_screen.dart';
